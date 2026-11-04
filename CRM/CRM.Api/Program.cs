@@ -1,7 +1,11 @@
+using System.Diagnostics;
 using CRM.DataAccess;
-using CRM.Model.Identity;
+using CRM.Model.IdentityModels;
+using CRM.Service;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using IAuthenticationService = CRM.Service.IService.IAuthenticationService;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ??
@@ -22,12 +26,21 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-var app = builder.Build();
+builder.Services.AddScoped<IAuthenticationService, CRM.Service.AuthenticationService>();
 
+var app = builder.Build();
+ 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM API V1"); });
+
+    var url = "https://localhost:7250/swagger";
+    Process.Start(new ProcessStartInfo
+    {
+        FileName = url,
+        UseShellExecute = true
+    });
 }
 
 app.UseHttpsRedirection();
