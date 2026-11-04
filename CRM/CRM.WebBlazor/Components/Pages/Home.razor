@@ -1,0 +1,31 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<p>@_apiResponse</p>
+
+@code
+{
+    private string? _apiResponse
+;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchData();
+    }
+
+    private async Task FetchData()
+    {
+        try
+        {
+            _apiResponse = await Http.GetStringAsync("/api/Public/Public/");
+        }
+        catch (Exception ex)
+        {
+            _apiResponse = $"Error: {ex.Message}";
+        }
+    }
+}
