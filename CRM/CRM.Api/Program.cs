@@ -3,6 +3,7 @@ using CRM.DataAccess;
 using CRM.Model.IdentityModels;
 using CRM.Service;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using IAuthenticationService = CRM.Service.IService.IAuthenticationService;
@@ -25,6 +26,9 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1"
     });
 });
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAuthenticationService, CRM.Service.AuthenticationService>();
 

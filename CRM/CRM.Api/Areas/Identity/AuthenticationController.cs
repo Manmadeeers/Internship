@@ -56,7 +56,7 @@ namespace CRM.Api.Areas.Identity
         public async Task<IActionResult> RefreshToken([FromBody] ApplicationUserInputModel model)
         {
             var response = await authenticationService.RefreshTokenAsync(model);
-            return Ok(response);
+            return Ok(response); 
         }
         
     }
