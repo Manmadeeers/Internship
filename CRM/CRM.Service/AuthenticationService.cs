@@ -1,10 +1,11 @@
+using CRM.Model.ApplicationModels;
 using CRM.Model.IdentityModels;
 using CRM.Model.InputModels;
 using CRM.Service.IService;
 using Microsoft.AspNetCore.Identity;
 
 namespace CRM.Service;
-
+ 
 public class AuthenticationService(
     UserManager<ApplicationUser>userManager,
     SignInManager<ApplicationUser>signInManager
@@ -20,11 +21,30 @@ public class AuthenticationService(
         throw new NotImplementedException();
     }
 
-    public async Task<bool> LoginAsync(ApplicationUserLoginInputModel model)
+    public async Task<ResponseModel<bool>> LoginAsync(ApplicationUserLoginInputModel model)
     {
         var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+
+        if (result.Succeeded)
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = true,
+                Message = "Successfully logged in.",
+                Data = true
+            };
+        }
         
-        return result.Succeeded ? true : throw new Exception("Unable to log in. Errors: " + result.ToString() );
+        string errorMessage = result.IsLockedOut? "User locked out" : result.IsNotAllowed ? "Login is not allowed."
+            : result.RequiresTwoFactor ? "Two-factor authentication is required" : "Invalid login attempt.";
+        
+        return new ResponseModel<bool>
+        {
+            IsSuccess = false,
+            Message = errorMessage,
+            Data = false
+        };
+
     }
 
     public Task<bool> RefreshTokenAsync(ApplicationUserRegisterInputModel model)

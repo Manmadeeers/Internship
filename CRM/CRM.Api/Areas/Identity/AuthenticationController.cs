@@ -1,8 +1,7 @@
 using System.ComponentModel;
 using CRM.Model.InputModels;
 using Microsoft.AspNetCore.Mvc;
-using CRM.Service.IService;
-using Microsoft.AspNetCore.Http.HttpResults;
+using CRM.Service.IService; 
 
 namespace CRM.Api.Areas.Identity
 {
@@ -17,7 +16,7 @@ namespace CRM.Api.Areas.Identity
         public async Task<IActionResult> Login([FromBody]ApplicationUserLoginInputModel model )
         {
            var response = await authenticationService.LoginAsync(model);
-           return response ? Ok(response) : StatusCode(500);
+           return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
         [HttpPost("register")]

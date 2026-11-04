@@ -27,7 +27,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = true;
+    }).AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAuthenticationService, CRM.Service.AuthenticationService>();
