@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
 namespace CRM.Model.Identity;
@@ -10,4 +6,3 @@ namespace CRM.Model.Identity;
 public class ApplicationUser : IdentityUser
 {
 }
-

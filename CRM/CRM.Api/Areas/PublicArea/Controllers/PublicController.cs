@@ -1,19 +1,17 @@
 using System.ComponentModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CRM.Api.Areas.PublicArea.Controllers
+namespace CRM.Api.Areas.PublicArea.Controllers;
+
+[Area("Public")]
+[DisplayName("Public Controller")]
+[Route("api/[area]/[controller]")]
+[ApiController]
+public class PublicController : ControllerBase
 {
-    [Area("Public")]
-    [DisplayName("Public Controller")]
-    [Route("api/[area]/[controller]")]
-    [ApiController]
-    public class PublicController : ControllerBase
+    [HttpGet]
+    public IActionResult Get()
     {
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok("Response from public area");
-        }
+        return Ok("Response from public area");
     }
 }

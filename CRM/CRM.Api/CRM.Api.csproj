@@ -7,53 +7,53 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.22" />
-        <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.14.28" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.22" />
-        <PackageReference Include="NuGet.Packaging" Version="7.9.0" />
-        <PackageReference Include="NuGet.Protocol" Version="7.9.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="10.*" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.3.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.3.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.3.1" />
-        <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
-        <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.14" />
-        <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.14" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.22"/>
+        <PackageReference Include="Microsoft.Build.Tasks.Core" Version="18.11.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.22"/>
+        <PackageReference Include="NuGet.Packaging" Version="7.9.0"/>
+        <PackageReference Include="NuGet.Protocol" Version="7.9.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="10.*"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.3.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.3.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.3.1"/>
+        <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.14"/>
+        <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.14"/>
+        <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.14"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Areas\Identity\" />
-      <Folder Include="Areas\PublicArea\Controllers\" />
-      <Folder Include="Controllers\" />
+        <Folder Include="Areas\Identity\"/>
+        <Folder Include="Areas\PublicArea\Controllers\"/>
+        <Folder Include="Controllers\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\favicon.ico" />
-      <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
-      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
+        <_ContentIncludedByDefault Remove="wwwroot\css\site.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\favicon.ico"/>
+        <_ContentIncludedByDefault Remove="wwwroot\js\site.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\LICENSE.md"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map"/>
+        <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt"/>
+        <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CRM.Service\CRM.Service.csproj" />
+        <ProjectReference Include="..\CRM.Service\CRM.Service.csproj"/>
     </ItemGroup>
 
 </Project>

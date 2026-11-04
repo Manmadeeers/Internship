@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CRM.DataAccess\CRM.DataAccess.csproj" />
+        <ProjectReference Include="..\CRM.DataAccess\CRM.DataAccess.csproj"/>
     </ItemGroup>
 
 </Project>
