@@ -3,7 +3,7 @@ using CRM.Model.Enums;
 
 namespace CRM.Model.InputModels;
 
-public class ApplicationUserInputModel
+public class ApplicationUserRegisterInputModel
 {
     [Required]
     public string? FirstName { get; set; }
