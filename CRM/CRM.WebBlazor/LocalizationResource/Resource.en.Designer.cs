@@ -50,5 +50,107 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("WelcomeMessage", resourceCulture);
             }
         }
+        
+        internal static string button_login {
+            get {
+                return ResourceManager.GetString("button-login", resourceCulture);
+            }
+        }
+        
+        internal static string button_register {
+            get {
+                return ResourceManager.GetString("button-register", resourceCulture);
+            }
+        }
+        
+        internal static string button_reset {
+            get {
+                return ResourceManager.GetString("button-reset", resourceCulture);
+            }
+        }
+        
+        internal static string gender_Female {
+            get {
+                return ResourceManager.GetString("gender-Female", resourceCulture);
+            }
+        }
+        
+        internal static string gender_Male {
+            get {
+                return ResourceManager.GetString("gender-Male", resourceCulture);
+            }
+        }
+        
+        internal static string gender_Other {
+            get {
+                return ResourceManager.GetString("gender-Other", resourceCulture);
+            }
+        }
+        
+        internal static string input_confirm_password {
+            get {
+                return ResourceManager.GetString("input-confirm-password", resourceCulture);
+            }
+        }
+        
+        internal static string input_dateofbirth {
+            get {
+                return ResourceManager.GetString("input-dateofbirth", resourceCulture);
+            }
+        }
+        
+        internal static string input_email {
+            get {
+                return ResourceManager.GetString("input-email", resourceCulture);
+            }
+        }
+        
+        internal static string input_firstname {
+            get {
+                return ResourceManager.GetString("input-firstname", resourceCulture);
+            }
+        }
+        
+        internal static string input_lastname {
+            get {
+                return ResourceManager.GetString("input-lastname", resourceCulture);
+            }
+        }
+        
+        internal static string input_gender {
+            get {
+                return ResourceManager.GetString("input-gender", resourceCulture);
+            }
+        }
+        
+        internal static string input_password {
+            get {
+                return ResourceManager.GetString("input-password", resourceCulture);
+            }
+        }
+        
+        internal static string errors {
+            get {
+                return ResourceManager.GetString("errors", resourceCulture);
+            }
+        }
+        
+        internal static string message_confirm_password_match {
+            get {
+                return ResourceManager.GetString("message-confirm-password-match", resourceCulture);
+            }
+        }
+        
+        internal static string message_password_confirmation_required {
+            get {
+                return ResourceManager.GetString("message-password-confirmation-required", resourceCulture);
+            }
+        }
+        
+        internal static string message_email_exists {
+            get {
+                return ResourceManager.GetString("message-email-exists", resourceCulture);
+            }
+        }
     }
 }
