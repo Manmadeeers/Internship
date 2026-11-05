@@ -14,21 +14,21 @@ namespace CRM.WebBlazor.LocalizationResource {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resource_en_US {
+    internal class Resource_en {
         
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
         
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resource_en_US() {
+        internal Resource_en() {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("CRM.WebBlazor.LocalizationResource.Resource_en_US", typeof(Resource_en_US).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("CRM.WebBlazor.LocalizationResource.Resource_en", typeof(Resource_en).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

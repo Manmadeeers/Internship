@@ -16,11 +16,11 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="LocalizationResource\Resource.en-US.resx">
+      <EmbeddedResource Update="LocalizationResource\Resource.en.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resource.en-US.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="LocalizationResource\Resource.ru-RU.resx">
+      <EmbeddedResource Update="LocalizationResource\Resource.ru.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Resource.ru-RU.Designer.cs</LastGenOutput>
       </EmbeddedResource>
@@ -32,15 +32,15 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>Resource.resx</DependentUpon>
       </Compile>
-      <Compile Update="LocalizationResource\Resource.en-US.Designer.cs">
+      <Compile Update="LocalizationResource\Resource.en.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>Resource.en-US.resx</DependentUpon>
+        <DependentUpon>Resource.en.resx</DependentUpon>
       </Compile>
-      <Compile Update="LocalizationResource\Resource.ru-RU.Designer.cs">
+      <Compile Update="LocalizationResource\Resource.ru.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>Resource.ru-RU.resx</DependentUpon>
+        <DependentUpon>Resource.ru.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
