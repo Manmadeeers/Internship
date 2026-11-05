@@ -66,10 +66,52 @@
     <data name="message-confirm-password-match" xml:space="preserve">
         <value>Пароли не совпадают</value>
     </data>
-    <data name="message-password-confirmation-required" xml:space="preserve">
-        <value>Требуется подтверждение пароля</value>
-    </data>
     <data name="message-email-exists" xml:space="preserve">
         <value>Адрес электронной почты уже существует</value>
+    </data>
+    <data name="title-login" xml:space="preserve">
+        <value>Вход</value>
+    </data>
+    <data name="message-emailfield-required" xml:space="preserve">
+        <value>Адрес электронной почты обязателен </value>
+    </data>
+    <data name="message-password-validation" xml:space="preserve">
+        <value>Проверка пароля не пройдена</value>
+    </data>
+    <data name="message-password-required" xml:space="preserve">
+        <value>Пароль обязателен</value>
+    </data>
+    <data name="label-errors" xml:space="preserve">
+        <value>Ошибки</value>
+    </data>
+    <data name="message-confirm-password-required" xml:space="preserve">
+        <value>Требуется подтверждение пароля</value>
+    </data>
+    <data name="message-email-format" xml:space="preserve">
+        <value>Ошибка в адресе электронной почты</value>
+    </data>
+    <data name="title-register" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="message-firstname-required" xml:space="preserve">
+        <value>Имя обязательно</value>
+    </data>
+    <data name="message-lastname-required" xml:space="preserve">
+        <value>Фамилия обязательна</value>
+    </data>
+    <data name="message-login-not-allowed" xml:space="preserve">
+        <value>Вход запрещён</value>
+    </data>
+    <data name="message-unknown-error" xml:space="preserve">
+        <value>Неизвестная ошибка</value>
+    </data>
+    <data name="message-user-locked-out" xml:space="preserve">
+        <value>User locked out</value>
+    </data>
+    <data name="message-two-factor-required" xml:space="preserve">
+        <value>Требуется двухфакторная аутентификация</value>
+    </data>
+    <data name="message-invalid-login" xml:space="preserve">
+        <value>Неудачная попытка входа</value>
     </data>
 </root>

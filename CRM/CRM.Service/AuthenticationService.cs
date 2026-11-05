@@ -52,7 +52,7 @@ public class AuthenticationService(
         throw new NotImplementedException();
     }
 
-    public async Task<bool> RegisterAsync(ApplicationUserRegisterInputModel model)
+    public async Task<ResponseModel<bool>> RegisterAsync(ApplicationUserRegisterInputModel model)
     {
         ArgumentNullException.ThrowIfNull(model.Email);
         ArgumentNullException.ThrowIfNull(model.Password);
@@ -69,8 +69,23 @@ public class AuthenticationService(
         };
         
         var result = await userManager.CreateAsync(user, model.Password);
-        
-        return result.Succeeded ? true : throw new Exception("Unable to create user. Errors: "+result.Errors);
+        var errorMessage = result.Errors.Any()?string.Join("; ", result.Errors.Select(e=>e.Code)):"Unable to register user due to unknown errors";
+        if (result.Succeeded)
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = true,
+                Message = "Registration successfull",
+                Data = true
+            };
+        }
+
+        return new ResponseModel<bool>
+        {
+            IsSuccess = false,
+            Message = "Unable to create user, Errors: "+errorMessage,
+            Data = false
+        };
     }
 
     public Task<bool> ResetPasswordAsync(ApplicationUserRegisterInputModel model)

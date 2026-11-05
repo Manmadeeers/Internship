@@ -153,15 +153,87 @@ namespace CRM.WebBlazor.LocalizationResource {
             }
         }
         
-        internal static string message_password_confirmation_required {
-            get {
-                return ResourceManager.GetString("message-password-confirmation-required", resourceCulture);
-            }
-        }
-        
         internal static string message_email_exists {
             get {
                 return ResourceManager.GetString("message-email-exists", resourceCulture);
+            }
+        }
+        
+        internal static string title_login {
+            get {
+                return ResourceManager.GetString("title-login", resourceCulture);
+            }
+        }
+        
+        internal static string message_email_format {
+            get {
+                return ResourceManager.GetString("message-email-format", resourceCulture);
+            }
+        }
+        
+        internal static string message_emailfield_required {
+            get {
+                return ResourceManager.GetString("message-emailfield-required", resourceCulture);
+            }
+        }
+        
+        internal static string message_password_validation {
+            get {
+                return ResourceManager.GetString("message-password-validation", resourceCulture);
+            }
+        }
+        
+        internal static string message_password_required {
+            get {
+                return ResourceManager.GetString("message-password-required", resourceCulture);
+            }
+        }
+        
+        internal static string title_register {
+            get {
+                return ResourceManager.GetString("title-register", resourceCulture);
+            }
+        }
+        
+        internal static string message_firstname_required {
+            get {
+                return ResourceManager.GetString("message-firstname-required", resourceCulture);
+            }
+        }
+        
+        internal static string message_lastname_required {
+            get {
+                return ResourceManager.GetString("message-lastname-required", resourceCulture);
+            }
+        }
+        
+        internal static string message_login_not_allowed {
+            get {
+                return ResourceManager.GetString("message-login-not-allowed", resourceCulture);
+            }
+        }
+        
+        internal static string message_unknown_error {
+            get {
+                return ResourceManager.GetString("message-unknown-error", resourceCulture);
+            }
+        }
+        
+        internal static string message_user_locked_out {
+            get {
+                return ResourceManager.GetString("message-user-locked-out", resourceCulture);
+            }
+        }
+        
+        internal static string message_two_factor_required {
+            get {
+                return ResourceManager.GetString("message-two-factor-required", resourceCulture);
+            }
+        }
+        
+        internal static string message_invalid_login {
+            get {
+                return ResourceManager.GetString("message-invalid-login", resourceCulture);
             }
         }
     }

@@ -66,10 +66,52 @@
     <data name="message-confirm-password-match" xml:space="preserve">
         <value>Passwords do not match</value>
     </data>
-    <data name="message-password-confirmation-required" xml:space="preserve">
-        <value>Password confirmation required</value>
-    </data>
     <data name="message-email-exists" xml:space="preserve">
         <value>Email already exists</value>
+    </data>
+    <data name="title-login" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="message-emailfield-required" xml:space="preserve">
+        <value>Email field is required</value>
+    </data>
+    <data name="message-password-validation" xml:space="preserve">
+        <value>Password validation failed</value>
+    </data>
+    <data name="message-password-required" xml:space="preserve">
+        <value>Password field is required</value>
+    </data>
+    <data name="label-errors" xml:space="preserve">
+        <value>Errors</value>
+    </data>
+    <data name="message-confirm-password-required" xml:space="preserve">
+        <value>Password confirmation required</value>
+    </data>
+    <data name="message-email-format" xml:space="preserve">
+        <value>Email format is invalid</value>
+    </data>
+    <data name="title-register" xml:space="preserve">
+        <value>Register</value>
+    </data>
+    <data name="message-firstname-required" xml:space="preserve">
+        <value>First Name field is required</value>
+    </data>
+    <data name="message-lastname-required" xml:space="preserve">
+        <value>Last Name field is required</value>
+    </data>
+    <data name="message-login-not-allowed" xml:space="preserve">
+        <value>Login in not allowed</value>
+    </data>
+    <data name="message-unknown-error" xml:space="preserve">
+        <value>Unknown error</value>
+    </data>
+    <data name="message-user-locked-out" xml:space="preserve">
+        <value>User locked out</value>
+    </data>
+    <data name="message-two-factor-required" xml:space="preserve">
+        <value>Two factor authentication required</value>
+    </data>
+    <data name="message-invalid-login" xml:space="preserve">
+        <value>Invalid login attempt</value>
     </data>
 </root>

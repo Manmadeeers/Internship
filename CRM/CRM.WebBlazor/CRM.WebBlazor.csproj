@@ -44,4 +44,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CRM.Model\CRM.Model.csproj" />
+    </ItemGroup>
+
 </Project>
