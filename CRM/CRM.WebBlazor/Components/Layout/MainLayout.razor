@@ -1,6 +1,6 @@
 ﻿
 @inherits LayoutComponentBase
-@inject IJSRuntime jsruntime
+@inject IJSRuntime JsRuntime
 
 <MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
 <MudPopoverProvider />
@@ -50,7 +50,7 @@
     {
         if (firstRender)
         {
-            var darkMode = await jsruntime.InvokeAsync<string>("localStorage.getItem", "dark-mode");
+            var darkMode = await JsRuntime.InvokeAsync<string>("localStorage.getItem", "dark-mode");
             if (!string.IsNullOrWhiteSpace(darkMode))
             {
                 _isDarkMode = bool.Parse(darkMode);
@@ -65,6 +65,6 @@
     {
         _isDarkMode = !_isDarkMode;
         _currentIcon = _isDarkMode ? Icons.Material.Filled.Brightness4 : Icons.Material.Filled.Brightness7;
-        await jsruntime.InvokeVoidAsync("localStorage.setItem","dark-mode", _isDarkMode.ToString());
+        await JsRuntime.InvokeVoidAsync("localStorage.setItem","dark-mode", _isDarkMode.ToString());
     }
 }
