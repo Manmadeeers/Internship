@@ -1,0 +1,132 @@
+@page "/identity/login"
+
+@inject HttpClient http
+@inject IStringLocalizer<Resource> localizer
+@inject NavigationManager navManager
+@inject IJSRuntime jsRuntime
+
+<MudPaper Style="position:relative;" Class="pa-4" Outlined="false" Square="false" Elevation="0">
+    <MudText Typo="Typo.h3">@localizer["title-login"]</MudText>
+    <MudGrid>
+        <MudItem xs="12" lg="7">
+            <MudPaper Class="pa-4">
+                <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors" Model="@model" Disabled="@loading">
+                    <MudTextField T="string" Label="@localizer["input-email"]" @bind-Value="model.Email" Validation="@(new EmailOnlyAttribute() {ErrorMessage = @localizer["message-email-format"]})" Required="true" RequiredError="@localizer["message-email-field-required"]" Class="mt-4" />
+                    <MudTextField T="string" Label="@localizer["input-password"]" @bind-Value="model.Password" InputType="InputType.Password" Validation="@(new PasswordAttribute(){ErrorMessage = @localizer["message-password-validation"]} )" Required="true" RequiredError="@localizer["message-password-required"]" Class="mt-4" />
+                    <div class="d-flex align-center justify-space-between mt-4">
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" OnClick="@(()=>{form.ResetAsync(); form.ResetValidationAsync();})" Class="mx-2">@localizer["button-reset"]</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick="@(async () => await HandleValidSubmit())">@localizer["button-login"]</MudButton>
+                    </div>
+                    <div class="d-flex align-center justify-space-between mt-4">
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/identity/confirm-email">@localizer["link-confirm-email"]</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/identity/login">@localizer["link-forget-password"]</MudButton>
+                        <MudSpacer />
+                    </div>
+                </MudForm>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" lg="5">
+            <ErrorDisplay Errors="errors"/>
+        </MudItem>
+    </MudGrid>
+    <LoadingSpinner Loading="loading"/>
+</MudPaper>
+
+@code {
+    bool success;
+    string[] errors = Array.Empty<string>();
+    MudForm form = new();
+    ApplicationUserLoginInputModel model = new ApplicationUserLoginInputModel { Email = "", Password = "" };
+    bool loading = false;
+
+    private async Task HandleValidSubmit()
+    {
+        if (loading)
+            return;
+
+        loading = true;
+
+        try
+        {
+            using var response = await http.PostAsJsonAsync(
+                "/api/Identity/Authentication/login", model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                navManager.NavigateTo("/api/Identity/user-profile");
+                return;
+            }
+
+            var body = await response.Content.ReadAsStringAsync();
+            
+            if (string.IsNullOrWhiteSpace(body))
+            {
+                errors = new[]
+                {
+                    $"{localizer["message-unknown-error"]} " +
+                    $"(HTTP {(int)response.StatusCode})"
+                };
+                return;
+            }
+
+            try
+            {
+                var errorResponse =
+                    System.Text.Json.JsonSerializer.Deserialize<ResponseModel<bool>>(
+                        body,
+                        new System.Text.Json.JsonSerializerOptions(
+                            System.Text.Json.JsonSerializerDefaults.Web));
+
+                errors = new[]
+                {
+                    GetLocalizedErrorMessage(errorResponse?.Message)
+                };
+            }
+            catch (System.Text.Json.JsonException)
+            {
+                errors = new[]
+                {
+                    $"{localizer["message-unknown-error"]} " +
+                    $"(HTTP {(int)response.StatusCode}: unexpected response format)"
+                };
+            }
+        }
+        catch (HttpRequestException)
+        {
+            errors = new[] { "Unable to reach the login service." };
+        }
+        catch (TaskCanceledException)
+        {
+            errors = new[] { "The login request was canceled or timed out." };
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    private void ChangeLoadingState()
+    {
+        loading = !loading;
+    }
+  
+    private string GetLocalizedErrorMessage(string? message)
+    {
+        var resourceKey = GetResourceKeyForApiMessage(message);
+        return localizer[resourceKey];
+    }
+
+    private string GetResourceKeyForApiMessage(string? message)
+    {
+        return message switch
+        {
+            "User is locked out." => "message-user-locked-out",
+            "Login is not allowed." => "message-login-not-allowed",
+            "Two-factor authentication is required." => "message-two-factor-required",
+            "Invalid login attempt." => "message-invalid-login",
+            _ => "message-unknown-error"
+        };
+    }
+}
