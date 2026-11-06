@@ -37,23 +37,15 @@
             </MudPaper>
         </MudItem>
         <MudItem xs="12" lg="5">
-            <MudPaper Class="pa-4 mud-height-full">
-                <MudText Typo="Typo.subtitle2">@localizer["label-errors"] (@errors.Length):</MudText>
-                @foreach (var error in errors)
-                {
-                    <MudText Color="@Color.Error">@error</MudText>
-                }
-            </MudPaper>
+            <ErrorDisplay Errors="errors"/>
         </MudItem>
     </MudGrid>
-    <MudOverlay Visible="loading" LightBackground="true" Absolute="true">
-        <MudProgressCircular Color="Color.Secondary" Indeterminate="true" />
-    </MudOverlay>
+    <LoadingSpinner Loading="loading"/>
 </MudPaper>
 
 @code {
     bool success;
-    string[] errors = { };
+    string[] errors = Array.Empty<string>();
     MudForm form = new();
     ApplicationUserRegisterInputModel model = new ApplicationUserRegisterInputModel
         {

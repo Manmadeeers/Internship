@@ -107,4 +107,43 @@
     <data name="message-invalid-login" xml:space="preserve">
         <value>Invalid login attempt</value>
     </data>
+    <data name="message-user-not-found" xml:space="preserve">
+        <value>User not found</value>
+    </data>
+    <data name="message-email-already-confirmed" xml:space="preserve">
+        <value>Email is already confirmed</value>
+    </data>
+    <data name="message-fail-to-save-verification-code" xml:space="preserve">
+        <value>Fail to save a verification code</value>
+    </data>
+    <data name="message-verification-email-sent" xml:space="preserve">
+        <value>Verification email sent</value>
+    </data>
+    <data name="title-confirm-email" xml:space="preserve">
+        <value>Confirm email</value>
+    </data>
+    <data name="button-confirm" xml:space="preserve">
+        <value>Confirm</value>
+    </data>
+    <data name="message-email-confirmed-successfully" xml:space="preserve">
+        <value>Email was confirmed successfully</value>
+    </data>
+    <data name="message-email-confirmation-failed" xml:space="preserve">
+        <value>Email confirmation failed</value>
+    </data>
+    <data name="message-verification-code-invalid" xml:space="preserve">
+        <value>Verification code is invalid</value>
+    </data>
+    <data name="button-activate" xml:space="preserve">
+        <value>Activate</value>
+    </data>
+    <data name="button-verify" xml:space="preserve">
+        <value>Verify</value>
+    </data>
+    <data name="link-confirm-email" xml:space="preserve">
+        <value>Confirm email</value>
+    </data>
+    <data name="link-forget-password" xml:space="preserve">
+        <value>Forgot password</value>
+    </data>
 </root>

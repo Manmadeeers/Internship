@@ -11,6 +11,10 @@ public class ApplicationEmailSender(IOptions<EmailConfiguration>emailConfigurati
     
     public Task SendEmailAsync(MailMessage message)
     {
+        message.From ??= new MailAddress(
+            _emailConfiguration.FromEmail,
+            _emailConfiguration.FromName);
+
         SmtpClient smtpClient = new(_emailConfiguration.SmtpServer, _emailConfiguration.Port)
         {
             Credentials = new System.Net.NetworkCredential(_emailConfiguration.UserName, _emailConfiguration.Password),

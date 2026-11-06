@@ -107,4 +107,43 @@
     <data name="message-invalid-login" xml:space="preserve">
         <value>Неудачная попытка входа</value>
     </data>
+    <data name="message-user-not-found" xml:space="preserve">
+        <value>Пользователь не найден</value>
+    </data>
+    <data name="message-email-already-confirmed" xml:space="preserve">
+        <value>Адрес электронной почты уже подтверждён</value>
+    </data>
+    <data name="message-fail-to-save-verification-code" xml:space="preserve">
+        <value>Ошибка при сохранении кода подтверждения</value>
+    </data>
+    <data name="message-verification-email-sent" xml:space="preserve">
+        <value>Письмо с подтверждением отправлено</value>
+    </data>
+    <data name="title-confirm-email" xml:space="preserve">
+        <value>Подтверждение адреса электронной почты</value>
+    </data>
+    <data name="button-confirm" xml:space="preserve">
+        <value>Подтвердить</value>
+    </data>
+    <data name="message-email-confirmed-successfully" xml:space="preserve">
+        <value>Адрес электронной почты успешно подтверждён</value>
+    </data>
+    <data name="message-email-confirmation-failed" xml:space="preserve">
+        <value>Не удалось подтвердить адрес электронной почты</value>
+    </data>
+    <data name="message-verification-code-invalid" xml:space="preserve">
+        <value>Неверный код подтверждения</value>
+    </data>
+    <data name="button-verify" xml:space="preserve">
+        <value>Проверить</value>
+    </data>
+    <data name="button-activate" xml:space="preserve">
+        <value>Активировать</value>
+    </data>
+    <data name="link-confirm-email" xml:space="preserve">
+        <value>Подтвердить почту</value>
+    </data>
+    <data name="link-forget-password" xml:space="preserve">
+        <value>Забыли пароль?</value>
+    </data>
 </root>

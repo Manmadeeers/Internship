@@ -1,5 +1,6 @@
 using System.Globalization;
 using CRM.WebBlazor.Components;
+using CRM.WebBlazor.Service;
 using Microsoft.AspNetCore.Localization;
 using MudBlazor.Services;
 
@@ -13,6 +14,8 @@ var apiBaseAddress = builder.Configuration["ApiBaseAddress"];
 
 
 builder.Services.AddMudServices();
+builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddLocalization();
 var supportedCultures = new[]
 {
