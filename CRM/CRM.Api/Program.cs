@@ -2,6 +2,8 @@ using System.Diagnostics;
 using CRM.DataAccess;
 using CRM.Model.IdentityModels;
 using CRM.Service;
+using CRM.Utility;
+using CRM.Utility.IUtility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +36,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAuthenticationService, CRM.Service.AuthenticationService>();
+builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration")); 
+builder.Services.AddSingleton<IApplicationEmailSender, ApplicationEmailSender>();
 
 var app = builder.Build();
  
