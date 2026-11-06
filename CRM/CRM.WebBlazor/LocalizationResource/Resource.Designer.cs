@@ -236,5 +236,83 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("message-invalid-login", resourceCulture);
             }
         }
+        
+        internal static string message_user_not_found {
+            get {
+                return ResourceManager.GetString("message-user-not-found", resourceCulture);
+            }
+        }
+        
+        internal static string message_email_already_confirmed {
+            get {
+                return ResourceManager.GetString("message-email-already-confirmed", resourceCulture);
+            }
+        }
+        
+        internal static string message_fail_to_save_verification_code {
+            get {
+                return ResourceManager.GetString("message-fail-to-save-verification-code", resourceCulture);
+            }
+        }
+        
+        internal static string message_verification_email_sent {
+            get {
+                return ResourceManager.GetString("message-verification-email-sent", resourceCulture);
+            }
+        }
+        
+        internal static string title_confirm_email {
+            get {
+                return ResourceManager.GetString("title-confirm-email", resourceCulture);
+            }
+        }
+        
+        internal static string button_confirm {
+            get {
+                return ResourceManager.GetString("button-confirm", resourceCulture);
+            }
+        }
+        
+        internal static string message_email_confirmed_successfully {
+            get {
+                return ResourceManager.GetString("message-email-confirmed-successfully", resourceCulture);
+            }
+        }
+        
+        internal static string message_email_confirmation_failed {
+            get {
+                return ResourceManager.GetString("message-email-confirmation-failed", resourceCulture);
+            }
+        }
+        
+        internal static string message_verification_code_invalid {
+            get {
+                return ResourceManager.GetString("message-verification-code-invalid", resourceCulture);
+            }
+        }
+        
+        internal static string button_activate {
+            get {
+                return ResourceManager.GetString("button-activate", resourceCulture);
+            }
+        }
+        
+        internal static string button_verify {
+            get {
+                return ResourceManager.GetString("button-verify", resourceCulture);
+            }
+        }
+        
+        internal static string link_confirm_email {
+            get {
+                return ResourceManager.GetString("link-confirm-email", resourceCulture);
+            }
+        }
+        
+        internal static string link_forget_password {
+            get {
+                return ResourceManager.GetString("link-forget-password", resourceCulture);
+            }
+        }
     }
 }

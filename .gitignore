@@ -4,3 +4,4 @@
 *.user
 .env
 .config/
+appsettings.Development.json

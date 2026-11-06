@@ -1,9 +1,5 @@
 @page "/identity/login"
 
-@using CRM.Model.ApplicationModels
-@using CRM.Model.InputModels
-@using CRM.WebBlazor.Validator
-
 @inject HttpClient http
 @inject IStringLocalizer<Resource> localizer
 @inject NavigationManager navManager
@@ -22,27 +18,25 @@
                         <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" OnClick="@(()=>{form.ResetAsync(); form.ResetValidationAsync();})" Class="mx-2">@localizer["button-reset"]</MudButton>
                         <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick="@(async () => await HandleValidSubmit())">@localizer["button-login"]</MudButton>
                     </div>
+                    <div class="d-flex align-center justify-space-between mt-4">
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/identity/confirm-email">@localizer["link-confirm-email"]</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/identity/login">@localizer["link-forget-password"]</MudButton>
+                        <MudSpacer />
+                    </div>
                 </MudForm>
             </MudPaper>
         </MudItem>
         <MudItem xs="12" lg="5">
-            <MudPaper Class="pa-4 mud-height-full">
-                <MudText Typo="Typo.subtitle2">@localizer["label-errors"] (@errors.Length):</MudText>
-                @foreach (var error in errors)
-                {
-                    <MudText Color="@Color.Error">@error</MudText>
-                }
-            </MudPaper>
+            <ErrorDisplay Errors="errors"/>
         </MudItem>
     </MudGrid>
-    <MudOverlay Visible="loading" LightBackground="true" Absolute="true">
-        <MudProgressCircular Color="Color.Secondary" Indeterminate="true" />
-    </MudOverlay>
+    <LoadingSpinner Loading="loading"/>
 </MudPaper>
 
 @code {
     bool success;
-    string[] errors = { };
+    string[] errors = Array.Empty<string>();
     MudForm form = new();
     ApplicationUserLoginInputModel model = new ApplicationUserLoginInputModel { Email = "", Password = "" };
     bool loading = false;
@@ -117,7 +111,7 @@
     {
         loading = !loading;
     }
-
+  
     private string GetLocalizedErrorMessage(string? message)
     {
         var resourceKey = GetResourceKeyForApiMessage(message);

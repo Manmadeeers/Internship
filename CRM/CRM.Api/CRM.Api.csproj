@@ -31,7 +31,6 @@
     <ItemGroup>
         <Folder Include="Areas\Identity\"/>
         <Folder Include="Areas\PublicArea\Controllers\"/>
-        <Folder Include="Controllers\"/>
     </ItemGroup>
 
     <ItemGroup>

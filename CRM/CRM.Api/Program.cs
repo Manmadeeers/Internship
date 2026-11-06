@@ -36,7 +36,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAuthenticationService, CRM.Service.AuthenticationService>();
-builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration")); 
+builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration"));
 builder.Services.AddSingleton<IApplicationEmailSender, ApplicationEmailSender>();
 
 var app = builder.Build();
