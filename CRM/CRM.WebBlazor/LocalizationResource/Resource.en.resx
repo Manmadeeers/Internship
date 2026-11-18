@@ -162,4 +162,10 @@
     <data name="forgot-password-template-raw-text" xml:space="preserve">
         <value>Dear {FullName}, To reset your password, please use the following 4-digit code: {Code}.</value>
     </data>
+    <data name="input-verifiaction-code" xml:space="preserve">
+        <value>Verification code</value>
+    </data>
+    <data name="info-verify-code-sent" xml:space="preserve">
+        <value>Enter the verification code</value>
+    </data>
 </root>

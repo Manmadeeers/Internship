@@ -332,5 +332,17 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("forgot-password-template-raw-text", resourceCulture);
             }
         }
+        
+        internal static string input_verifiaction_code {
+            get {
+                return ResourceManager.GetString("input-verifiaction-code", resourceCulture);
+            }
+        }
+        
+        internal static string info_verify_code_sent {
+            get {
+                return ResourceManager.GetString("info-verify-code-sent", resourceCulture);
+            }
+        }
     }
 }

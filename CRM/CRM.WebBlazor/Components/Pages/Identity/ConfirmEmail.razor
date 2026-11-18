@@ -1,11 +1,9 @@
 @page "/identity/confirm-email"
-@using IAuthenticationService = Microsoft.AspNetCore.Authentication.IAuthenticationService
-
 
 @inject HttpClient http
 @inject IStringLocalizer<Resource> localizer
 @inject NavigationManager navManager
-@inject CRM.WebBlazor.Service.IAuthenticationService AuthenticationService
+@inject Service.IAuthenticationService AuthenticationService
 @inject IFileService FileService
 
 
@@ -54,6 +52,11 @@
 </MudPaper>
 
 @code {
+    [SupplyParameterFromQuery(Name="email")]
+    public string?RegisteredEmail { get; set; }
+    [SupplyParameterFromQuery(Name="autoSend")]
+    public bool AutoSend { get; set; }
+    
     bool success;
     string[] errors = Array.Empty<string>();
     
@@ -85,6 +88,58 @@
         {
             model.EmailTemplate = localizer["email-template-raw-text"];
         }
+
+        if (!string.IsNullOrWhiteSpace(RegisteredEmail))
+        {
+            model.Email=RegisteredEmail;
+            
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || !AutoSend || string.IsNullOrWhiteSpace(model.Email))
+        {
+            return;
+        }
+
+        await SendVerificationCodeAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task SendVerificationCodeAsync()
+    {
+        if (loading)
+        {
+            return;
+        }
+        
+        loading = true;
+        errors = Array.Empty<string>();
+        await InvokeAsync(StateHasChanged);
+
+        try
+        {
+            var response = await AuthenticationService.ConfirmEmailAsync(model);
+            if (response.IsSuccess)
+            {
+                insertCodeEnabled = true;
+            }
+            else
+            {
+                errors = [response.Message ?? string.Empty];
+
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            errors = [ex.Message ?? string.Empty];
+        }
+        finally
+        {
+            loading = false;
+            await InvokeAsync(StateHasChanged);
+        }
     }
 
     private async Task SubmitForm()
@@ -94,6 +149,7 @@
 
         loading = true;
 
+        
         var response = insertCodeEnabled
             ? await AuthenticationService.VerifyEmailCodeAsync(model)
             : await AuthenticationService.ConfirmEmailAsync(model); 
@@ -112,7 +168,7 @@
         }
         else
         {
-            errors = new string[] {response.Message??string.Empty};
+            errors = [response.Message??string.Empty];
         }
     }
 

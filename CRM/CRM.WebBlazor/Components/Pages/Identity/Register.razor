@@ -70,7 +70,8 @@
 
             if (response.IsSuccessStatusCode)
             {
-                navManager.NavigateTo("/Identity/login");
+                var email = Uri.EscapeDataString(model.Email);
+                navManager.NavigateTo($"identity/confirm-email?email={email}&autoSend=true");
                 return;
             }
 

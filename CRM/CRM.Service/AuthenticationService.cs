@@ -72,14 +72,7 @@ public class AuthenticationService(
             Gender = model.Gender,
             RegistrationDate = DateTime.UtcNow,
         };
-        try
-        {
-
-        }
-        catch (Exception ex)
-        {  
-            Console.WriteLine("REGISTER EXCEPTION: ",ex.Message);
-        }
+        
         var result = await userManager.CreateAsync(user, model.Password);
         var errorMessage = result.Errors.Any()?string.Join("; ", result.Errors.Select(e=>e.Code)):"Unable to register user due to unknown errors";
         if (result.Succeeded)
