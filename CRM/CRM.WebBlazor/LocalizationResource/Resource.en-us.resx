@@ -51,7 +51,7 @@
         <value>Password</value>
     </data>
     <data name="WelcomeMessage" xml:space="preserve">
-        <value>Hello and Welcome to my CRM</value>
+        <value>Welcome</value>
     </data>
     <data name="errors" xml:space="preserve">
         <value>Errors</value>
@@ -145,5 +145,14 @@
     </data>
     <data name="link-forget-password" xml:space="preserve">
         <value>Forgot password</value>
+    </data>
+    <data name="title-forgot-password" xml:space="preserve">
+        <value>Password reset</value>
+    </data>
+    <data name="email-template-raw-text" xml:space="preserve">
+        <value>Dear {FullName}, Please Verify Your Email Address by this 4-digit code: {Code}</value>
+    </data>
+    <data name="forgot-password-template-raw-text" xml:space="preserve">
+        <value>Dear {FullName}, To reset your password, please use the following 4-digit code: {Code}.</value>
     </data>
 </root>

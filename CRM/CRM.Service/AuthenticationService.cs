@@ -1,10 +1,12 @@
 using System.Net.Mail;
+using Azure;
 using CRM.Model.ApplicationModels;
 using CRM.Model.IdentityModels;
 using CRM.Model.InputModels;
 using CRM.Service.IService;
 using CRM.Utility.IUtility;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 
 namespace CRM.Service;
  
@@ -14,12 +16,12 @@ public class AuthenticationService(
     IApplicationEmailSender applicationEmailSender
     ): IAuthenticationService
 {
-    public Task<bool> ChangePasswordAsync(ApplicationUserRegisterInputModel model)
+    public async Task<ResponseModel<bool>> ChangePasswordAsync(ApplicationUserForgotPasswordInputModel model)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> ForgotPasswordAsync(ApplicationUserRegisterInputModel model)
+    public async Task<ResponseModel<bool>> ForgotPasswordAsync(ApplicationUserForgotPasswordInputModel model)
     {
         throw new NotImplementedException();
     }
@@ -70,7 +72,14 @@ public class AuthenticationService(
             Gender = model.Gender,
             RegistrationDate = DateTime.UtcNow,
         };
-        
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {  
+            Console.WriteLine("REGISTER EXCEPTION: ",ex.Message);
+        }
         var result = await userManager.CreateAsync(user, model.Password);
         var errorMessage = result.Errors.Any()?string.Join("; ", result.Errors.Select(e=>e.Code)):"Unable to register user due to unknown errors";
         if (result.Succeeded)
@@ -179,11 +188,44 @@ public class AuthenticationService(
          
     }
     
-
-    public Task<bool> ResetPasswordAsync(ApplicationUserRegisterInputModel model)
-    {
-        throw new NotImplementedException();
-    }
+    // public Task<bool> ResetPasswordAsync(ApplicationUserForgotPasswordInputModel model)
+    // {
+    //     ArgumentNullException.ThrowIfNull(model.Email);
+    //     ArgumentNullException.ThrowIfNull(model.Password);
+    //     ArgumentNullException.ThrowIfNull(model.Code);
+    //     
+    //     var user = await userManager.FindByEmailAsync(model.Email);
+    //     if (user == null)
+    //     {
+    //         return new ResponseModel<bool>
+    //         {
+    //             IsSuccess = false,
+    //             Message = "User not found"
+    //         };
+    //     }
+    //     
+    //     bool isCodeValid = user.VerificationCode!=null && user.VerificationCode .ToString() == model.Code;
+    //     if (isCodeValid)
+    //     {
+    //         var token = await userManager.GeneratePasswordResetTokenAsync(user);
+    //         var result = await userManager.ResetPasswordAsync(user, token, model.Password);
+    //         return new ResponseModel<bool>
+    //         {
+    //             IsSuccess = true,
+    //             Message = result.Succeeded?"Email confirmed successfully":"Email confirmation failed"
+    //         };
+    //     }
+    //     else
+    //     {
+    //         return new ResponseModel<bool>
+    //         {
+    //             IsSuccess = false,
+    //             Message = "Verification code is invalid"
+    //         };
+    //     }
+    //
+    //
+    // }
 
     private short GenerateVerificationCode()
     {

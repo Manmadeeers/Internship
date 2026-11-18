@@ -18,7 +18,7 @@ public class ApplicationEmailSender(IOptions<EmailConfiguration>emailConfigurati
         SmtpClient smtpClient = new(_emailConfiguration.SmtpServer, _emailConfiguration.Port)
         {
             Credentials = new System.Net.NetworkCredential(_emailConfiguration.UserName, _emailConfiguration.Password),
-            EnableSsl = true
+            EnableSsl = _emailConfiguration.EnableSsl
         };
 
         return smtpClient.SendMailAsync(message);

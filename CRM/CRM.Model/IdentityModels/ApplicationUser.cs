@@ -14,5 +14,6 @@ public class ApplicationUser : IdentityUser
     public short? VerificationCode { get; set; }
     public string? ImageName { get; set; }
     public bool? Activity { get; set; }
+    public int? PhoneNumber { get; set; }
     [NotMapped] public string? FullName => $"{FirstName} {LastName}";
 }

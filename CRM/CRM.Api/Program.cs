@@ -32,14 +32,20 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     {
         options.SignIn.RequireConfirmedAccount = true;
-    }).AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+    }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAuthenticationService, CRM.Service.AuthenticationService>();
 builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration"));
 builder.Services.AddSingleton<IApplicationEmailSender, ApplicationEmailSender>();
 
 var app = builder.Build();
+
+app.Use(async (context, next) =>
+{  
+    var sw = Stopwatch.StartNew();
+    await next();
+    Console.WriteLine($"{context.Request.Path} {sw.ElapsedMilliseconds} ms");  
+});
  
 if (app.Environment.IsDevelopment())
 {
@@ -56,6 +62,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     "areas",

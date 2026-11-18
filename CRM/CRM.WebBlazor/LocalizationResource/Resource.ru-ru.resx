@@ -51,7 +51,7 @@
         <value>Пароль</value>
     </data>
     <data name="WelcomeMessage" xml:space="preserve">
-        <value>Добро пожаловать в CRM</value>
+        <value>Добро пожаловать</value>
     </data>
     <data name="message-confirm-password-match" xml:space="preserve">
         <value>Пароли не совпадают</value>
@@ -145,5 +145,14 @@
     </data>
     <data name="link-forget-password" xml:space="preserve">
         <value>Забыли пароль?</value>
+    </data>
+    <data name="title-forgot-password" xml:space="preserve">
+        <value>Восстановление пароля</value>
+    </data>
+    <data name="email-template-raw-text" xml:space="preserve">
+        <value>Dear {FullName}, Please Verify Your Email Address by this 4-digit code: {Code}</value>
+    </data>
+    <data name="forgot-password-template-raw-text" xml:space="preserve">
+        <value>Dear {FullName}, To reset your password, please use the following 4-digit code: {Code}.</value>
     </data>
 </root>

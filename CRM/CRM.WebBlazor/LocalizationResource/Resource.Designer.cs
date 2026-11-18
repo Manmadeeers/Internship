@@ -314,5 +314,23 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("link-forget-password", resourceCulture);
             }
         }
+        
+        internal static string title_forgot_password {
+            get {
+                return ResourceManager.GetString("title-forgot-password", resourceCulture);
+            }
+        }
+        
+        internal static string email_template_raw_text {
+            get {
+                return ResourceManager.GetString("email-template-raw-text", resourceCulture);
+            }
+        }
+        
+        internal static string forgot_password_template_raw_text {
+            get {
+                return ResourceManager.GetString("forgot-password-template-raw-text", resourceCulture);
+            }
+        }
     }
 }

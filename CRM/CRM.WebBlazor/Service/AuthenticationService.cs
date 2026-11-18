@@ -1,5 +1,6 @@
 using System.Net;
 using CRM.Model.ApplicationModels;
+using CRM.Model.IdentityModels;
 using CRM.Model.InputModels;
 using CRM.WebBlazor.LocalizationResource;
 using Microsoft.Extensions.Localization;
@@ -37,6 +38,34 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
 
         return await HandleErrorResponse(response);
     }
+    
+    public async Task<ResponseModel<bool>> ChangePasswordAsync(ApplicationUserForgotPasswordInputModel model)
+    {
+        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/change-password", model);
+        if (response.IsSuccessStatusCode)
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = true
+            };
+        }
+        return await HandleErrorResponse(response);
+    }
+
+    public async Task<ResponseModel<bool>> ForgotPasswordAsync(ApplicationUserForgotPasswordInputModel model)
+    {
+        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/forgot-password", model);
+        if (response.IsSuccessStatusCode)
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = true
+            };
+        }
+        
+        return await HandleErrorResponse(response);
+    }
+
 
     private async Task<ResponseModel<bool>> HandleErrorResponse(HttpResponseMessage response)
     {
@@ -73,5 +102,7 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
         };
         
         return localizer[resourceKey];
-    } 
+    }
+
+
 }
