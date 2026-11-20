@@ -1,8 +1,8 @@
 @page "/identity/register"
 
-@inject HttpClient Http
 @inject IStringLocalizer<Resource> Localizer
 @inject NavigationManager NavManager
+@inject HttpClient HttpClient
 
 <MudPaper Style="position:relative;" Class="pa-4" Outlined="false" Square="false" Elevation="0">
     <MudText Typo="Typo.h3">@Localizer["title-register"]</MudText>
@@ -46,8 +46,10 @@
 
                     <div class="d-flex align-center justify-space-between mt-4">
                         <MudSpacer />
-                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" OnClick="@(()=>{_form.ResetAsync(); _form.ResetValidationAsync();})" Class="mx-2">@Localizer["button-reset"]</MudButton>
-                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_success)" Class="ml-auto" OnClick="@(async () => await HandleValidSubmit())">@Localizer["button-register"]</MudButton>
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" 
+                                   DropShadow="false" OnClick="@(()=>{_form.ResetAsync(); _form.ResetValidationAsync();})" Class="mx-2">@Localizer["button-reset"]</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" 
+                                   Disabled="@(!_success)" Class="ml-auto" OnClick="@(async () => await HandleValidSubmit())">@Localizer["button-register"]</MudButton>
                     </div>
                 </MudForm>
             </MudPaper>
@@ -58,129 +60,3 @@
     </MudGrid>
     <LoadingSpinner Loading="_loading"/>
 </MudPaper>
-
-@code {
-    private string? _confirmPassword;
-    private bool _success;
-    private string[] _errors = Array.Empty<string>();
-    private MudForm _form = new();
-    private ApplicationUserRegisterInputModel _model = new ApplicationUserRegisterInputModel
-        {
-            FirstName = "",
-            LastName = "",
-            Email = "",
-            Password = ""
-        };
-    private bool _loading = false;
-
-    private async Task HandleValidSubmit()
-    {
-        await _form.ValidateAsync();
-        
-        if (_loading)
-            return;
-
-        _loading = true;
-
-        try
-        {
-            using var response = await Http.PostAsJsonAsync(
-                "/api/Identity/Authentication/register", _model);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var email = Uri.EscapeDataString(_model.Email);
-                NavManager.NavigateTo($"identity/confirm-email?email={email}&autoSend=true");
-                return;
-            }
-
-            var body = await response.Content.ReadAsStringAsync();
-
-            if (string.IsNullOrWhiteSpace(body))
-            {
-                _errors =
-                [
-                    $"Registration failed: HTTP {(int)response.StatusCode} " +
-                    $"({response.ReasonPhrase}). The server returned an empty body."
-                ];
-                return;
-            }
-
-            try
-            {
-                var errorResponse =
-                    System.Text.Json.JsonSerializer.Deserialize<ResponseModel<bool>>(
-                        body,
-                        new System.Text.Json.JsonSerializerOptions(
-                            System.Text.Json.JsonSerializerDefaults.Web));
-
-                _errors =
-                [
-                    GetLocalizedErrorMessage(errorResponse?.Message)
-                ];
-            }
-            catch (System.Text.Json.JsonException)
-            {
-                _errors =
-                [
-                    $"Registration failed: HTTP {(int)response.StatusCode}. " +
-                    "The server returned an unexpected response format."
-                ];
-            }
-        }
-        catch (HttpRequestException)
-        {
-            _errors = ["Unable to reach the registration service."];
-        }
-        catch (TaskCanceledException)
-        {
-            _errors = ["The registration request was canceled or timed out."];
-        }
-        finally
-        {
-            _loading = false;
-        }
-    }
-
-    private void ChangeLoadingState()
-    {
-        _loading = !_loading;
-    }
-
-    private string? PasswordMatch(string? confirmPassword)
-    {
-        return (_model.Password == confirmPassword ? null : Localizer["message-confirm-password-match"])!;
-    }
-
-
-    private string GetLocalizedErrorMessage(string? message)
-    {
-        var resourceKey = GetResourceKeyForApiMessage(message);
-        return Localizer[resourceKey];
-    }
-
-    private string GetResourceKeyForApiMessage(string? message)
-    {
-        return message switch
-        {
-            "DuplicateUserName" => "message-email-exists",
-            _ => "message-unknown-error"
-        };
-    }
-
-    private KeyValuePair<Gender, string>[] GetLocalizedGenderArrayFromEnum()
-    {
-        return Enum.GetValues(typeof(Gender))
-                   .Cast<Gender>()
-                   .Select(gender => new KeyValuePair<Gender, string>(gender, Localizer[$"gender-{gender}"].Value))
-                   .ToArray();
-    }
-
-    private void UpdateGender(string value)
-    {
-        if (Enum.TryParse<Gender>(value, out var parsedGender))
-            _model.Gender = parsedGender;
-        else
-            _model.Gender = null;
-    }
-}

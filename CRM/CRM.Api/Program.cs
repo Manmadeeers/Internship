@@ -1,14 +1,15 @@
 using System.Diagnostics;
 using CRM.DataAccess;
 using CRM.Model.IdentityModels;
-using CRM.Service;
 using CRM.Utility;
 using CRM.Utility.IUtility;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using IAuthenticationService = CRM.Service.IService.IAuthenticationService;
+using TokenHandler = CRM.Utility.TokenHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ??
@@ -36,7 +37,23 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 builder.Services.AddScoped<IAuthenticationService, CRM.Service.AuthenticationService>();
 builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration"));
-builder.Services.AddSingleton<IApplicationEmailSender, ApplicationEmailSender>();
+
+builder.Services.Configure<TokenConfiguration>(builder.Configuration.GetSection("TokenConfiguration"));
+builder.Services.AddSingleton<ITokenHandler,TokenHandler>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme= JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme= JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+
+    };
+});
 
 var app = builder.Build();
 
