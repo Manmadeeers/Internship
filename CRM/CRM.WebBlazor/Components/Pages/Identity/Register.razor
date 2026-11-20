@@ -1,0 +1,186 @@
+@page "/identity/register"
+
+@inject HttpClient Http
+@inject IStringLocalizer<Resource> Localizer
+@inject NavigationManager NavManager
+
+<MudPaper Style="position:relative;" Class="pa-4" Outlined="false" Square="false" Elevation="0">
+    <MudText Typo="Typo.h3">@Localizer["title-register"]</MudText>
+    <MudGrid>
+        <MudItem xs="12" lg="7">
+            <MudPaper Class="pa-4">
+                <MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors" Model="@_model" Disabled="@_loading">
+                    <MudTextField T="string" Label="@Localizer["input-firstname"]" @bind-Value="_model.FirstName" Required="true" 
+                                  RequiredError="@Localizer["message-firstname-required"]" Class="mt-4" />
+                    
+                    <MudTextField T="string" Label="@Localizer["input-lastname"]" @bind-Value="_model.LastName" Required="true" 
+                                  RequiredError="@Localizer["message-lastname-required"]" Class="mt-4" />
+                    
+                    <MudSelect T="string" Label="@Localizer["input-gender"]" ValueChanged="@(value => UpdateGender(value))" Class="mt-4">
+                        @foreach (var gender in GetLocalizedGenderArrayFromEnum())
+                        {
+                            <MudSelectItem T="string" Value="@gender.Key.ToString()">@gender.Value</MudSelectItem>
+                        }
+                    </MudSelect>
+                    
+                    <MudDatePicker T="DateTime" Label="@Localizer["input-dateofbirth"]" DateChanged="@(value => _model.DateOfBirth = value)" Class="mt-4" />
+                    
+                    <MudTextField T="string" Label="@Localizer["input-email"]" @bind-Value="_model.Email" 
+                                  Validation="@(new EmailOnlyAttribute() {ErrorMessage = Localizer["message-email-format"]})" 
+                                  Required="true" RequiredError="@Localizer["message-email-required"]" Class="mt-4" />
+                    
+                    
+                    <ViewablePasswordInputField
+                        @bind-Value="_model.Password"
+                        Label="input-password"
+                        ValidationMessage="message-password-validation"
+                        MessageRequired="message-password-required"/>
+
+                    <ViewablePasswordInputField
+                        @bind-Value="_confirmPassword"
+                        Label="input-confirm-password"
+                        ValidationCallback="@PasswordMatch"
+                        MessageRequired="message-confirm-password-required"
+                        ValidationMessage=""
+                        />
+
+                    <div class="d-flex align-center justify-space-between mt-4">
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" OnClick="@(()=>{_form.ResetAsync(); _form.ResetValidationAsync();})" Class="mx-2">@Localizer["button-reset"]</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_success)" Class="ml-auto" OnClick="@(async () => await HandleValidSubmit())">@Localizer["button-register"]</MudButton>
+                    </div>
+                </MudForm>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" lg="5">
+            <ErrorDisplay Errors="_errors"/>
+        </MudItem>
+    </MudGrid>
+    <LoadingSpinner Loading="_loading"/>
+</MudPaper>
+
+@code {
+    private string? _confirmPassword;
+    private bool _success;
+    private string[] _errors = Array.Empty<string>();
+    private MudForm _form = new();
+    private ApplicationUserRegisterInputModel _model = new ApplicationUserRegisterInputModel
+        {
+            FirstName = "",
+            LastName = "",
+            Email = "",
+            Password = ""
+        };
+    private bool _loading = false;
+
+    private async Task HandleValidSubmit()
+    {
+        await _form.ValidateAsync();
+        
+        if (_loading)
+            return;
+
+        _loading = true;
+
+        try
+        {
+            using var response = await Http.PostAsJsonAsync(
+                "/api/Identity/Authentication/register", _model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var email = Uri.EscapeDataString(_model.Email);
+                NavManager.NavigateTo($"identity/confirm-email?email={email}&autoSend=true");
+                return;
+            }
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            if (string.IsNullOrWhiteSpace(body))
+            {
+                _errors =
+                [
+                    $"Registration failed: HTTP {(int)response.StatusCode} " +
+                    $"({response.ReasonPhrase}). The server returned an empty body."
+                ];
+                return;
+            }
+
+            try
+            {
+                var errorResponse =
+                    System.Text.Json.JsonSerializer.Deserialize<ResponseModel<bool>>(
+                        body,
+                        new System.Text.Json.JsonSerializerOptions(
+                            System.Text.Json.JsonSerializerDefaults.Web));
+
+                _errors =
+                [
+                    GetLocalizedErrorMessage(errorResponse?.Message)
+                ];
+            }
+            catch (System.Text.Json.JsonException)
+            {
+                _errors =
+                [
+                    $"Registration failed: HTTP {(int)response.StatusCode}. " +
+                    "The server returned an unexpected response format."
+                ];
+            }
+        }
+        catch (HttpRequestException)
+        {
+            _errors = ["Unable to reach the registration service."];
+        }
+        catch (TaskCanceledException)
+        {
+            _errors = ["The registration request was canceled or timed out."];
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+
+    private void ChangeLoadingState()
+    {
+        _loading = !_loading;
+    }
+
+    private string? PasswordMatch(string? confirmPassword)
+    {
+        return (_model.Password == confirmPassword ? null : Localizer["message-confirm-password-match"])!;
+    }
+
+
+    private string GetLocalizedErrorMessage(string? message)
+    {
+        var resourceKey = GetResourceKeyForApiMessage(message);
+        return Localizer[resourceKey];
+    }
+
+    private string GetResourceKeyForApiMessage(string? message)
+    {
+        return message switch
+        {
+            "DuplicateUserName" => "message-email-exists",
+            _ => "message-unknown-error"
+        };
+    }
+
+    private KeyValuePair<Gender, string>[] GetLocalizedGenderArrayFromEnum()
+    {
+        return Enum.GetValues(typeof(Gender))
+                   .Cast<Gender>()
+                   .Select(gender => new KeyValuePair<Gender, string>(gender, Localizer[$"gender-{gender}"].Value))
+                   .ToArray();
+    }
+
+    private void UpdateGender(string value)
+    {
+        if (Enum.TryParse<Gender>(value, out var parsedGender))
+            _model.Gender = parsedGender;
+        else
+            _model.Gender = null;
+    }
+}

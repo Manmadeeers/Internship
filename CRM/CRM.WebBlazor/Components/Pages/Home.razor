@@ -1,0 +1,35 @@
+﻿@page "/"
+@inject HttpClient Http
+@inject  IStringLocalizer<Resource> Localizer
+<PageTitle>Home</PageTitle>
+
+<MudContainer>
+    <h1>@Localizer["WelcomeMessage"]</h1>
+
+    <p>@_apiResponse</p>
+
+</MudContainer>
+
+
+
+@code
+{
+    private string? _apiResponse;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchData();
+    }
+
+    private async Task FetchData()
+    {
+        try
+        {
+            _apiResponse = await Http.GetStringAsync("/api/Public/Public/");
+        }
+        catch (Exception ex)
+        {
+            _apiResponse = $"Error: {ex.Message}";
+        }
+    }
+}
