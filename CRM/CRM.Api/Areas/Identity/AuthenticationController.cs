@@ -61,7 +61,7 @@ namespace CRM.Api.Areas.Identity
 
         [HttpPost("reset-password")]
         [DisplayName("Reset Password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ApplicationUserForgotPasswordInputModel model)
+        public async Task<IActionResult> ResetPassword([FromBody] ApplicationUserResetPasswordInputModel model)
         {
             var response = await authenticationService.ResetPasswordAsync(model);
             return response.IsSuccess ? Ok() : BadRequest(response); 

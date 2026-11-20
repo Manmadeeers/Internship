@@ -51,7 +51,7 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
         return await HandleErrorResponse(response);
     }
 
-    public async Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserForgotPasswordInputModel model)
+    public async Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserResetPasswordInputModel model)
     {
         var response = await http.PostAsJsonAsync("/api/Identity/Authentication/reset-password", model);
         if (response.IsSuccessStatusCode)

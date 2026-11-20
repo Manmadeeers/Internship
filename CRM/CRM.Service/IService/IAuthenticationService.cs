@@ -11,6 +11,6 @@ public interface IAuthenticationService
     Task<ResponseModel<bool>> ConfirmEmailVerifyCodeAsync(ApplicationUserConfirmEmailInputModel model);
     Task<ResponseModel<bool>> ForgotPasswordAsync(ApplicationUserForgotPasswordInputModel model);
     Task<ResponseModel<bool>> ChangePasswordAsync(ApplicationUserForgotPasswordInputModel model);
-    Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserForgotPasswordInputModel model);
+    Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserResetPasswordInputModel model);
     Task<bool> RefreshTokenAsync(ApplicationUserRegisterInputModel model);
 }

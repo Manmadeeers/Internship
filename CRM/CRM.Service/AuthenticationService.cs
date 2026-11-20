@@ -57,7 +57,7 @@ public class AuthenticationService(
 
     }
     
-    public async Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserForgotPasswordInputModel model)
+    public async Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserResetPasswordInputModel model)
     {
         ArgumentNullException.ThrowIfNull(model.Email);
         ArgumentNullException.ThrowIfNull(model.Code);

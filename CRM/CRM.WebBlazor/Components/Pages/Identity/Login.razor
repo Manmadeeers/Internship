@@ -11,8 +11,16 @@
         <MudItem xs="12" lg="7">
             <MudPaper Class="pa-4">
                 <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors" Model="@model" Disabled="@loading">
-                    <MudTextField T="string" Label="@localizer["input-email"]" @bind-Value="model.Email" Validation="@(new EmailOnlyAttribute() {ErrorMessage = @localizer["message-email-format"]})" Required="true" RequiredError="@localizer["message-email-field-required"]" Class="mt-4" />
-                    <MudTextField T="string" Label="@localizer["input-password"]" @bind-Value="model.Password" InputType="InputType.Password" Validation="@(new PasswordAttribute(){ErrorMessage = @localizer["message-password-validation"]} )" Required="true" RequiredError="@localizer["message-password-required"]" Class="mt-4" />
+                    <MudTextField T="string" Label="@localizer["input-email"]" @bind-Value="model.Email" 
+                                  Validation="@(new EmailOnlyAttribute() {ErrorMessage = @localizer["message-email-format"]})" 
+                                  Required="true" RequiredError="@localizer["message-email-field-required"]" Class="mt-4" />
+                    
+                    <ViewablePasswordInputField
+                        @bind-Value="model.Password"
+                        Label="input-password"
+                        MessageRequired="message-password-required"
+                        ValidationMessage="message-password-validation"
+                    />
                     <div class="d-flex align-center justify-space-between mt-4">
                         <MudSpacer />
                         <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" OnClick="@(()=>{form.ResetAsync(); form.ResetValidationAsync();})" Class="mx-2">@localizer["button-reset"]</MudButton>

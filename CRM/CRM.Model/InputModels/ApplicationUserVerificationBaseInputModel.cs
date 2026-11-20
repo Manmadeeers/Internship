@@ -8,7 +8,7 @@ public class ApplicationUserVerificationBaseInputModel
     [EmailAddress]
     public required string Email { get; set; }
 
-    public string FullName { get; set; } = "CRM User";
-    public required string EmailTemplate { get; set; }
+    public string? FullName { get; set; } = "CRM User";
+    public  string? EmailTemplate { get; set; }
     public string? Code { get; set; }
 }
