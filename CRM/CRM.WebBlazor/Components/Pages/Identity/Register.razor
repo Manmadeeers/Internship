@@ -25,7 +25,7 @@
                     </MudSelect>
                     <MudDatePicker T="DateTime" Label="@localizer["input-dateofbirth"]" DateChanged="@(value => model.DateOfBirth = value)" Class="mt-4" />
                     <MudTextField T="string" Label="@localizer["input-email"]" @bind-Value="model.Email" Validation="@(new EmailOnlyAttribute() {ErrorMessage = @localizer["message-email-format"]})" Required="true" RequiredError="@localizer["message-email-required"]" Class="mt-4" />
-                    <MudTextField T="string" Label="@localizer["input-password"]" @bind-Value="model.Password" InputType="InputType.Password" Validation="@(new PasswordAttribute() {ErrorMessage = @localizer["message-password-validation"]})" Required="true" RequiredError="@localizer["message-password-required"]" Class="mt-4" />
+                    <MudTextField T="string" Label="@localizer["input-password"]"  @bind-Value="model.Password" InputType="InputType.Password"  Validation="@(new PasswordAttribute() {ErrorMessage = @localizer["message-password-validation"]})" Required="true" RequiredError="@localizer["message-password-required"]" Class="mt-4" />
                     <MudTextField T="string" Label="@localizer["input-confirm-password"]" InputType="InputType.Password" Validation="@(new Func<string, string?>(PasswordMatch))" Required="true" RequiredError="@localizer["message-confirm-password-required"]" Class="mt-4" />
 
                     <div class="d-flex align-center justify-space-between mt-4">
@@ -79,11 +79,11 @@
 
             if (string.IsNullOrWhiteSpace(body))
             {
-                errors = new[]
-                {
+                errors =
+                [
                     $"Registration failed: HTTP {(int)response.StatusCode} " +
                     $"({response.ReasonPhrase}). The server returned an empty body."
-                };
+                ];
                 return;
             }
 
@@ -95,27 +95,27 @@
                         new System.Text.Json.JsonSerializerOptions(
                             System.Text.Json.JsonSerializerDefaults.Web));
 
-                errors = new[]
-                {
+                errors =
+                [
                     GetLocalizedErrorMessage(errorResponse?.Message)
-                };
+                ];
             }
             catch (System.Text.Json.JsonException)
             {
-                errors = new[]
-                {
+                errors =
+                [
                     $"Registration failed: HTTP {(int)response.StatusCode}. " +
                     "The server returned an unexpected response format."
-                };
+                ];
             }
         }
         catch (HttpRequestException)
         {
-            errors = new[] { "Unable to reach the registration service." };
+            errors = ["Unable to reach the registration service."];
         }
         catch (TaskCanceledException)
         {
-            errors = new[] { "The registration request was canceled or timed out." };
+            errors = ["The registration request was canceled or timed out."];
         }
         finally
         {
@@ -130,11 +130,7 @@
 
     private string? PasswordMatch(string confirmPassword)
     {
-        if (model.Password != confirmPassword)
-        {
-            return localizer["message-confirm-password-match"];
-        }
-        return null;
+        return (model.Password != confirmPassword ? localizer["message-confirm-password-match"] : null)!;
     }
 
 

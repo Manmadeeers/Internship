@@ -1,4 +1,3 @@
-using Azure;
 using CRM.Model.ApplicationModels;
 using CRM.Model.InputModels;
 
@@ -12,6 +11,6 @@ public interface IAuthenticationService
     Task<ResponseModel<bool>> ConfirmEmailVerifyCodeAsync(ApplicationUserConfirmEmailInputModel model);
     Task<ResponseModel<bool>> ForgotPasswordAsync(ApplicationUserForgotPasswordInputModel model);
     Task<ResponseModel<bool>> ChangePasswordAsync(ApplicationUserForgotPasswordInputModel model);
-    // Task<bool> ResetPasswordAsync(ApplicationUserRegisterInputModel model);
+    Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserForgotPasswordInputModel model);
     Task<bool> RefreshTokenAsync(ApplicationUserRegisterInputModel model);
 }

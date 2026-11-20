@@ -20,14 +20,86 @@ public class AuthenticationService(
     {
         throw new NotImplementedException();
     }
-
+    
     public async Task<ResponseModel<bool>> ForgotPasswordAsync(ApplicationUserForgotPasswordInputModel model)
     {
-        throw new NotImplementedException();
+        ArgumentNullException.ThrowIfNull(model.Email);
+        
+        var user = await userManager.FindByEmailAsync(model.Email);
+        if (user is null)
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = false,
+                Message = "User not found"
+            };
+        }
+
+        user.VerificationCode = GenerateVerificationCode();
+        var result = await userManager.UpdateAsync(user);
+        if (!result.Succeeded)
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = false,
+                Message = "Failed to save a verification code"
+            };
+        }
+
+        model.Code = user.VerificationCode.ToString();
+        model.FullName = $"{user.FirstName} {user.LastName}";
+        await SendEmailConfirmationCodeAsync(model);
+        return new ResponseModel<bool>
+        {
+            IsSuccess = true,
+            Message = "Password change verification code sent successfully",
+        };
+
+    }
+    
+    public async Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserForgotPasswordInputModel model)
+    {
+        ArgumentNullException.ThrowIfNull(model.Email);
+        ArgumentNullException.ThrowIfNull(model.Code);
+        ArgumentNullException.ThrowIfNull(model.Password);
+        
+        var user = await userManager.FindByEmailAsync(model.Email);
+        if (user is null)
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = false,
+                Message = "User not found"
+            };
+        }
+        
+        bool isCodeValid =  user.VerificationCode!=null && user.VerificationCode.ToString() == model.Code;
+        if (isCodeValid)
+        {
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await userManager.ResetPasswordAsync(user, token, model.Password);
+            return new ResponseModel<bool>
+            {
+                IsSuccess = result.Succeeded,
+                Message = result.Succeeded ? "Password reset successfully" : "Password reset failed"
+            };
+        }
+        else
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = false,
+                Message = "Invalid confirmation code"
+            };
+        }
+        
+    
     }
 
     public async Task<ResponseModel<bool>> LoginAsync(ApplicationUserLoginInputModel model)
     {
+        ArgumentNullException.ThrowIfNull(model.Email);
+        ArgumentNullException.ThrowIfNull(model.Password);
         var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
         if (result.Succeeded)
@@ -146,6 +218,8 @@ public class AuthenticationService(
 
     public async Task<ResponseModel<bool>> ConfirmEmailVerifyCodeAsync(ApplicationUserConfirmEmailInputModel model)
     {
+        ArgumentNullException.ThrowIfNull(model.Email);
+        ArgumentNullException.ThrowIfNull(model.Code);
         var user = await userManager.FindByEmailAsync(model.Email);
         if (user is null)
         {
@@ -180,45 +254,6 @@ public class AuthenticationService(
         }
          
     }
-    
-    // public Task<bool> ResetPasswordAsync(ApplicationUserForgotPasswordInputModel model)
-    // {
-    //     ArgumentNullException.ThrowIfNull(model.Email);
-    //     ArgumentNullException.ThrowIfNull(model.Password);
-    //     ArgumentNullException.ThrowIfNull(model.Code);
-    //     
-    //     var user = await userManager.FindByEmailAsync(model.Email);
-    //     if (user == null)
-    //     {
-    //         return new ResponseModel<bool>
-    //         {
-    //             IsSuccess = false,
-    //             Message = "User not found"
-    //         };
-    //     }
-    //     
-    //     bool isCodeValid = user.VerificationCode!=null && user.VerificationCode .ToString() == model.Code;
-    //     if (isCodeValid)
-    //     {
-    //         var token = await userManager.GeneratePasswordResetTokenAsync(user);
-    //         var result = await userManager.ResetPasswordAsync(user, token, model.Password);
-    //         return new ResponseModel<bool>
-    //         {
-    //             IsSuccess = true,
-    //             Message = result.Succeeded?"Email confirmed successfully":"Email confirmation failed"
-    //         };
-    //     }
-    //     else
-    //     {
-    //         return new ResponseModel<bool>
-    //         {
-    //             IsSuccess = false,
-    //             Message = "Verification code is invalid"
-    //         };
-    //     }
-    //
-    //
-    // }
 
     private short GenerateVerificationCode()
     {
@@ -226,7 +261,7 @@ public class AuthenticationService(
         return (short)random.Next(1000, 9999);
     }
 
-    private async Task SendEmailConfirmationCodeAsync(ApplicationUserConfirmEmailInputModel model)
+    private async Task SendEmailConfirmationCodeAsync(ApplicationUserVerificationBaseInputModel model)
     {
         MailMessage mail = new MailMessage();
         mail.To.Add(new MailAddress(model.Email));

@@ -72,8 +72,8 @@
 
     private async Task ResetForm()
     {
-        form.ResetAsync();
-        form.ResetValidationAsync();
+        await form.ResetAsync();
+        await form.ResetValidationAsync();
         errors = Array.Empty<string>();
     }
 

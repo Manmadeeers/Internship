@@ -333,15 +333,21 @@ namespace CRM.WebBlazor.LocalizationResource {
             }
         }
         
-        internal static string input_verifiaction_code {
+        internal static string input_verification_code {
             get {
-                return ResourceManager.GetString("input-verifiaction-code", resourceCulture);
+                return ResourceManager.GetString("input-verification-code", resourceCulture);
             }
         }
         
         internal static string info_verify_code_sent {
             get {
                 return ResourceManager.GetString("info-verify-code-sent", resourceCulture);
+            }
+        }
+        
+        internal static string button_forgot_password {
+            get {
+                return ResourceManager.GetString("button-forgot-password", resourceCulture);
             }
         }
     }

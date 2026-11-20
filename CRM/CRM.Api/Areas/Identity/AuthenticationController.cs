@@ -59,13 +59,13 @@ namespace CRM.Api.Areas.Identity
             return response.IsSuccess ? Ok() : BadRequest(response);
         }
 
-        // [HttpPost("reset-password")]
-        // [DisplayName("Reset Password")]
-        // public async Task<IActionResult> ResetPassword([FromBody] ApplicationUserRegisterInputModel model)
-        // {
-        //     var response = await authenticationService.ResetPasswordAsync(model);
-        //     return response ? Ok(response) : StatusCode(500); 
-        // }
+        [HttpPost("reset-password")]
+        [DisplayName("Reset Password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ApplicationUserForgotPasswordInputModel model)
+        {
+            var response = await authenticationService.ResetPasswordAsync(model);
+            return response.IsSuccess ? Ok() : BadRequest(response); 
+        }
 
 
 

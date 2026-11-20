@@ -1,6 +1,5 @@
 using System.Net;
 using CRM.Model.ApplicationModels;
-using CRM.Model.IdentityModels;
 using CRM.Model.InputModels;
 using CRM.WebBlazor.LocalizationResource;
 using Microsoft.Extensions.Localization;
@@ -52,6 +51,20 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
         return await HandleErrorResponse(response);
     }
 
+    public async Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserForgotPasswordInputModel model)
+    {
+        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/reset-password", model);
+        if (response.IsSuccessStatusCode)
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = true
+            };
+        }
+
+        return await HandleErrorResponse(response);
+    }
+
     public async Task<ResponseModel<bool>> ForgotPasswordAsync(ApplicationUserForgotPasswordInputModel model)
     {
         var response = await http.PostAsJsonAsync("/api/Identity/Authentication/forgot-password", model);
@@ -75,12 +88,12 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
             return new ResponseModel<bool>
             {
                 IsSuccess = false,
-                Message = GetLocalizedErrorMessage(errorResponse?.Message)?? localizer["message-unknown-error"]
+                Message = GetLocalizedErrorMessage(errorResponse?.Message)
             };
             
         }
         return new ResponseModel<bool>
-        {
+        { 
             IsSuccess = false,
             Message = localizer["message-unknown-error"]
         };

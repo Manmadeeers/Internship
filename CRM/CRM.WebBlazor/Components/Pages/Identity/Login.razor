@@ -21,7 +21,7 @@
                     <div class="d-flex align-center justify-space-between mt-4">
                         <MudSpacer />
                         <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/identity/confirm-email">@localizer["link-confirm-email"]</MudButton>
-                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/identity/login">@localizer["link-forget-password"]</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/identity/forgot-password">@localizer["link-forget-password"]</MudButton>
                         <MudSpacer />
                     </div>
                 </MudForm>
@@ -63,11 +63,11 @@
             
             if (string.IsNullOrWhiteSpace(body))
             {
-                errors = new[]
-                {
+                errors =
+                [
                     $"{localizer["message-unknown-error"]} " +
                     $"(HTTP {(int)response.StatusCode})"
-                };
+                ];
                 return;
             }
 
@@ -79,27 +79,27 @@
                         new System.Text.Json.JsonSerializerOptions(
                             System.Text.Json.JsonSerializerDefaults.Web));
 
-                errors = new[]
-                {
+                errors =
+                [
                     GetLocalizedErrorMessage(errorResponse?.Message)
-                };
+                ];
             }
             catch (System.Text.Json.JsonException)
             {
-                errors = new[]
-                {
+                errors =
+                [
                     $"{localizer["message-unknown-error"]} " +
                     $"(HTTP {(int)response.StatusCode}: unexpected response format)"
-                };
+                ];
             }
         }
         catch (HttpRequestException)
         {
-            errors = new[] { "Unable to reach the login service." };
+            errors = ["Unable to reach the login service."];
         }
         catch (TaskCanceledException)
         {
-            errors = new[] { "The login request was canceled or timed out." };
+            errors = ["The login request was canceled or timed out."];
         }
         finally
         {
