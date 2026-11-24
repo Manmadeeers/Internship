@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text;
 using CRM.DataAccess;
 using CRM.Model.IdentityModels;
 using CRM.Utility;
@@ -21,12 +22,26 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 builder.Services.AddControllers();
 
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "CRM API",
         Version = "v1"
+    });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    
+    c.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = []
     });
 });
 
@@ -36,7 +51,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IAuthenticationService, CRM.Service.AuthenticationService>();
+
 builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration"));
+builder.Services.AddScoped<IApplicationEmailSender, ApplicationEmailSender>();
 
 builder.Services.Configure<TokenConfiguration>(builder.Configuration.GetSection("TokenConfiguration"));
 builder.Services.AddSingleton<ITokenHandler,TokenHandler>();
@@ -51,7 +68,14 @@ builder.Services.AddAuthentication(options =>
 {
     o.TokenValidationParameters = new TokenValidationParameters
     {
-
+        ValidAudience = builder.Configuration["TokenConfiguration:Audience"],
+        ValidIssuer= builder.Configuration["TokenConfiguration:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenConfiguration:SecretKey"]!)),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
     };
 });
 
@@ -78,6 +102,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 
