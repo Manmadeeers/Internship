@@ -1,15 +1,46 @@
-using System.Net;
+using System.Text.Json;
 using CRM.Model.ApplicationModels;
 using CRM.Model.InputModels;
-using CRM.WebBlazor.LocalizationResource;
-using Microsoft.Extensions.Localization;
+using CRM.Model.ViewModels;
+using Microsoft.JSInterop;
 
+namespace CRM.WebBlazor.Service.Identity;
 
-namespace CRM.WebBlazor.Service;
-
-internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Resource> localizer):IAuthenticationService
+internal sealed class AuthenticationService(HttpClient http, IErrorHandlingService errorHandlingService,IJSRuntime jsRuntime):IAuthenticationService
 {
+    public async Task<ResponseModel<ApplicationUserProfileViewModel>> LoginAsync(ApplicationUserLoginInputModel model)
+    {
+        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/login", model);
+        if (response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadFromJsonAsync<ResponseModel<ApplicationUserProfileViewModel>>();
+            if (result is { IsSuccess: true, Data: not null })
+            {
+                var userProfile = result.Data;
+                await jsRuntime.InvokeVoidAsync("localStorage.setItem","user", JsonSerializer.Serialize(userProfile));
+                return new ResponseModel<ApplicationUserProfileViewModel>
+                {
+                    IsSuccess = true
+                    
+                };
+            }
+          
+        }
+        return await errorHandlingService.HandleErrorResponse<ApplicationUserProfileViewModel>(response);
+    }
 
+    public async Task<ResponseModel<bool>> RegisterAsync(ApplicationUserRegisterInputModel model)
+    {
+        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/register", model);
+        if (response.IsSuccessStatusCode)
+        {
+            return new ResponseModel<bool>
+            {
+                IsSuccess = true
+            };
+        }
+        return await errorHandlingService.HandleErrorResponse<bool>(response);
+    }
     public async Task<ResponseModel<bool>> ConfirmEmailAsync(ApplicationUserConfirmEmailInputModel model)
     {
         var response = await http.PostAsJsonAsync("/api/Identity/Authentication/confirm-email", model);
@@ -21,7 +52,7 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
             };
         }
 
-        return await HandleErrorResponse(response);
+        return await errorHandlingService.HandleErrorResponse<bool>(response);
     }
 
     public async Task<ResponseModel<bool>> VerifyEmailCodeAsync(ApplicationUserConfirmEmailInputModel model)
@@ -35,7 +66,7 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
             };
         }
 
-        return await HandleErrorResponse(response);
+        return await errorHandlingService.HandleErrorResponse<bool>(response);
     }
     
     public async Task<ResponseModel<bool>> ChangePasswordAsync(ApplicationUserForgotPasswordInputModel model)
@@ -48,7 +79,7 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
                 IsSuccess = true
             };
         }
-        return await HandleErrorResponse(response);
+        return await errorHandlingService.HandleErrorResponse<bool>(response);
     }
 
     public async Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserResetPasswordInputModel model)
@@ -62,7 +93,7 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
             };
         }
 
-        return await HandleErrorResponse(response);
+        return await errorHandlingService.HandleErrorResponse<bool>(response);
     }
 
     public async Task<ResponseModel<bool>> ForgotPasswordAsync(ApplicationUserForgotPasswordInputModel model)
@@ -76,46 +107,10 @@ internal sealed class AuthenticationService(HttpClient http, IStringLocalizer<Re
             };
         }
         
-        return await HandleErrorResponse(response);
+        return await errorHandlingService.HandleErrorResponse<bool>(response);
     }
 
 
-    private async Task<ResponseModel<bool>> HandleErrorResponse(HttpResponseMessage response)
-    {
-        if (response.StatusCode == HttpStatusCode.BadRequest)
-        {
-            var errorResponse = await response.Content.ReadFromJsonAsync<ResponseModel<bool>>();
-            return new ResponseModel<bool>
-            {
-                IsSuccess = false,
-                Message = GetLocalizedErrorMessage(errorResponse?.Message)
-            };
-            
-        }
-        return new ResponseModel<bool>
-        { 
-            IsSuccess = false,
-            Message = localizer["message-unknown-error"]
-        };
-
-    }
     
-    private string GetLocalizedErrorMessage(string? message)
-    {
-        var resourceKey = message switch
-        {
-            "User not found" => "message-user-not-found",
-            "Email is already confirmed" => "message-email-already-confirmed",
-            "Failed to save a verification code"=>"message-fail-to-save-verification-code",
-            "Verification email sent"=>"message-verification-email-sent",
-            "Email confirmed successfully"=>"message-email-confirmed-successfully",
-            "Email confirmation failed"=>"message-email-confirmation-failed",
-            "Verification code is invalid"=>"message-verification-code-invalid",
-            _ => "message-unknown-error"
-        };
-        
-        return localizer[resourceKey];
-    }
-
 
 }

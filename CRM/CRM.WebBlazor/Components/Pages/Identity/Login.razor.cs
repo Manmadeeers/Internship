@@ -1,3 +1,4 @@
+using System.Text.Json;
 using CRM.Model.ApplicationModels;
 using CRM.Model.InputModels;
 using MudBlazor;
@@ -21,48 +22,15 @@ public partial class Login
 
         try
         {
-            using var response = await HttpClient.PostAsJsonAsync(
-                "/api/Identity/Authentication/login", _model);
+            var response = await AuthenticationService.LoginAsync(_model);
 
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccess)
             {
                 NavManager.NavigateTo("/api/Identity/user-profile");
                 return;
             }
-
-            var body = await response.Content.ReadAsStringAsync();
             
-            if (string.IsNullOrWhiteSpace(body))
-            {
-                _errors =
-                [
-                    $"{Localizer["message-unknown-error"]} " +
-                    $"(HTTP {(int)response.StatusCode})"
-                ];
-                return;
-            }
-
-            try
-            {
-                var errorResponse =
-                    System.Text.Json.JsonSerializer.Deserialize<ResponseModel<bool>>(
-                        body,
-                        new System.Text.Json.JsonSerializerOptions(
-                            System.Text.Json.JsonSerializerDefaults.Web));
-
-                _errors =
-                [
-                    GetLocalizedErrorMessage(errorResponse?.Message)
-                ];
-            }
-            catch (System.Text.Json.JsonException)
-            {
-                _errors =
-                [
-                    $"{Localizer["message-unknown-error"]} " +
-                    $"(HTTP {(int)response.StatusCode}: unexpected response format)"
-                ];
-            }
+            _errors = [response.Message??string.Empty];
         }
         catch (HttpRequestException)
         {

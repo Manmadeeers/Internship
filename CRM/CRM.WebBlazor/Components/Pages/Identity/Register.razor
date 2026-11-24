@@ -1,8 +1,10 @@
 @page "/identity/register"
+@using IAuthenticationService = CRM.WebBlazor.Service.Identity.IAuthenticationService
 
 @inject IStringLocalizer<Resource> Localizer
 @inject NavigationManager NavManager
 @inject HttpClient HttpClient
+@inject IAuthenticationService AuthenticationService
 
 <MudPaper Style="position:relative;" Class="pa-4" Outlined="false" Square="false" Elevation="0">
     <MudText Typo="Typo.h3">@Localizer["title-register"]</MudText>

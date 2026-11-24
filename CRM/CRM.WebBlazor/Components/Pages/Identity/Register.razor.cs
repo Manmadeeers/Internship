@@ -34,49 +34,16 @@ public partial class Register()
 
         try
         {
-            using var response = await HttpClient.PostAsJsonAsync(
-                "/api/Identity/Authentication/register", _model);
+           var response = await AuthenticationService.RegisterAsync(_model);
 
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccess)
             {
                 var email = Uri.EscapeDataString(_model.Email);
                 NavManager.NavigateTo($"identity/confirm-email?email={email}&autoSend=true");
                 return;
             }
 
-            var body = await response.Content.ReadAsStringAsync();
-
-            if (string.IsNullOrWhiteSpace(body))
-            {
-                _errors =
-                [
-                    $"Registration failed: HTTP {(int)response.StatusCode} " +
-                    $"({response.ReasonPhrase}). The server returned an empty body."
-                ];
-                return;
-            }
-
-            try
-            {
-                var errorResponse =
-                    System.Text.Json.JsonSerializer.Deserialize<ResponseModel<bool>>(
-                        body,
-                        new System.Text.Json.JsonSerializerOptions(
-                            System.Text.Json.JsonSerializerDefaults.Web));
-
-                _errors =
-                [
-                    GetLocalizedErrorMessage(errorResponse?.Message)
-                ];
-            }
-            catch (System.Text.Json.JsonException)
-            {
-                _errors =
-                [
-                    $"Registration failed: HTTP {(int)response.StatusCode}. " +
-                    "The server returned an unexpected response format."
-                ];
-            }
+           _errors = [response.Message??string.Empty];
         }
         catch (HttpRequestException)
         {
