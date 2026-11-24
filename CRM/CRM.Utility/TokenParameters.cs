@@ -1,6 +1,6 @@
 namespace CRM.Utility;
 
-public class TokenParameter
+public class TokenParameters
 {
     public const string UserId = "UserId";
     public const string Email = "Email";

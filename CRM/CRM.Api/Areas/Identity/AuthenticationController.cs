@@ -16,7 +16,7 @@ namespace CRM.Api.Areas.Identity
         public async Task<IActionResult> Login([FromBody]ApplicationUserLoginInputModel model )
         {
            var response = await authenticationService.LoginAsync(model);
-           return response.IsSuccess ? Ok() : BadRequest(response);
+           return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
         [HttpPost("register")]
@@ -51,14 +51,7 @@ namespace CRM.Api.Areas.Identity
             return response.IsSuccess ? Ok() : BadRequest(response);
         }
         
-        [HttpPost("change-password")]
-        [DisplayName("Change Password")]
-        public async Task<IActionResult> ChangePassword([FromBody] ApplicationUserForgotPasswordInputModel model)
-        {
-            var response = await authenticationService.ChangePasswordAsync(model);
-            return response.IsSuccess ? Ok() : BadRequest(response);
-        }
-
+ 
         [HttpPost("reset-password")]
         [DisplayName("Reset Password")]
         public async Task<IActionResult> ResetPassword([FromBody] ApplicationUserResetPasswordInputModel model)
