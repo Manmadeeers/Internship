@@ -1,7 +1,154 @@
 @page "/identity/user-profile"
+@using CRM.Model.ViewModels
 
-<h3>UserProfile</h3>
+@inject  IStringLocalizer<Resource> Localizer
+@inject NavigationManager NavManager
+@inject IFileService FileService
+@inject IUserService UserService
+@inject ISnackbar Snackbar
 
-@code {
-    
-}
+
+<MudPaper Style="position:relative;" Class="pa-4" Outlined="false" Square="false" Elevation="0">
+    <MudText Typo="Typo.h3">@Localizer["title-user-profile"]</MudText>
+    <MudPaper Class="pa-4 my-2 text-center" Outlined="false" Square="false" Elevation="0">
+        <MudBadge Color="@(_viewModel.Activity == true ? Color.Success : Color.Dark)" Overlap="true" Bordered="true">
+            <MudAvatar Style="height:70px; width:70px;" Color="Color.Primary" Variant="Variant.Outlined">
+                <MudImage Src="@_imageSrc" Alt="@_viewModel.FullName" Fluid="true" Class="rounded-lg" />
+            </MudAvatar>
+        </MudBadge>
+        <MudFileUpload T="IBrowserFile" FilesChanged="UploadImage">
+            <ActivatorContent>
+                <MudIconButton Color="Color.Primary" Icon="@Icons.Material.Filled.PhotoCamera"></MudIconButton>
+            </ActivatorContent>
+        </MudFileUpload>
+        <MudText Typo="Typo.subtitle1">@_viewModel.FullName</MudText>
+        <MudText Typo="Typo.subtitle2">@_viewModel.Email</MudText>
+    </MudPaper>
+    <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+        <MudTabPanel Text="@Localizer["tab-details"]" Icon="@Icons.Material.Filled.RemoveRedEye">@* Detail panel *@
+            <MudGrid>
+                <MudItem xs="12" lg="6">
+                    <MudPaper Elevation="0" Class="pa-4">
+                        <MudStack Spacing="2">
+                            <MudText Typo="Typo.subtitle2"><b>@Localizer["label-full-name"]:</b> @_viewModel.FullName</MudText>
+                            <MudText Typo="Typo.subtitle2"><b>@Localizer["label-date-of-birth"]:</b> @_viewModel.DateOfBirth?.ToString("d")</MudText>
+                            <MudText Typo="Typo.subtitle2"><b>@Localizer["label-date-of-register"]:</b> @_viewModel.RegistrationDate?.ToString("d")</MudText>
+                            <MudText Typo="Typo.subtitle2">
+                                <b>@Localizer["label-status"]:</b>
+                                @if (_viewModel.Activity == true)
+                                {
+                                    <MudChip T="string" Variant="Variant.Outlined" Color="Color.Success">@Localizer["status-active"]</MudChip>
+                                }
+                                else
+                                {
+                                    <MudChip T="string" Variant="Variant.Outlined" Color="Color.Error">@Localizer["status-inactive"]</MudChip>
+                                }
+                            </MudText>
+                            <MudText Typo="Typo.subtitle2"><b>@Localizer["label-description"]:</b></MudText>
+                            <MudText Typo="Typo.body2" Align="Align.Justify">
+                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                                voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia
+                                non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+                                exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit
+                                qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+                            </MudText>
+                        </MudStack>
+                    </MudPaper>
+                </MudItem>
+                <MudItem xs="12" lg="6">
+                </MudItem>
+            </MudGrid>
+        </MudTabPanel>
+        <MudTabPanel Text="@Localizer["tab-edit"]" Icon="@Icons.Material.Filled.Edit">@* Edit panel *@
+            <MudGrid>
+                <MudItem xs="12" lg="7">
+                    <MudPaper Elevation="0" Class="pa-4">
+                        <MudForm @ref="_formUpdate" @bind-IsValid="@_success" @bind-Errors="@_updateErrors" Model="@_updateModel" Disabled="@_loading">
+                            <MudTextField T="string" Label="@Localizer["input-firstname"]"
+                            @bind-Value="_updateModel.FirstName"
+                            InputType="InputType.Text"
+                            Required="true"
+                            RequiredError="@Localizer["message-firstname-required"]"
+                            Class="mt-4" />
+
+                            <MudTextField T="string" Label="@Localizer["input-lastname"]"
+                            @bind-Value="_updateModel.LastName"
+                            InputType="InputType.Text"
+                            Required="true"
+                            RequiredError="@Localizer["message-lastname-required"]"
+                            Class="mt-4" />
+
+                            <MudSelect FieldId="genderSelect" T="string" Label="@Localizer["input-gender"]"
+                            @bind-Value="_selectedGender" Class="mt-4">
+                                @foreach (var gender in GetLocalizedGenderArrayFromEnum())
+                                {
+                                    <MudSelectItem T="string" Value="@gender.Key.ToString()">@gender.Value</MudSelectItem>
+                                }
+                            </MudSelect>
+                            <MudDatePicker T="DateTime" Label="@Localizer["input-date-of-birth"]"
+                            @bind-Date="_updateModel.DateOfBirth"
+                            Class="mt-4" />
+
+                            <div class="d-flex align-center justify-space-between mt-4">
+                                <MudSpacer />
+                                <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" Class="mx-2"
+                                OnClick="@(()=>ResetForm(_formUpdate))">@Localizer["button-reset"]</MudButton>
+
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_success)" Class="ml-auto"
+                                OnClick="@(async () => await SubmitFormUpdate())">@Localizer["button-update"]</MudButton>
+                            </div>
+                        </MudForm>
+                    </MudPaper>
+                </MudItem>
+                <MudItem xs="12" lg="5">
+                    <ErrorDisplay Errors="_updateErrors" Elevation="0" />
+                </MudItem>
+            </MudGrid>
+        </MudTabPanel>
+        <MudTabPanel Text="@Localizer["tab-change-password"]" Icon="@Icons.Material.Filled.Key">@* Change password panel *@
+            <MudGrid>
+                <MudItem xs="12" lg="7">
+                    <MudPaper Elevation="0" Class="pa-4">
+                        <MudForm @ref="_formChangePassword" @bind-IsValid="@_success" @bind-Errors="@_passwordErrors" Model="@_changePasswordModel" Disabled="@_loading">
+                            <MudTextField T="string" Label="@Localizer["input-current-password"]"
+                            @bind-Value="_changePasswordModel.CurrentPassword"
+                            InputType="InputType.Password"
+                            Validation="@(new PasswordAttribute() {ErrorMessage = Localizer["message-password-validation"]})"
+                            RequiredError="@Localizer["message-password-required"]"
+                            Class="mt-4" />
+
+                            <MudTextField T="string" Label="@Localizer["input-password"]"
+                            @bind-Value="_changePasswordModel.NewPassword"
+                            InputType="InputType.Password"
+                            Validation="@(new PasswordAttribute() {ErrorMessage = Localizer["message-password-validation"]})"
+                            RequiredError="@Localizer["message-password-required"]"
+                            Class="mt-4" />
+
+                            <MudTextField T="string" Label="@Localizer["input-confirm-password"]"
+                            InputType="InputType.Password"
+                            Validation="@(new Func<string, string?>(PasswordMatch))"
+                            RequiredError="@Localizer["message-confirm-password-required"]"
+                            Class="mt-4" />
+
+                            <div class="d-flex align-center justify-space-between mt-4">
+                                <MudSpacer />
+                                <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" Class="mx-2"
+                                OnClick="@(()=>ResetForm(_formChangePassword))">@Localizer["button-reset"]</MudButton>
+
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_success)"
+                                OnClick="@SubmitFormChangePassword">@Localizer["button-change-password"]</MudButton>
+                            </div>
+                        </MudForm>
+                    </MudPaper>
+                </MudItem>
+                <MudItem xs="12" lg="5">
+                    <ErrorDisplay Errors="_passwordErrors" Elevation="0" />
+                </MudItem>
+            </MudGrid>
+        </MudTabPanel>
+    </MudTabs>z
+    <LoadingSpinner Loading="_loading" />
+</MudPaper>
+
