@@ -18,6 +18,7 @@ public class ApplicationUserProfileViewModel:ApplicationUserBaseViewModel
         DateOfBirth=model.DateOfBirth;
         RegistrationDate=model.RegistrationDate;
         ImageName=model.ImageName;
-        Activity=model.Activity;
+        IsActive=model.IsActive;
+        ProfileDescription = model.ProfileDescription;
     }
 }

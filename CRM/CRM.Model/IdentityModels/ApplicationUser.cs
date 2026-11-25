@@ -14,7 +14,8 @@ public class ApplicationUser : IdentityUser
     public DateTime? RegistrationDate { get; set; }
     public short? VerificationCode { get; set; }
     public string? ImageName { get; set; }
-    public bool? Activity { get; set; }
+    public bool? IsActive { get; set; }
+    public string? ProfileDescription { get; set; }
     public int? PhoneNumber { get; set; }
     
     [MaxLength(128)]

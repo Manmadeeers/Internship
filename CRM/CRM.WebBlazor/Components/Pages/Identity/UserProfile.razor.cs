@@ -42,6 +42,11 @@ public partial class UserProfile
         _loading = false;
         if (response.IsSuccess)
         {
+            _viewModel.FirstName = _updateModel.FirstName;
+            _viewModel.LastName = _updateModel.LastName;
+            _viewModel.DateOfBirth =  _updateModel.DateOfBirth;
+            _viewModel.ProfileDescription =  _updateModel.ProfileDescription;
+            
             Snackbar.Add(Localizer["message-profile-updated-successfully"],Severity.Success);
         }
         else

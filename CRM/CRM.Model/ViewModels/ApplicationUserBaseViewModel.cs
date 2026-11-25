@@ -12,5 +12,6 @@ public class ApplicationUserBaseViewModel
     public DateTime? DateOfBirth { get; set; }
     public DateTime? RegistrationDate { get; set; }
     public string? ImageName { get; set; }
-    public bool? Activity { get; set; }
+    public bool? IsActive { get; set; }
+    public string?ProfileDescription { get; set; }
 }

@@ -11,7 +11,7 @@
 <MudPaper Style="position:relative;" Class="pa-4" Outlined="false" Square="false" Elevation="0">
     <MudText Typo="Typo.h3">@Localizer["title-user-profile"]</MudText>
     <MudPaper Class="pa-4 my-2 text-center" Outlined="false" Square="false" Elevation="0">
-        <MudBadge Color="@(_viewModel.Activity == true ? Color.Success : Color.Dark)" Overlap="true" Bordered="true">
+        <MudBadge Color="@(_viewModel.IsActive == true ? Color.Success : Color.Dark)" Overlap="true" Bordered="true">
             <MudAvatar Style="height:70px; width:70px;" Color="Color.Primary" Variant="Variant.Outlined">
                 <MudImage Src="@_imageSrc" Alt="@_viewModel.FullName" Fluid="true" Class="rounded-lg" />
             </MudAvatar>
@@ -35,7 +35,7 @@
                             <MudText Typo="Typo.subtitle2"><b>@Localizer["label-date-of-register"]:</b> @_viewModel.RegistrationDate?.ToString("d")</MudText>
                             <MudText Typo="Typo.subtitle2">
                                 <b>@Localizer["label-status"]:</b>
-                                @if (_viewModel.Activity == true)
+                                @if (_viewModel.IsActive == true)
                                 {
                                     <MudChip T="string" Variant="Variant.Outlined" Color="Color.Success">@Localizer["status-active"]</MudChip>
                                 }
@@ -45,17 +45,10 @@
                                 }
                             </MudText>
                             <MudText Typo="Typo.subtitle2"><b>@Localizer["label-description"]:</b></MudText>
-                            <MudText Typo="Typo.body2" Align="Align.Justify">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                                voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia
-                                non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-                                exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit
-                                qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-                            </MudText>
+                            
+                            <MudText Typo="Typo.body2" Align="Align.Justify">@_viewModel.ProfileDescription</MudText>
                         </MudStack>
-                    </MudPaper>
+                    </MudPaper> 
                 </MudItem>
                 <MudItem xs="12" lg="6">
                 </MudItem>
@@ -90,7 +83,14 @@
                             <MudDatePicker T="DateTime" Label="@Localizer["input-date-of-birth"]"
                             @bind-Date="_updateModel.DateOfBirth"
                             Class="mt-4" />
-
+                            <MudTextField
+                                T="string"
+                                Label="@Localizer["profile-description"]"
+                                @bind-Value="_updateModel.ProfileDescription"
+                                Lines="5"
+                                MaxLength="500"
+                                Class="mt-4"/>
+                            
                             <div class="d-flex align-center justify-space-between mt-4">
                                 <MudSpacer />
                                 <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" Class="mx-2"
@@ -185,6 +185,7 @@
             _updateModel.FirstName = _viewModel.FirstName??string.Empty;
             _updateModel.LastName = _viewModel.LastName??string.Empty;
             _updateModel.DateOfBirth = _viewModel.DateOfBirth;
+            _updateModel.ProfileDescription = _viewModel.ProfileDescription ?? string.Empty;
             
             _selectedGender = _viewModel.Gender?.ToString() ?? string.Empty;
             

@@ -30,6 +30,15 @@ public class AuthenticationService(
         if (result.Succeeded)
         {
             var user  =await userManager.FindByEmailAsync(model.Email);
+            if (user!.IsActive == false)
+            {
+                return new ResponseModel<AuthenticationTokens>
+                {
+                    IsSuccess = false,
+                    Message = "User is inactive"
+                };
+            }
+            
             var claims = new List<Claim>
             {
                 new(TokenParameters.UserId, user?.Id!),
@@ -175,7 +184,7 @@ public class AuthenticationService(
         if (isCodeValid)
         {
             user.EmailConfirmed = true;
-            user.Activity = true;
+            user.IsActive = true;
             var result = await userManager.UpdateAsync(user);
             return new ResponseModel<bool>
             {
@@ -293,7 +302,7 @@ public class AuthenticationService(
         if (user.RefreshTokenAttemptCount >= maxRefreshTokenAttempts)
         {
             user.RefreshTokenAttemptCount = 0;
-            user.Activity = false;
+            user.IsActive = false;
             await userManager.UpdateAsync(user);
             return TokenRequestFailure("Refresh token limit reached");
         }

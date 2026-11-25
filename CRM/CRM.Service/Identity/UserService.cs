@@ -43,6 +43,11 @@ public class UserService(UserManager<ApplicationUser>userManager):IUserService
        {
            user.ImageName = model.ImageName;
        }
+
+       if (!string.IsNullOrEmpty(model.ProfileDescription))
+       {
+           user.ProfileDescription = model.ProfileDescription;
+       }
        var result = await userManager.UpdateAsync(user);
 
        return new ResponseModel<bool>
