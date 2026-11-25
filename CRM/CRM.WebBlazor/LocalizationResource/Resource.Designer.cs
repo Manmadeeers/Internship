@@ -458,5 +458,29 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("message-password-changed-successfully ", resourceCulture);
             }
         }
+        
+        internal static string menu_home {
+            get {
+                return ResourceManager.GetString("menu-home", resourceCulture);
+            }
+        }
+        
+        internal static string menu_login {
+            get {
+                return ResourceManager.GetString("menu-login", resourceCulture);
+            }
+        }
+        
+        internal static string menu_register {
+            get {
+                return ResourceManager.GetString("menu-register", resourceCulture);
+            }
+        }
+        
+        internal static string menu_about {
+            get {
+                return ResourceManager.GetString("menu-about", resourceCulture);
+            }
+        }
     }
 }

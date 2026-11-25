@@ -28,6 +28,8 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IErrorHandlingService,ErrorHandlingService>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<AuthenticatedHttpClientService>();
+builder.Services.AddScoped<TokenStore>();
+builder.Services.AddScoped<RefreshTokenHandler>();
 
 builder.Services.AddMudServices(config =>
 {

@@ -215,4 +215,16 @@
     <data name="message-password-changed-successfully " xml:space="preserve">
         <value>Пароль успешно изменен</value>
     </data>
+    <data name="menu-login" xml:space="preserve">
+        <value>Вход</value>
+    </data>
+    <data name="menu-home" xml:space="preserve">
+        <value>Домашняя страница</value>
+    </data>
+    <data name="menu-register" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="menu-about" xml:space="preserve">
+        <value>О нас</value>
+    </data>
 </root>

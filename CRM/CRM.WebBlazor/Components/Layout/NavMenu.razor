@@ -25,11 +25,8 @@
 
     private void HandleAuthenticationStateChanged(bool isAuthenticated)
     {
-        if (!isAuthenticated)
-            NavManager.NavigateTo("/identity/login", forceLoad: true);
-
-        this._isAuthenticated = isAuthenticated;
-        StateHasChanged();
+        _isAuthenticated = isAuthenticated;
+        _ = InvokeAsync(StateHasChanged);
     }
 
     public void Dispose()

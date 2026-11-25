@@ -41,7 +41,7 @@ public class TokenStore
     {
         AccessToken = await jsRuntime.InvokeAsync<string>("localStorage.getItem", "access-token"); 
         RefreshToken = await jsRuntime.InvokeAsync<string>("localStorage.getItem", "refresh-token");
-        IsAuthenticated = !string.IsNullOrEmpty(AccessToken) && string.IsNullOrEmpty(RefreshToken);
+        IsAuthenticated = !string.IsNullOrEmpty(AccessToken) && !string.IsNullOrEmpty(RefreshToken);
     }
 
     public async Task ClearStorageAsync(IJSRuntime jsRuntime)
