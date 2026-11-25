@@ -219,4 +219,10 @@
     <data name="button-update" xml:space="preserve">
         <value>Update profile</value>
     </data>
+    <data name="message-profile-updated-successfully" xml:space="preserve">
+        <value>Profile updated successfully!</value>
+    </data>
+    <data name="message-password-changed-successfully " xml:space="preserve">
+        <value>Password changed successfully</value>
+    </data>
 </root>

@@ -209,4 +209,10 @@
     <data name="button-update" xml:space="preserve">
         <value>Обновить профиль</value>
     </data>
+    <data name="message-profile-updated-successfully" xml:space="preserve">
+        <value>Профиль успешно обновлен!</value>
+    </data>
+    <data name="message-password-changed-successfully " xml:space="preserve">
+        <value>Пароль успешно изменен</value>
+    </data>
 </root>

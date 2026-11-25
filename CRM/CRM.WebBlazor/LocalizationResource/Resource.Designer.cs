@@ -446,5 +446,17 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("button-update", resourceCulture);
             }
         }
+        
+        internal static string message_profile_updated_successfully {
+            get {
+                return ResourceManager.GetString("message-profile-updated-successfully", resourceCulture);
+            }
+        }
+        
+        internal static string message_password_changed_successfully_ {
+            get {
+                return ResourceManager.GetString("message-password-changed-successfully ", resourceCulture);
+            }
+        }
     }
 }

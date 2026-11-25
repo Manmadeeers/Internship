@@ -1,4 +1,5 @@
 @page "/identity/user-profile"
+@using CRM.WebBlazor.Service.Identity
 
 @inject  IStringLocalizer<Resource> Localizer
 @inject NavigationManager NavManager
@@ -126,7 +127,7 @@
                             <ViewablePasswordInputField
                                 @bind-Value="_confirmPassword"
                                 Label="input-confirm-password"
-                                ValidationCallback="PasswordMatch"
+                                ValidationCallback="@PasswordMatch"
                                 ValidationMessage=""
                                 MessageRequired="message-confirm-password-required"/>
                             

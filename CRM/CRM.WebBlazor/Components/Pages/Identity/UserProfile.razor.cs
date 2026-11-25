@@ -1,3 +1,4 @@
+using CRM.Model.ApplicationModels;
 using CRM.Model.Enums;
 using CRM.Model.InputModels;
 using CRM.Model.ViewModels;
@@ -10,7 +11,7 @@ public partial class UserProfile
 {
     
     private bool _success;
-    private string _confirmPassword;
+    private string? _confirmPassword;
     private string[] _updateErrors = Array.Empty<string>();
     private string[] _passwordErrors = Array.Empty<string>();
     private MudForm _formUpdate = new();
@@ -27,7 +28,8 @@ public partial class UserProfile
     private string _imageSrc = GetImagePath(DefaultAvatar);
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
+    { 
+        
         if (firstRender)
         {
             _loading = true;
@@ -50,6 +52,7 @@ public partial class UserProfile
             StateHasChanged();
 
         }
+        
     }
 
     private async Task SubmitFormUpdate()
@@ -83,7 +86,15 @@ public partial class UserProfile
         }
 
         _loading = true;
-        var response = await UserService.ChangePasswordAsync(_changePasswordModel);
+        ResponseModel<bool> response = new();
+        try
+        {
+          response = await UserService.ChangePasswordAsync(_changePasswordModel);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         _loading=false;
 
         if (response.IsSuccess)

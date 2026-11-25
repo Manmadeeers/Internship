@@ -4,7 +4,7 @@ using CRM.Model.InputModels;
 using CRM.Model.ViewModels;
 using Microsoft.JSInterop;
 
-namespace CRM.WebBlazor.Service;
+namespace CRM.WebBlazor.Service.Identity;
 
 public class UserService(HttpClient httpClient, IJSRuntime jsRuntime, IErrorHandlingService errorHandlingService):IUserService
 {
@@ -39,6 +39,7 @@ public class UserService(HttpClient httpClient, IJSRuntime jsRuntime, IErrorHand
 
     public async Task<ResponseModel<bool>> ChangePasswordAsync(ApplicationUserChangePasswordInputModel model)
     {
+        
         var response = await httpClient.PostAsJsonAsync("/api/Identity/User/change-password", model);
         if (response.IsSuccessStatusCode)
         {
