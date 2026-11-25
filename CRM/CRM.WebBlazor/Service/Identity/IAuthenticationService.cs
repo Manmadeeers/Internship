@@ -6,7 +6,7 @@ namespace CRM.WebBlazor.Service.Identity;
 
 public interface IAuthenticationService
 {
-    Task<ResponseModel<ApplicationUserProfileViewModel>> LoginAsync(ApplicationUserLoginInputModel model);
+    Task<ResponseModel<AuthenticationTokens>> LoginAsync(ApplicationUserLoginInputModel model);
     Task<ResponseModel<bool>> RegisterAsync(ApplicationUserRegisterInputModel model);
     Task<ResponseModel<bool>> VerifyEmailCodeAsync(ApplicationUserConfirmEmailInputModel model);
     Task<ResponseModel<bool>> ConfirmEmailAsync(ApplicationUserConfirmEmailInputModel model);

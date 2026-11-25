@@ -6,27 +6,20 @@ using Microsoft.JSInterop;
 
 namespace CRM.WebBlazor.Service.Identity;
 
-internal sealed class AuthenticationService(HttpClient http, IErrorHandlingService errorHandlingService,IJSRuntime jsRuntime):IAuthenticationService
+internal sealed class AuthenticationService(IHttpClientFactory httpClientFactory, IErrorHandlingService errorHandlingService,IJSRuntime jsRuntime):IAuthenticationService
 {
-    public async Task<ResponseModel<ApplicationUserProfileViewModel>> LoginAsync(ApplicationUserLoginInputModel model)
+    private readonly HttpClient _httpClient = httpClientFactory.CreateClient("DefaultClient");
+    
+    public async Task<ResponseModel<AuthenticationTokens >> LoginAsync(ApplicationUserLoginInputModel model)
     {
-        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/login", model);
+        var response = await _httpClient.PostAsJsonAsync("/api/Identity/Authentication/login", model);
         if (response.IsSuccessStatusCode)
         {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Something went wrong during Json from read: {ex.Message}");
-            }
-            var result = await response.Content.ReadFromJsonAsync<ResponseModel<ApplicationUserProfileViewModel>>();
+            var result = await response.Content.ReadFromJsonAsync<ResponseModel<AuthenticationTokens>>();
             if (result is { IsSuccess: true, Data: not null })
             {
-                var userProfile = result.Data;
-                await jsRuntime.InvokeVoidAsync("localStorage.setItem","user", JsonSerializer.Serialize(userProfile));
-                return new ResponseModel<ApplicationUserProfileViewModel>
+                //TODO: Save tokens to localstorage
+                return new ResponseModel<AuthenticationTokens>
                 {
                     IsSuccess = true
                     
@@ -34,12 +27,12 @@ internal sealed class AuthenticationService(HttpClient http, IErrorHandlingServi
             }
           
         }
-        return await errorHandlingService.HandleErrorResponse<ApplicationUserProfileViewModel>(response);
+        return await errorHandlingService.HandleErrorResponse<AuthenticationTokens >(response);
     }
 
     public async Task<ResponseModel<bool>> RegisterAsync(ApplicationUserRegisterInputModel model)
     {
-        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/register", model);
+        var response = await _httpClient.PostAsJsonAsync("/api/Identity/Authentication/register", model);
         if (response.IsSuccessStatusCode)
         {
             return new ResponseModel<bool>
@@ -51,7 +44,7 @@ internal sealed class AuthenticationService(HttpClient http, IErrorHandlingServi
     }
     public async Task<ResponseModel<bool>> ConfirmEmailAsync(ApplicationUserConfirmEmailInputModel model)
     {
-        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/confirm-email", model);
+        var response = await _httpClient.PostAsJsonAsync("/api/Identity/Authentication/confirm-email", model);
         if (response.IsSuccessStatusCode)
         {
             return new ResponseModel<bool>
@@ -65,7 +58,7 @@ internal sealed class AuthenticationService(HttpClient http, IErrorHandlingServi
 
     public async Task<ResponseModel<bool>> VerifyEmailCodeAsync(ApplicationUserConfirmEmailInputModel model)
     {
-        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/confirm-email-verify-code", model);
+        var response = await _httpClient.PostAsJsonAsync("/api/Identity/Authentication/confirm-email-verify-code", model);
         if (response.IsSuccessStatusCode)
         {
             return new ResponseModel<bool>
@@ -79,7 +72,7 @@ internal sealed class AuthenticationService(HttpClient http, IErrorHandlingServi
     
     public async Task<ResponseModel<bool>> ChangePasswordAsync(ApplicationUserForgotPasswordInputModel model)
     {
-        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/change-password", model);
+        var response = await _httpClient.PostAsJsonAsync("/api/Identity/Authentication/change-password", model);
         if (response.IsSuccessStatusCode)
         {
             return new ResponseModel<bool>
@@ -92,7 +85,7 @@ internal sealed class AuthenticationService(HttpClient http, IErrorHandlingServi
 
     public async Task<ResponseModel<bool>> ResetPasswordAsync(ApplicationUserResetPasswordInputModel model)
     {
-        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/reset-password", model);
+        var response = await _httpClient.PostAsJsonAsync("/api/Identity/Authentication/reset-password", model);
         if (response.IsSuccessStatusCode)
         {
             return new ResponseModel<bool>
@@ -106,7 +99,7 @@ internal sealed class AuthenticationService(HttpClient http, IErrorHandlingServi
 
     public async Task<ResponseModel<bool>> ForgotPasswordAsync(ApplicationUserForgotPasswordInputModel model)
     {
-        var response = await http.PostAsJsonAsync("/api/Identity/Authentication/forgot-password", model);
+        var response = await _httpClient.PostAsJsonAsync("/api/Identity/Authentication/forgot-password", model);
         if (response.IsSuccessStatusCode)
         {
             return new ResponseModel<bool>

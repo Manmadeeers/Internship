@@ -13,14 +13,21 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 var apiBaseAddress = builder.Configuration["ApiBaseAddress"];
-
+builder.Services.AddHttpClient("DefaultClient", client =>
+{
+    client.BaseAddress = new Uri(apiBaseAddress!);
+});
+builder.Services.AddHttpClient("SecureClient", client =>
+{
+    client.BaseAddress = new Uri(apiBaseAddress!);
+});
 
 builder.Services.AddMudServices();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IErrorHandlingService,ErrorHandlingService>();
 builder.Services.AddScoped<IUserService,UserService>();
-
+builder.Services.AddScoped<AuthenticatedHttpClientService>();
 
 builder.Services.AddMudServices(config =>
 {
@@ -38,7 +45,7 @@ builder.Services.AddMudServices(config =>
 builder.Services.AddLocalization();
 var supportedCultures = new[]
 {
-    new CultureInfo("en"),
+    new CultureInfo("en"), 
     new CultureInfo("ru")
 };
 builder.Services.Configure<RequestLocalizationOptions>(options =>
@@ -47,7 +54,6 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiBaseAddress!) });
 
 var app = builder.Build();
 

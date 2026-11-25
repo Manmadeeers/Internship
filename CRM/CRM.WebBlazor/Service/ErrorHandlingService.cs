@@ -27,6 +27,15 @@ internal sealed class ErrorHandlingService(IStringLocalizer<Resource> localizer)
 
     }
 
+    public ResponseModel<T> HandleErrorResponse<T>(ResponseModel<T>? response)
+    {
+        return new ResponseModel<T>
+        {
+            IsSuccess = false,
+            Message = localizer["message-unknown-error"]
+        };
+    }
+
     private string GetLocalizedErrorMessage(string? message)
     {
         var resourceKey = message switch
