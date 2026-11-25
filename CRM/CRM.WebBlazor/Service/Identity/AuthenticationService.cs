@@ -1,12 +1,16 @@
-using System.Text.Json;
 using CRM.Model.ApplicationModels;
 using CRM.Model.InputModels;
-using CRM.Model.ViewModels;
 using Microsoft.JSInterop;
 
 namespace CRM.WebBlazor.Service.Identity;
 
-internal sealed class AuthenticationService(IHttpClientFactory httpClientFactory, IErrorHandlingService errorHandlingService,IJSRuntime jsRuntime):IAuthenticationService
+internal sealed class AuthenticationService
+(
+    IHttpClientFactory httpClientFactory,
+    IErrorHandlingService errorHandlingService,
+    IJSRuntime jsRuntime, 
+    TokenStore tokenStore
+    ):IAuthenticationService
 {
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient("DefaultClient");
     
@@ -18,12 +22,12 @@ internal sealed class AuthenticationService(IHttpClientFactory httpClientFactory
             var result = await response.Content.ReadFromJsonAsync<ResponseModel<AuthenticationTokens>>();
             if (result is { IsSuccess: true, Data: not null })
             {
-                //TODO: Save tokens to localstorage
-                return new ResponseModel<AuthenticationTokens>
-                {
-                    IsSuccess = true
-                    
-                };
+                tokenStore.AccessToken = result.Data.AccessToken;
+                tokenStore.RefreshToken = result.Data.RefreshToken;
+                tokenStore.IsAuthenticated = true;
+
+                await tokenStore.SaveToStorageAsync(jsRuntime);
+                return new ResponseModel<AuthenticationTokens> { IsSuccess = true };
             }
           
         }
