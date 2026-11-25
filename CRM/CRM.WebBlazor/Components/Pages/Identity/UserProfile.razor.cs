@@ -26,34 +26,7 @@ public partial class UserProfile
 
     private static string GetImagePath(string imageName) => $"../images/{ImageContainer}/{imageName}";
     private string _imageSrc = GetImagePath(DefaultAvatar);
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    { 
-        
-        if (firstRender)
-        {
-            _loading = true;
-            _viewModel = await UserService.GetUserProfileAsync();
-            _loading=false;
-
-            if (string.IsNullOrEmpty(_viewModel.Token))
-            {
-                NavManager.NavigateTo("/identity/login");
-            }
-            
-            _imageSrc = string.IsNullOrEmpty(_viewModel.ImageName) ? GetImagePath(DefaultAvatar) : GetImagePath(_viewModel.ImageName);
-            
-            _updateModel.FirstName = _viewModel.FirstName??string.Empty;
-            _updateModel.LastName = _viewModel.LastName??string.Empty;
-            _updateModel.DateOfBirth = _viewModel.DateOfBirth;
-            
-            _selectedGender = _viewModel.Gender?.ToString() ?? string.Empty;
-            
-            StateHasChanged();
-
-        }
-        
-    }
+    
 
     private async Task SubmitFormUpdate()
     {
@@ -133,17 +106,7 @@ public partial class UserProfile
 
         return null;
     }
-
-    private async Task ResetForm(MudForm form)
-    {
-        await form.ResetAsync();
-        await form.ResetValidationAsync();
-        
-        _updateErrors = Array.Empty<string>();
-        _passwordErrors = Array.Empty<string>();
-    }
     
-
     private async Task UploadImage(IBrowserFile file)
     {
         _loading=true;

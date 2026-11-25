@@ -151,3 +151,58 @@
     <LoadingSpinner Loading="_loading" />
 </MudPaper>
 
+
+@code{
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    { 
+        
+        if (firstRender)
+        {
+            _loading = true;
+            StateHasChanged();
+            
+            var reponseModel = await UserService.GetUserProfileAsync();
+            if (reponseModel.IsSuccess)
+            {
+                _viewModel = reponseModel.Data!;
+            }
+            else
+            {
+                Snackbar.Add(reponseModel.Message!,Severity.Error);
+                NavManager.NavigateTo("/identity/login");
+            }
+            
+            _loading=false;
+
+            if (string.IsNullOrEmpty(_viewModel.Token))
+            {
+                NavManager.NavigateTo("/identity/login");
+            }
+            
+            _imageSrc = string.IsNullOrEmpty(_viewModel.ImageName) ? GetImagePath(DefaultAvatar) : GetImagePath(_viewModel.ImageName);
+            
+            _updateModel.FirstName = _viewModel.FirstName??string.Empty;
+            _updateModel.LastName = _viewModel.LastName??string.Empty;
+            _updateModel.DateOfBirth = _viewModel.DateOfBirth;
+            
+            _selectedGender = _viewModel.Gender?.ToString() ?? string.Empty;
+            
+            StateHasChanged();
+
+        }
+        
+    }
+    
+    private async Task ResetForm(MudForm form)
+    {
+        await form.ResetAsync();
+        await form.ResetValidationAsync();
+        
+        _updateErrors = Array.Empty<string>();
+        _passwordErrors = Array.Empty<string>();
+    }
+
+
+
+}

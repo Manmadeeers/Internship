@@ -1,6 +1,7 @@
 ﻿@page "/"
-@inject HttpClient Http
+@inject  IHttpClientFactory HttpClientFactory
 @inject  IStringLocalizer<Resource> Localizer
+
 <PageTitle>Home</PageTitle>
 
 <MudContainer>
@@ -25,7 +26,8 @@
     {
         try
         {
-            _apiResponse = await Http.GetStringAsync("/api/Public/Public/");
+            var httpClient = HttpClientFactory.CreateClient("DefaultClient");
+            _apiResponse = await httpClient.GetStringAsync("api/Public/Public");
         }
         catch (Exception ex)
         {

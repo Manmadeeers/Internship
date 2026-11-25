@@ -5,11 +5,21 @@ namespace CRM.WebBlazor.Service;
 
 public class TokenStore
 {
+    private bool _isAuthenticated;
     public string?AccessToken { get; set; }
     public string? RefreshToken { get; set; }
-    public bool IsAuthenticated { get; set; }
     public bool IsInitialized=>!string.IsNullOrEmpty(AccessToken)||!string.IsNullOrEmpty(RefreshToken);
 
+    public bool IsAuthenticated
+    {
+        get=>_isAuthenticated;
+        set
+        {
+            _isAuthenticated = value;
+            OnAuthenticationStateChanged?.Invoke(_isAuthenticated);
+        }
+    }
+    public event Action<bool>? OnAuthenticationStateChanged;
     public bool IsAccessTokenExpired()
     {
         if (string.IsNullOrEmpty(AccessToken))
