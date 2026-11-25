@@ -13,6 +13,14 @@ internal sealed class AuthenticationService(HttpClient http, IErrorHandlingServi
         var response = await http.PostAsJsonAsync("/api/Identity/Authentication/login", model);
         if (response.IsSuccessStatusCode)
         {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Something went wrong during Json from read: {ex.Message}");
+            }
             var result = await response.Content.ReadFromJsonAsync<ResponseModel<ApplicationUserProfileViewModel>>();
             if (result is { IsSuccess: true, Data: not null })
             {

@@ -213,4 +213,7 @@
     <data name="input-current-password" xml:space="preserve">
         <value>Текущий пароль</value>
     </data>
+    <data name="button-update" xml:space="preserve">
+        <value>Обновить профиль</value>
+    </data>
 </root>

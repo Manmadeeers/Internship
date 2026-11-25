@@ -9,7 +9,7 @@ using CRM.Utility;
 using CRM.Utility.IUtility;
 using Microsoft.AspNetCore.Identity;
 
-namespace CRM.Service;
+namespace CRM.Service.Identity;
  
 public class AuthenticationService(
     UserManager<ApplicationUser>userManager,
@@ -22,7 +22,7 @@ public class AuthenticationService(
 
     public async Task<ResponseModel<ApplicationUserProfileViewModel>> LoginAsync(ApplicationUserLoginInputModel model)
     {
-        ArgumentNullException.ThrowIfNull(model.Email);
+        ArgumentNullException.ThrowIfNull(model.Email);         
         ArgumentNullException.ThrowIfNull(model.Password);
         var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 

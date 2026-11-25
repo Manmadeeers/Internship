@@ -111,33 +111,32 @@
                 <MudItem xs="12" lg="7">
                     <MudPaper Elevation="0" Class="pa-4">
                         <MudForm @ref="_formChangePassword" @bind-IsValid="@_success" @bind-Errors="@_passwordErrors" Model="@_changePasswordModel" Disabled="@_loading">
-                            <MudTextField T="string" Label="@Localizer["input-current-password"]"
-                            @bind-Value="_changePasswordModel.CurrentPassword"
-                            InputType="InputType.Password"
-                            Validation="@(new PasswordAttribute() {ErrorMessage = Localizer["message-password-validation"]})"
-                            RequiredError="@Localizer["message-password-required"]"
-                            Class="mt-4" />
-
-                            <MudTextField T="string" Label="@Localizer["input-password"]"
-                            @bind-Value="_changePasswordModel.NewPassword"
-                            InputType="InputType.Password"
-                            Validation="@(new PasswordAttribute() {ErrorMessage = Localizer["message-password-validation"]})"
-                            RequiredError="@Localizer["message-password-required"]"
-                            Class="mt-4" />
-
-                            <MudTextField T="string" Label="@Localizer["input-confirm-password"]"
-                            InputType="InputType.Password"
-                            Validation="@(new Func<string, string?>(PasswordMatch))"
-                            RequiredError="@Localizer["message-confirm-password-required"]"
-                            Class="mt-4" />
-
+                            <ViewablePasswordInputField
+                                Label="input-current-password"
+                                @bind-Value="_changePasswordModel.CurrentPassword"
+                                ValidationMessage="message-password-validation"
+                                MessageRequired="message-password-required"/>
+                            
+                            <ViewablePasswordInputField
+                                Label="input-password"
+                                @bind-Value="_changePasswordModel.NewPassword"
+                                ValidationMessage="message-password-validation"
+                                MessageRequired="message-password-required"/>
+                            
+                            <ViewablePasswordInputField
+                                @bind-Value="_confirmPassword"
+                                Label="input-confirm-password"
+                                ValidationCallback="PasswordMatch"
+                                ValidationMessage=""
+                                MessageRequired="message-confirm-password-required"/>
+                            
                             <div class="d-flex align-center justify-space-between mt-4">
-                                <MudSpacer />
+                                <MudSpacer/>
                                 <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" Class="mx-2"
-                                OnClick="@(()=>ResetForm(_formChangePassword))">@Localizer["button-reset"]</MudButton>
+                                           OnClick="@(() => ResetForm(_formChangePassword))">@Localizer["button-reset"]</MudButton>
 
                                 <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_success)"
-                                OnClick="@SubmitFormChangePassword">@Localizer["button-change-password"]</MudButton>
+                                           OnClick="@SubmitFormChangePassword">@Localizer["button-change-password"]</MudButton>
                             </div>
                         </MudForm>
                     </MudPaper>

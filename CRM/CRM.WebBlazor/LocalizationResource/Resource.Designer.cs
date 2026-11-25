@@ -440,5 +440,11 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("input-current-password", resourceCulture);
             }
         }
+        
+        internal static string button_update {
+            get {
+                return ResourceManager.GetString("button-update", resourceCulture);
+            }
+        }
     }
 }

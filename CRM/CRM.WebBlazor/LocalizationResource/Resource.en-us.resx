@@ -206,4 +206,7 @@
     <data name="input-current-password" xml:space="preserve">
         <value>Current password</value>
     </data>
+    <data name="button-update" xml:space="preserve">
+        <value>Update profile</value>
+    </data>
 </root>

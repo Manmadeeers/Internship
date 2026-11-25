@@ -9,7 +9,8 @@ namespace CRM.WebBlazor.Components.Pages.Identity;
 public partial class UserProfile
 {
     
-     private bool _success;
+    private bool _success;
+    private string _confirmPassword;
     private string[] _updateErrors = Array.Empty<string>();
     private string[] _passwordErrors = Array.Empty<string>();
     private MudForm _formUpdate = new();
@@ -114,7 +115,7 @@ public partial class UserProfile
 
     private string? PasswordMatch(string value)
     {
-        if (_changePasswordModel.NewPassword != value)
+        if (_changePasswordModel.NewPassword != _confirmPassword)
         {
             return Localizer["message-confirm-password-match"];
         }

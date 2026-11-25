@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text;
 using CRM.DataAccess;
 using CRM.Model.IdentityModels;
+using CRM.Service.Identity;
 using CRM.Utility;
 using CRM.Utility.IUtility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,13 +51,15 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
         options.SignIn.RequireConfirmedAccount = true;
     }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IAuthenticationService, CRM.Service.AuthenticationService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration"));
 builder.Services.AddScoped<IApplicationEmailSender, ApplicationEmailSender>();
 
 builder.Services.Configure<TokenConfiguration>(builder.Configuration.GetSection("TokenConfiguration"));
 builder.Services.AddSingleton<ITokenHandler,TokenHandler>();
+
+builder.Services.AddScoped<IUserService,UserService>();
 
 builder.Services.AddAuthentication(options =>
 {
