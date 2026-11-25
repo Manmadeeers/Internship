@@ -2,6 +2,7 @@ using System.Security.Claims;
 using CRM.Utility.IUtility;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
@@ -31,21 +32,39 @@ public class TokenHandler(IOptions<TokenConfiguration>tokenConfig):ITokenHandler
 
     public ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
     {
-        throw new NotImplementedException();
+        var tokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = _tokenConfig.Issuer,
+            ValidateAudience = true,
+            ValidAudience = _tokenConfig.Audience,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenConfig.SecretKey)),
+            ValidateLifetime = false
+        };
+        
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
+
+        if (securityToken is not JwtSecurityToken jwtSecurityToken ||
+            !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
+                StringComparison.InvariantCultureIgnoreCase))
+        {
+            throw new SecurityTokenException("Invalid token");
+        }
+        
+        return principal;
     }
 
     public string GenerateRefreshToken()
     {
-        throw new NotImplementedException();
+        var randomNumber = new byte[64];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
     }
 
-    public int GenerateRefreshTokenExpiryData()
-    {
-        throw new NotImplementedException();
-    }
+    public int GenerateRefreshTokenExpiryDays()=>_tokenConfig.RefreshTokenExpiryDays;
 
-    public int GetMaxRefreshTokenAttempts()
-    {
-        throw new NotImplementedException();
-    }
+    public int GetMaxRefreshTokenAttempts()=>_tokenConfig.MaxRefreshTokenAttempts;
 }

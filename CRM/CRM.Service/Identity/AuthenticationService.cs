@@ -41,7 +41,7 @@ public class AuthenticationService(
 
             user!.RefreshTokenAttemptCount = 0;
             user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(tokenHandler.GenerateRefreshTokenExpiryData());
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(tokenHandler.GenerateRefreshTokenExpiryDays());
             await userManager.UpdateAsync(user);
             
             return new ResponseModel<AuthenticationTokens>
@@ -315,7 +315,7 @@ public class AuthenticationService(
         var newRefreshToken = tokenHandler.GenerateRefreshToken();
 
         user!.RefreshToken = newRefreshToken;
-        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(tokenHandler.GenerateRefreshTokenExpiryData());
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(tokenHandler.GenerateRefreshTokenExpiryDays());
         user.RefreshTokenAttemptCount = 0;
 
         try

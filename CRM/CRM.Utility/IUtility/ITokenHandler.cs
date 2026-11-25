@@ -7,6 +7,6 @@ public interface ITokenHandler
     string GenerateToken(List<Claim> claims);
     ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
     string GenerateRefreshToken();
-    int GenerateRefreshTokenExpiryData();
+    int GenerateRefreshTokenExpiryDays();
     int GetMaxRefreshTokenAttempts();
 }
