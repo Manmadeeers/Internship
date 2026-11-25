@@ -1,5 +1,4 @@
 @page "/identity/user-profile"
-@using CRM.Model.ViewModels
 
 @inject  IStringLocalizer<Resource> Localizer
 @inject NavigationManager NavManager
@@ -61,7 +60,7 @@
                 </MudItem>
             </MudGrid>
         </MudTabPanel>
-        <MudTabPanel Text="@Localizer["tab-edit"]" Icon="@Icons.Material.Filled.Edit">@* Edit panel *@
+        <MudTabPanel Text="@Localizer["tab-update"]" Icon="@Icons.Material.Filled.Edit">@* Edit panel *@
             <MudGrid>
                 <MudItem xs="12" lg="7">
                     <MudPaper Elevation="0" Class="pa-4">
@@ -148,7 +147,7 @@
                 </MudItem>
             </MudGrid>
         </MudTabPanel>
-    </MudTabs>z
+    </MudTabs>
     <LoadingSpinner Loading="_loading" />
 </MudPaper>
 

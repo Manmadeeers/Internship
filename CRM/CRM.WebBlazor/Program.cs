@@ -18,6 +18,7 @@ builder.Services.AddMudServices();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IErrorHandlingService,ErrorHandlingService>();
+builder.Services.AddScoped<IUserService,UserService>();
 
 builder.Services.AddLocalization();
 var supportedCultures = new[]

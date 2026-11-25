@@ -171,4 +171,46 @@
     <data name="button-forgot-password" xml:space="preserve">
         <value>Отправить</value>
     </data>
+    <data name="title-user-profile" xml:space="preserve">
+        <value>Профиль</value>
+    </data>
+    <data name="tab-details" xml:space="preserve">
+        <value>Tab details</value>
+    </data>
+    <data name="label-full-name" xml:space="preserve">
+        <value>ФИО</value>
+    </data>
+    <data name="label-date-of-birth" xml:space="preserve">
+        <value>Дата рождения</value>
+    </data>
+    <data name="label-date-of-register" xml:space="preserve">
+        <value>Дата регистрации</value>
+    </data>
+    <data name="label-status" xml:space="preserve">
+        <value>Статус</value>
+    </data>
+    <data name="status-active" xml:space="preserve">
+        <value>В сети</value>
+    </data>
+    <data name="status-inactive" xml:space="preserve">
+        <value>Не в сети</value>
+    </data>
+    <data name="label-description" xml:space="preserve">
+        <value>Описание профиля</value>
+    </data>
+    <data name="tab-change-password" xml:space="preserve">
+        <value>Сменить пароль</value>
+    </data>
+    <data name="button-change-password" xml:space="preserve">
+        <value>Сменить пароль</value>
+    </data>
+    <data name="tab-update" xml:space="preserve">
+        <value>Изменить данные профиля</value>
+    </data>
+    <data name="input-date-of-birth" xml:space="preserve">
+        <value>Дата рождения</value>
+    </data>
+    <data name="input-current-password" xml:space="preserve">
+        <value>Текущий пароль</value>
+    </data>
 </root>

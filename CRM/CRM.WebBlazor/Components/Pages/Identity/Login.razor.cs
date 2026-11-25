@@ -26,7 +26,7 @@ public partial class Login
 
             if (response.IsSuccess)
             {
-                NavManager.NavigateTo("/api/Identity/user-profile");
+                NavManager.NavigateTo("/identity/user-profile");
                 return;
             }
             

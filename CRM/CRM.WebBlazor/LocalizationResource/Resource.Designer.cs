@@ -350,5 +350,95 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("button-forgot-password", resourceCulture);
             }
         }
+        
+        internal static string title_user_profile {
+            get {
+                return ResourceManager.GetString("title-user-profile", resourceCulture);
+            }
+        }
+        
+        internal static string tab_details {
+            get {
+                return ResourceManager.GetString("tab-details", resourceCulture);
+            }
+        }
+        
+        internal static string label_full_name {
+            get {
+                return ResourceManager.GetString("label-full-name", resourceCulture);
+            }
+        }
+        
+        internal static string label_date_of_birth {
+            get {
+                return ResourceManager.GetString("label-date-of-birth", resourceCulture);
+            }
+        }
+        
+        internal static string label_date_of_register {
+            get {
+                return ResourceManager.GetString("label-date-of-register", resourceCulture);
+            }
+        }
+        
+        internal static string label_status {
+            get {
+                return ResourceManager.GetString("label-status", resourceCulture);
+            }
+        }
+        
+        internal static string status_active {
+            get {
+                return ResourceManager.GetString("status-active", resourceCulture);
+            }
+        }
+        
+        internal static string status_inactive {
+            get {
+                return ResourceManager.GetString("status-inactive", resourceCulture);
+            }
+        }
+        
+        internal static string label_description {
+            get {
+                return ResourceManager.GetString("label-description", resourceCulture);
+            }
+        }
+        
+        internal static string tab_edit {
+            get {
+                return ResourceManager.GetString("tab-edit", resourceCulture);
+            }
+        }
+        
+        internal static string tab_change_password {
+            get {
+                return ResourceManager.GetString("tab-change-password", resourceCulture);
+            }
+        }
+        
+        internal static string button_change_password {
+            get {
+                return ResourceManager.GetString("button-change-password", resourceCulture);
+            }
+        }
+        
+        internal static string tab_update {
+            get {
+                return ResourceManager.GetString("tab-update", resourceCulture);
+            }
+        }
+        
+        internal static string input_date_of_birth {
+            get {
+                return ResourceManager.GetString("input-date-of-birth", resourceCulture);
+            }
+        }
+        
+        internal static string input_current_password {
+            get {
+                return ResourceManager.GetString("input-current-password", resourceCulture);
+            }
+        }
     }
 }
