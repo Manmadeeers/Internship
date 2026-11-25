@@ -28,5 +28,24 @@ public class TokenHandler(IOptions<TokenConfiguration>tokenConfig):ITokenHandler
         var tokenHandler = new JwtSecurityTokenHandler();
         return tokenHandler.WriteToken(token);
     }
-    
+
+    public ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
+    {
+        throw new NotImplementedException();
+    }
+
+    public string GenerateRefreshToken()
+    {
+        throw new NotImplementedException();
+    }
+
+    public int GenerateRefreshTokenExpiryData()
+    {
+        throw new NotImplementedException();
+    }
+
+    public int GetMaxRefreshTokenAttempts()
+    {
+        throw new NotImplementedException();
+    }
 }

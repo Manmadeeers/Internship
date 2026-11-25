@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using CRM.Model.ApplicationModels;
 using CRM.Model.InputModels;
 using Microsoft.AspNetCore.Mvc;
 using CRM.Service.IService; 
@@ -64,10 +65,10 @@ namespace CRM.Api.Areas.Identity
 
         [HttpPost("refresh-token")]
         [DisplayName("Refresh Token")]
-        public async Task<IActionResult> RefreshToken([FromBody] ApplicationUserRegisterInputModel model)
+        public async Task<IActionResult> RefreshToken([FromBody] AuthenticationTokens model)
         {
             var response = await authenticationService.RefreshTokenAsync(model);
-            return response ? Ok(response) : StatusCode(500);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
         
     }

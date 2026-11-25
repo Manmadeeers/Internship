@@ -1,12 +1,25 @@
 using CRM.Model.ApplicationModels;
 using CRM.Model.IdentityModels;
 using CRM.Model.InputModels;
+using CRM.Model.ViewModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace CRM.Service.Identity;
 
 public class UserService(UserManager<ApplicationUser>userManager):IUserService
 {
+    public async Task<ResponseModel<ApplicationUserProfileViewModel>> GetUserProfileAsync(
+        ApplicationUserContext context)
+    {
+        ArgumentNullException.ThrowIfNull(context.UserId);
+        var user = await userManager.FindByIdAsync(context.UserId) ?? throw new Exception("User not found");
+        return new ResponseModel<ApplicationUserProfileViewModel>
+        {
+            IsSuccess = true,
+            Message = "User profile retrieved successfully",
+            Data = new ApplicationUserProfileViewModel(user)
+        };
+    }
     public async Task<ResponseModel<bool>> UpdateUserProfileAsync(ApplicationUserProfileInputModel model, ApplicationUserContext context)
     {
        ArgumentNullException.ThrowIfNull(context.UserId);
