@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using CRM.Model.InputModels.Customers;
 using CRM.Service.Customers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,6 @@ namespace CRM.Api.Areas.Customers
     [Route("api/[area]/[controller]")]
     [DisplayName("Customers controller")]
     [ApiController]
-    [Authorize]
     public class CustomersController(ICustomerService customerService) : ControllerBase
     {
         [HttpGet]
@@ -20,10 +20,36 @@ namespace CRM.Api.Areas.Customers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCustomer(int id)
+        public async Task<IActionResult> GetCustomer(Guid id)
         {
-            var response = await customerService.GetCustomerByIdAsync(id);
+            if (!Guid.TryParse(id.ToString(), out Guid customerId))
+            {
+                return BadRequest();
+            }
+            
+            var response = await customerService.GetCustomerByIdAsync(customerId);
+            return response.IsSuccess ? Ok(response) : NotFound(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCustomer(CustomerCreateInputModel model)
+        {
+            var response = await customerService.CreateCustomer(model);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateCustomer(Guid id, CustomerUpdateInputModel model)
+        {
+            var response = await customerService.UpdateCustomer(id, model);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteCustomer(Guid id)
+        {
+            var response = await customerService.DeleteCustomer(id);
+            return response.IsSuccess ? NoContent() : BadRequest(response);
         }
         
         

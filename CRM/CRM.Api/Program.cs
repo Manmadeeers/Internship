@@ -28,10 +28,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo
+    c.SwaggerDoc("v2", new OpenApiInfo
     {
         Title = "CRM API",
-        Version = "v1"
+        Version = "v2"
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -108,7 +108,7 @@ app.Use(async (context, next) =>
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM API V1"); });
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v2/swagger.json", "CRM API V2"); });
 
     var url = "https://localhost:7250/swagger";
     Process.Start(new ProcessStartInfo
