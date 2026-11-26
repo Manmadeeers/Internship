@@ -18,12 +18,17 @@ public class AuthenticatedHttpClientService(
 
     public async Task<ResponseModel<T>> GetAsync<T>(string url)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        var response = await _httpClient.SendAsync(request);
+        using var request = new HttpRequestMessage(HttpMethod.Get, url);
+        using var response = await SendAsync(request);
+        if (!response.IsSuccessStatusCode)
+        {
+            return await errorHandlingService.HandleErrorResponse<T>(response);
+        }
+        
         var result = await response.Content.ReadFromJsonAsync<ResponseModel<T>>();
-        
-       return result is null||!result.IsSuccess?errorHandlingService.HandleErrorResponse<T>(result!):result;
-        
+
+        return result ?? errorHandlingService.HandleErrorResponse<T>((ResponseModel<T>)null!);
+
     }
 
     public async Task<ResponseModel<TResponse>> PostAsync<TRequest, TResponse>(string url, TRequest? data)=> await SendJsonAsync<TRequest, TResponse>(HttpMethod.Post, url, data!);

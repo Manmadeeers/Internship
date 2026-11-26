@@ -1,16 +1,18 @@
 using System.Diagnostics;
 using System.Text;
+using CRM.Api.AuthorizationConstraints;
 using CRM.DataAccess;
 using CRM.Model.IdentityModels;
 using CRM.Service.Identity;
 using CRM.Utility;
 using CRM.Utility.IUtility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
-using IAuthenticationService = CRM.Service.IService.IAuthenticationService;
+using IAuthenticationService = CRM.Service.Identity.IAuthenticationService;
 using TokenHandler = CRM.Utility.TokenHandler;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -82,6 +84,12 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// builder.Services.AddTransient<IAuthorizationHandler, AgeHandler>();
+// builder.Services.AddAuthorization(options =>
+// {
+//     options.AddPolicy("AgeLimit",policy=>policy.Requirements.Add(new AgeRequirement(18)));
+// });
+
 var app = builder.Build();
 
 app.Use(async (context, next) =>
@@ -104,8 +112,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
 
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 

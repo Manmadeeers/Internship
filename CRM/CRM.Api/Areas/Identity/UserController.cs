@@ -27,7 +27,7 @@ namespace CRM.Api.Areas.Identity
             var response = await userService.GetUserProfileAsync(userContext);
             return response.IsSuccess? Ok(response) : BadRequest(response);
         }
-        [HttpPost("update-user-profile")]
+        [HttpPut("update-user-profile")]
         [DisplayName("Update User Profile")]
         public async Task<IActionResult> UpdateUserProfile([FromBody] ApplicationUserProfileInputModel model)
         {
@@ -40,7 +40,7 @@ namespace CRM.Api.Areas.Identity
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
-        [HttpPost("change-password")]
+        [HttpPut("change-password")]
         [DisplayName("Change Password")]
         public async Task<IActionResult> ChangePassword([FromBody] ApplicationUserChangePasswordInputModel model)
         {

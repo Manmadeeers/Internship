@@ -85,7 +85,7 @@
                             Class="mt-4" />
                             <MudTextField
                                 T="string"
-                                Label="@Localizer["profile-description"]"
+                                Label="@Localizer["label-description"]"
                                 @bind-Value="_updateModel.ProfileDescription"
                                 Lines="5"
                                 MaxLength="500"
@@ -162,23 +162,16 @@
             _loading = true;
             StateHasChanged();
             
-            var reponseModel = await UserService.GetUserProfileAsync();
-            if (reponseModel.IsSuccess)
+            var responseModel = await UserService.GetUserProfileAsync();
+            if (!responseModel.IsSuccess || responseModel.Data is null)
             {
-                _viewModel = reponseModel.Data!;
+                Snackbar.Add(responseModel.Message ?? "Unable to load profile", Severity.Error);
+                NavManager.NavigateTo("'/identity/login");
+                return;
             }
-            else
-            {
-                Snackbar.Add(reponseModel.Message!,Severity.Error);
-                NavManager.NavigateTo("/identity/login");
-            }
-            
-            _loading=false;
 
-            if (string.IsNullOrEmpty(_viewModel.Token))
-            {
-                NavManager.NavigateTo("/identity/login");
-            }
+            _viewModel = responseModel.Data;
+            _loading=false;
             
             _imageSrc = string.IsNullOrEmpty(_viewModel.ImageName) ? GetImagePath(DefaultAvatar) : GetImagePath(_viewModel.ImageName);
             

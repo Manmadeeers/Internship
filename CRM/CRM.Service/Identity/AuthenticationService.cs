@@ -4,7 +4,6 @@ using CRM.Model.ApplicationModels;
 using CRM.Model.IdentityModels;
 using CRM.Model.InputModels;
 using CRM.Model.ViewModels;
-using CRM.Service.IService;
 using CRM.Utility;
 using CRM.Utility.IUtility;
 using Microsoft.AspNetCore.Identity;

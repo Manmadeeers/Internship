@@ -482,5 +482,17 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("menu-about", resourceCulture);
             }
         }
+        
+        internal static string menu_user_profile {
+            get {
+                return ResourceManager.GetString("menu-user-profile", resourceCulture);
+            }
+        }
+        
+        internal static string menu_logout {
+            get {
+                return ResourceManager.GetString("menu-logout", resourceCulture);
+            }
+        }
     }
 }

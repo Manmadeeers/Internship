@@ -234,4 +234,13 @@
     <data name="menu-about" xml:space="preserve">
         <value>About</value>
     </data>
+    <data name="menu-user-profile" xml:space="preserve">
+        <value>User profile</value>
+    </data>
+    <data name="menu-logout" xml:space="preserve">
+        <value>Logout</value>
+    </data>
+    <data name="tab-edit" xml:space="preserve">
+        <value>Edit</value>
+    </data>
 </root>

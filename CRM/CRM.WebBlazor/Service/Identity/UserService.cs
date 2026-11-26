@@ -8,7 +8,7 @@ public class UserService(AuthenticatedHttpClientService httpClientService):IUser
 {
     public async Task<ResponseModel<ApplicationUserProfileViewModel>> GetUserProfileAsync()
     {
-        return await httpClientService.GetAsync<ApplicationUserProfileViewModel>("/api/Identity/User/profile");
+        return await httpClientService.GetAsync<ApplicationUserProfileViewModel>("/api/Identity/User/get-user-profile");
     }
 
     public async Task<ResponseModel<bool>> UpdateUserProfileAsync(ApplicationUserProfileInputModel model)

@@ -1,4 +1,5 @@
 using System.Net;
+using System.Security.Authentication;
 using CRM.Model.ApplicationModels;
 using CRM.WebBlazor.LocalizationResource;
 using Microsoft.Extensions.Localization;
@@ -11,7 +12,7 @@ internal sealed class ErrorHandlingService(IStringLocalizer<Resource> localizer)
     {
         if (response.StatusCode == HttpStatusCode.BadRequest)
         {
-            var errorResponse = await response.Content.ReadFromJsonAsync<ResponseModel<bool>>();
+            var errorResponse = await response.Content.ReadFromJsonAsync<ResponseModel<AuthenticationTokens>>();
             return new ResponseModel<T>
             {
                 IsSuccess = false,

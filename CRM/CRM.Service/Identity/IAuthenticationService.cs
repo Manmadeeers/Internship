@@ -1,8 +1,7 @@
 using CRM.Model.ApplicationModels;
 using CRM.Model.InputModels;
-using CRM.Model.ViewModels;
 
-namespace CRM.Service.IService;
+namespace CRM.Service.Identity;
 
 public interface IAuthenticationService
 {

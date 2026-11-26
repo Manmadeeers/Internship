@@ -234,4 +234,13 @@
     <data name="menu-about" xml:space="preserve">
         <value>О нас</value>
     </data>
+    <data name="menu-user-profile" xml:space="preserve">
+        <value>Профиль</value>
+    </data>
+    <data name="menu-logout" xml:space="preserve">
+        <value>Выйти</value>
+    </data>
+    <data name="tab-edit" xml:space="preserve">
+        <value>Edit</value>
+    </data>
 </root>
