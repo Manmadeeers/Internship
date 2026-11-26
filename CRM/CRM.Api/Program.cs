@@ -83,10 +83,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddTransient<IAuthorizationHandler, AgeHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, AgeHandler>();
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AgeLimit",policy=>policy.Requirements.Add(new AgeRequirement(18)));
+    options.AddPolicy("AgeLimit", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.AddRequirements(new AgeRequirement(18));
+    });
 });
 
 var app = builder.Build();

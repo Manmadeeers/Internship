@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CRM.Api.AuthorizationConstraints;
 
-public class AgeRequirement(int age) : IAuthorizationRequirement
+public class AgeRequirement(int minimumAge) : IAuthorizationRequirement
 {
-    protected internal int Age { get; set; } = age;
+    protected internal int MinimumAge { get; } = minimumAge;
 }

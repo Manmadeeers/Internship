@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net.Mail;
 using System.Security.Claims;
 using CRM.Model.ApplicationModels;
@@ -37,13 +38,8 @@ public class AuthenticationService(
                     Message = "User is inactive"
                 };
             }
-            
-            var claims = new List<Claim>
-            {
-                new(TokenParameters.UserId, user?.Id!),
-                new(TokenParameters.Email, user?.Email!)
-            };
-            
+
+            var claims = CreateClaims(user);
             var token = tokenHandler.GenerateToken(claims);
             var refreshToken = tokenHandler.GenerateRefreshToken();
 
@@ -314,11 +310,7 @@ public class AuthenticationService(
             return TokenRequestFailure("Invalid refresh token");
         }
 
-        var claims = new List<Claim>
-        {
-            new(TokenParameters.UserId, user.Id),
-            new(TokenParameters.Email, user.Email!)
-        };
+        var claims = CreateClaims(user);
         var newToken = tokenHandler.GenerateToken(claims);
         var newRefreshToken = tokenHandler.GenerateRefreshToken();
 
@@ -370,4 +362,23 @@ public class AuthenticationService(
         Message = message,
         Data = new AuthenticationTokens { IsRefreshTokenValid = false }
     };
+
+    private static List<Claim> CreateClaims(ApplicationUser user)
+    {
+        var claims = new List<Claim>
+        {
+            new(TokenParameters.UserId, user.Id),
+            new(TokenParameters.Email, user.Email!)
+        };
+
+        if (user.DateOfBirth.HasValue)
+        {
+            claims.Add(new Claim(
+                ClaimTypes.DateOfBirth,
+                user.DateOfBirth.Value.ToString("yyyy-MM-dd",
+                    CultureInfo.InvariantCulture)));
+        }
+        
+        return claims;
+    }
 }  
