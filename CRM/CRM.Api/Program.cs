@@ -3,6 +3,7 @@ using System.Text;
 using CRM.Api.AuthorizationConstraints;
 using CRM.DataAccess;
 using CRM.Model.IdentityModels;
+using CRM.Service.Customers;
 using CRM.Service.Identity;
 using CRM.Utility;
 using CRM.Utility.IUtility;
@@ -61,6 +62,8 @@ builder.Services.Configure<TokenConfiguration>(builder.Configuration.GetSection(
 builder.Services.AddSingleton<ITokenHandler,TokenHandler>();
 
 builder.Services.AddScoped<IUserService,UserService>();
+
+builder.Services.AddScoped<ICustomerService,CustomerService>();
 
 builder.Services.AddAuthentication(options =>
 {
