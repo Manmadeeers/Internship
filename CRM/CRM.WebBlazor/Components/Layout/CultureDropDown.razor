@@ -30,21 +30,24 @@
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && !_isInitialized)
+        if (!firstRender || _isInitialized)
         {
-            _isInitialized = true;
-            var storedCulture = await JsRuntime.InvokeAsync<string>("localStorage.getItem", "culture");
-
-            if (!string.IsNullOrEmpty(storedCulture) && storedCulture != _currentCulture.Name)
-            {
-                _currentCulture = new CultureInfo(storedCulture);
-                ApplyCulture(_currentCulture);
-                NavManager.NavigateTo(NavManager.Uri,forceLoad:true);
-            }
-            else
-            {
-                SetLabel(_currentCulture);
-            }
+            return;
+        }
+        
+        _isInitialized = true;
+        var storedCulture = await JsRuntime.InvokeAsync<string>("localStorage.getItem", "culture");
+        if (!string.IsNullOrEmpty(storedCulture) && storedCulture != _currentCulture.Name)
+        {
+            _currentCulture = new CultureInfo(storedCulture);
+            ApplyCulture(_currentCulture);
+            
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+        {
+            SetLabel(_currentCulture);
+            await InvokeAsync(StateHasChanged);
         }
     }
     
@@ -73,7 +76,6 @@
             "ru" => "RU",
             _ => "EN"
         };
-        StateHasChanged(); 
     }
 
 }

@@ -81,7 +81,7 @@ public partial class UserProfile
         }
         else
         {
-            _updateErrors = [response.Message??string.Empty];
+           Snackbar.Add(Localizer["message-password-changed-error"],Severity.Error);
         }
     }
 

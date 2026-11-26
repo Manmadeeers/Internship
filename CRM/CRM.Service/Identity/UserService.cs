@@ -3,10 +3,11 @@ using CRM.Model.IdentityModels;
 using CRM.Model.InputModels;
 using CRM.Model.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace CRM.Service.Identity;
 
-public class UserService(UserManager<ApplicationUser>userManager):IUserService
+public class UserService(UserManager<ApplicationUser>userManager,ILogger<UserService>logger):IUserService
 {
     public async Task<ResponseModel<ApplicationUserProfileViewModel>> GetUserProfileAsync(
         ApplicationUserContext context)
@@ -67,10 +68,25 @@ public class UserService(UserManager<ApplicationUser>userManager):IUserService
         var user = await userManager.FindByIdAsync(context.UserId) ?? throw new Exception("User not found");
 
         var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+        if (!result.Succeeded)
+        {
+            var errorCodes = string.Join("; ", result.Errors.Select(e=>e.Code));
+            logger.LogWarning( "Password change failed for user {UserId}. Errors: {Errors}",
+                context.UserId,
+                errorCodes);
+
+            return new ResponseModel<bool>
+            {
+                IsSuccess = false,
+                Message = errorCodes,
+                Data = false
+            };
+        }
         return new ResponseModel<bool>
         {
             IsSuccess = result.Succeeded,
-            Message = result.Succeeded ? "Password successfully changed" : "Failed to change password"
+            Message = "Password successfully changed",
+            Data = true
         };
     } 
 }

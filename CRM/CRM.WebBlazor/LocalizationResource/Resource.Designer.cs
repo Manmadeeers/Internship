@@ -453,9 +453,9 @@ namespace CRM.WebBlazor.LocalizationResource {
             }
         }
         
-        internal static string message_password_changed_successfully_ {
+        internal static string message_password_changed_successfully {
             get {
-                return ResourceManager.GetString("message-password-changed-successfully ", resourceCulture);
+                return ResourceManager.GetString("message-password-changed-successfully", resourceCulture);
             }
         }
         
@@ -492,6 +492,24 @@ namespace CRM.WebBlazor.LocalizationResource {
         internal static string menu_logout {
             get {
                 return ResourceManager.GetString("menu-logout", resourceCulture);
+            }
+        }
+        
+        internal static string message_unable_to_create_user {
+            get {
+                return ResourceManager.GetString("message-unable-to-create-user", resourceCulture);
+            }
+        }
+        
+        internal static string message_name_exists {
+            get {
+                return ResourceManager.GetString("message-name-exists", resourceCulture);
+            }
+        }
+        
+        internal static string message_password_changed_error {
+            get {
+                return ResourceManager.GetString("message-password-changed-error", resourceCulture);
             }
         }
     }

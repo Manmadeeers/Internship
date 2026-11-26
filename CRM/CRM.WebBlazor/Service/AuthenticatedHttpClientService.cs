@@ -96,15 +96,19 @@ public class AuthenticatedHttpClientService(
     
     private async Task<ResponseModel<TResponse>> SendJsonAsync<TRequest, TResponse>(HttpMethod method, string url, TRequest data)
     {
-        var request = new HttpRequestMessage(method, url)
+         var request = new HttpRequestMessage(method, url)
         {
             Content = JsonContent.Create(data)
         };
         var response = await SendAsync(request);
+        if (!response.IsSuccessStatusCode)
+        {
+            return await errorHandlingService.HandleErrorResponse<TResponse>(response);
+        }
+        
         var result = await response.Content.ReadFromJsonAsync<ResponseModel<TResponse>>();
-        return result is null || !result.IsSuccess
-            ? errorHandlingService.HandleErrorResponse(result!)
-            : result;
+        
+        return result?? errorHandlingService.HandleErrorResponse((ResponseModel<TResponse>?)null);
     }
     
     private Task AddAuthorizationHeaderAsync(HttpRequestMessage request)

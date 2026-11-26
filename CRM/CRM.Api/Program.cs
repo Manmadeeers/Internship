@@ -19,7 +19,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ??
                        throw new InvalidOperationException(
                            "Connection string 'ApplicationDbContextConnection' not found.");
-;
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
@@ -84,11 +83,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// builder.Services.AddTransient<IAuthorizationHandler, AgeHandler>();
-// builder.Services.AddAuthorization(options =>
-// {
-//     options.AddPolicy("AgeLimit",policy=>policy.Requirements.Add(new AgeRequirement(18)));
-// });
+builder.Services.AddTransient<IAuthorizationHandler, AgeHandler>();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AgeLimit",policy=>policy.Requirements.Add(new AgeRequirement(18)));
+});
 
 var app = builder.Build();
 

@@ -219,7 +219,7 @@
     <data name="message-profile-updated-successfully" xml:space="preserve">
         <value>Профиль успешно обновлен!</value>
     </data>
-    <data name="message-password-changed-successfully " xml:space="preserve">
+    <data name="message-password-changed-successfully" xml:space="preserve">
         <value>Пароль успешно изменен</value>
     </data>
     <data name="menu-home" xml:space="preserve">
@@ -242,5 +242,14 @@
     </data>
     <data name="tab-edit" xml:space="preserve">
         <value>Edit</value>
+    </data>
+    <data name="message-unable-to-create-user" xml:space="preserve">
+        <value>Невозможно создать пользователя</value>
+    </data>
+    <data name="message-name-exists" xml:space="preserve">
+        <value>Имя уже существует</value>
+    </data>
+    <data name="message-password-changed-error" xml:space="preserve">
+        <value>Не удалось сменить пароль</value>
     </data>
 </root>

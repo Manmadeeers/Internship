@@ -31,6 +31,7 @@ builder.Services.AddScoped<AuthenticatedHttpClientService>();
 builder.Services.AddScoped<TokenStore>();
 builder.Services.AddScoped<RefreshTokenHandler>();
 
+
 builder.Services.AddMudServices(config =>
 {
     config.SnackbarConfiguration.NewestOnTop = false;

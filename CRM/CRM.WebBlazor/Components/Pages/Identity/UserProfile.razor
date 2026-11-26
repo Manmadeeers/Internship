@@ -166,7 +166,7 @@
             if (!responseModel.IsSuccess || responseModel.Data is null)
             {
                 Snackbar.Add(responseModel.Message ?? "Unable to load profile", Severity.Error);
-                NavManager.NavigateTo("'/identity/login");
+                NavManager.NavigateTo("/identity/login");
                 return;
             }
 

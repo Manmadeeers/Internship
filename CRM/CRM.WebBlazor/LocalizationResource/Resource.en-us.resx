@@ -212,7 +212,7 @@
     <data name="message-profile-updated-successfully" xml:space="preserve">
         <value>Profile updated successfully!</value>
     </data>
-    <data name="message-password-changed-successfully " xml:space="preserve">
+    <data name="message-password-changed-successfully" xml:space="preserve">
         <value>Password changed successfully</value>
     </data>
     <data name="menu-home" xml:space="preserve">
@@ -235,5 +235,14 @@
     </data>
     <data name="tab-edit" xml:space="preserve">
         <value>Edit</value>
+    </data>
+    <data name="message-unable-to-create-user" xml:space="preserve">
+        <value>Unable to create user</value>
+    </data>
+    <data name="message-name-exists" xml:space="preserve">
+        <value>Name already exists</value>
+    </data>
+    <data name="message-password-changed-error" xml:space="preserve">
+        <value>Failed to change password</value>
     </data>
 </root>
