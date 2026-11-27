@@ -1,10 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using CRM.Model.Companies;
 
 namespace CRM.Model.Customers;
 
 public class CustomerModel
 {
     public Guid Id { get; set; }
+    public Guid? CompanyId { get; set; }
+    public CompanyModel? Company { get; set; }
     [MaxLength(100)]
     public required string FirstName { get; set; }
     [MaxLength(100)]
