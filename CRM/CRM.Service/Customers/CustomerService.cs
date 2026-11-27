@@ -13,7 +13,7 @@ public class CustomerService(ApplicationDbContext context):ICustomerService
 {
     public async Task<ResponseModel<IReadOnlyList<CustomerModel>>> GetAllCustomersAsync()
     {
-        var customers = await context.Customers.ToListAsync();
+        var customers = await context.Customers.AsNoTracking().ToListAsync();
         return new ResponseModel<IReadOnlyList<CustomerModel>>
         {
             IsSuccess = true,

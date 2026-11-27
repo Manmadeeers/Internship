@@ -11,6 +11,9 @@
         <MudNavLink Href="/identity/login" Match="NavLinkMatch.Prefix">@Localizer["menu-login"]</MudNavLink>
         <MudNavLink Href="/identity/register" Match="NavLinkMatch.Prefix">@Localizer["menu-register"]</MudNavLink>
     </MudNavGroup>
+    <MudNavGroup Title="Customers" Expanded="true" Class="@(!_isAuthenticated ? "d-none":null)">
+        <MudNavLink Href="/customers/panel" Match="NavLinkMatch.Prefix">@Localizer["menu-customers-panel"]</MudNavLink>
+    </MudNavGroup>
     <MudNavLink Href="/about" Match="NavLinkMatch.Prefix">@Localizer["menu-about"]</MudNavLink>
     <MudNavLink Match="NavLinkMatch.Prefix" Class="@(!_isAuthenticated ? "d-none" : null)" OnClick="async () => await Logout()">@Localizer["menu-logout"]</MudNavLink>
 </MudNavMenu>

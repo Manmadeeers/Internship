@@ -512,5 +512,35 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("message-password-changed-error", resourceCulture);
             }
         }
+        
+        internal static string menu_customers_panel {
+            get {
+                return ResourceManager.GetString("menu-customers-panel", resourceCulture);
+            }
+        }
+        
+        internal static string label_customers {
+            get {
+                return ResourceManager.GetString("label-customers", resourceCulture);
+            }
+        }
+        
+        internal static string button_customers_actions_view {
+            get {
+                return ResourceManager.GetString("button-customers-actions-view", resourceCulture);
+            }
+        }
+        
+        internal static string button_add_customer {
+            get {
+                return ResourceManager.GetString("button-add-customer", resourceCulture);
+            }
+        }
+        
+        internal static string message_loading_customers {
+            get {
+                return ResourceManager.GetString("message-loading-customers", resourceCulture);
+            }
+        }
     }
 }

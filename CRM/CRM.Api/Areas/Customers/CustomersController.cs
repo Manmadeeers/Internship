@@ -12,6 +12,7 @@ namespace CRM.Api.Areas.Customers
     [Route("api/[controller]")]
     [DisplayName("Customers controller")]
     [ApiController]
+    [Authorize]
     public class CustomersController(ICustomerService customerService) : ControllerBase
     {
         [HttpGet]

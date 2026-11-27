@@ -1,6 +1,7 @@
 using System.Globalization;
 using CRM.WebBlazor.Components;
 using CRM.WebBlazor.Service;
+using CRM.WebBlazor.Service.Customers;
 using CRM.WebBlazor.Service.Identity;
 using Microsoft.AspNetCore.Localization;
 using MudBlazor;
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<AuthenticatedHttpClientService>();
 builder.Services.AddScoped<TokenStore>();
 builder.Services.AddScoped<RefreshTokenHandler>();
+builder.Services.AddScoped<ICustomersService,CustomersService>();
 
 
 builder.Services.AddMudServices(config =>

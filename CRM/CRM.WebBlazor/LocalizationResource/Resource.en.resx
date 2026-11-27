@@ -252,4 +252,19 @@
     <data name="message-password-changed-error" xml:space="preserve">
         <value>Failed to change password</value>
     </data>
+    <data name="menu-customers-panel" xml:space="preserve">
+        <value>All customers</value>
+    </data>
+    <data name="label-customers" xml:space="preserve">
+        <value>Customer(s)</value>
+    </data>
+    <data name="button-customers-actions-view" xml:space="preserve">
+        <value>View customer</value>
+    </data>
+    <data name="button-add-customer" xml:space="preserve">
+        <value>Add customer</value>
+    </data>
+    <data name="message-loading-customers" xml:space="preserve">
+        <value>Loading customers</value>
+    </data>
 </root>

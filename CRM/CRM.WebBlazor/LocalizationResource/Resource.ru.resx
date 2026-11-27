@@ -252,4 +252,19 @@
     <data name="message-password-changed-error" xml:space="preserve">
         <value>Не удалось сменить пароль</value>
     </data>
+    <data name="menu-customers-panel" xml:space="preserve">
+        <value>Все клиенты</value>
+    </data>
+    <data name="label-customers" xml:space="preserve">
+        <value>Клиент(ов)</value>
+    </data>
+    <data name="button-customers-actions-view" xml:space="preserve">
+        <value>Просмотр</value>
+    </data>
+    <data name="button-add-customer" xml:space="preserve">
+        <value>Добавить клиента</value>
+    </data>
+    <data name="message-loading-customers" xml:space="preserve">
+        <value>Загрузка клиентов</value>
+    </data>
 </root>
