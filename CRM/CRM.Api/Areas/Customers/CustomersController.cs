@@ -1,13 +1,15 @@
 using System.ComponentModel;
+using System.Net;
 using CRM.Model.InputModels.Customers;
 using CRM.Service.Customers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRM.Api.Areas.Customers
 {
     [Area("Customers")]
-    [Route("api/[area]/[controller]")]
+    [Route("api/[controller]")]
     [DisplayName("Customers controller")]
     [ApiController]
     public class CustomersController(ICustomerService customerService) : ControllerBase
@@ -32,24 +34,35 @@ namespace CRM.Api.Areas.Customers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCustomer(CustomerCreateInputModel model)
+        public async Task<IActionResult> CreateCustomer([FromBody]CustomerCreateInputModel model)
         {
             var response = await customerService.CreateCustomer(model);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateCustomer(Guid id, CustomerUpdateInputModel model)
+        public async Task<IActionResult> UpdateCustomer(Guid id, [FromBody]CustomerUpdateInputModel model)
         {
             var response = await customerService.UpdateCustomer(id, model);
-            return response.IsSuccess ? Ok(response) : BadRequest(response);
+            if (response.IsSuccess)
+            {
+                return Ok(response);
+            }
+
+            if (response.Data == HttpStatusCode.Conflict)
+            {
+                return Conflict();
+            }
+            
+            return BadRequest(response);
         }
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteCustomer(Guid id)
         {
             var response = await customerService.DeleteCustomer(id);
-            return response.IsSuccess ? NoContent() : BadRequest(response);
+            
+            return response.IsSuccess ? NoContent() : NotFound();
         }
         
         

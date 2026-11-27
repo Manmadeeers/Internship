@@ -11,7 +11,9 @@ public class CustomerModel
     public required string LastName { get; set; }
     [MaxLength(256)]
     public string?Email { get; set; }
-    public required int PhoneNumber { get; set; }
+    [MaxLength(32)]
+    public string? PhoneNumber { get; set; }
+    
     [MaxLength(256)]
     public string?CompanyName { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
