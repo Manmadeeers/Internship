@@ -267,4 +267,67 @@
     <data name="message-loading-customers" xml:space="preserve">
         <value>Loading customers</value>
     </data>
+    <data name="message-unable-to-delete-customer" xml:space="preserve">
+        <value>Unable to delete a customer</value>
+    </data>
+    <data name="message-customer-deleted" xml:space="preserve">
+        <value>Customer deleted successfully</value>
+    </data>
+    <data name="message-no-customers-found" xml:space="preserve">
+        <value>No customers found</value>
+    </data>
+    <data name="message-add-customer" xml:space="preserve">
+        <value>Click "Add customer" to add one</value>
+    </data>
+    <data name="title-add-customer" xml:space="preserve">
+        <value>Add customer</value>
+    </data>
+    <data name="message-add-customer-description" xml:space="preserve">
+        <value>Enter the customer's contact and company information.</value>
+    </data>
+    <data name="input-phone-number" xml:space="preserve">
+        <value>Phone number</value>
+    </data>
+    <data name="input-company-name" xml:space="preserve">
+        <value>Company name</value>
+    </data>
+    <data name="button-cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="message-phone-required" xml:space="preserve">
+        <value>Phone number is required</value>
+    </data>
+    <data name="message-phone-format" xml:space="preserve">
+        <value>Enter a valid phone number containing 7 to 15 digits</value>
+    </data>
+    <data name="message-customer-created" xml:space="preserve">
+        <value>Customer created successfully</value>
+    </data>
+    <data name="message-unable-to-create-customer" xml:space="preserve">
+        <value>Unable to create the customer</value>
+    </data>
+    <data name="message-customer-email-exists" xml:space="preserve">
+        <value>A customer with this email already exists</value>
+    </data>
+    <data name="message-customer-phone-exists" xml:space="preserve">
+        <value>A customer with this phone number already exists</value>
+    </data>
+    <data name="title-update-customer" xml:space="preserve">
+        <value>Update customer</value>
+    </data>
+    <data name="message-update-customer-description" xml:space="preserve">
+        <value>Update necessary fields</value>
+    </data>
+    <data name="message-unable-to-load-customer" xml:space="preserve">
+        <value>Unable to load the customer</value>
+    </data>
+    <data name="message-unable-to-update-customer" xml:space="preserve">
+        <value>Unable to update the customer</value>
+    </data>
+    <data name="message-customer-updated" xml:space="preserve">
+        <value>Customer updated successfully</value>
+    </data>
+    <data name="message-customer-not-found" xml:space="preserve">
+        <value>Customer not found</value>
+    </data>
 </root>

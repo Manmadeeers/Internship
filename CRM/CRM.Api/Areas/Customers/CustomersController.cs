@@ -52,7 +52,12 @@ namespace CRM.Api.Areas.Customers
 
             if (response.Data == HttpStatusCode.Conflict)
             {
-                return Conflict();
+                return Conflict(response);
+            }
+
+            if (response.Data == HttpStatusCode.NotFound)
+            {
+                return NotFound(response);
             }
             
             return BadRequest(response);

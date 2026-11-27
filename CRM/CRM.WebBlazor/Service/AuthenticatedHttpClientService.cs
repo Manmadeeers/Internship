@@ -31,8 +31,11 @@ public class AuthenticatedHttpClientService(
 
     }
 
-    public async Task<ResponseModel<TResponse>> PostAsync<TRequest, TResponse>(string url, TRequest? data)=> await SendJsonAsync<TRequest, TResponse>(HttpMethod.Post, url, data!);
-    public async Task<ResponseModel<TResponse>>PutAsync<TRequest, TResponse>(string url, TRequest? data)=>await SendJsonAsync<TRequest, TResponse>(HttpMethod.Put, url, data!);
+    public async Task<ResponseModel<TResponse>> PostAsync<TRequest, TResponse>(string url, TRequest? data)=> 
+        await SendJsonAsync<TRequest, TResponse>(HttpMethod.Post, url, data!);
+    
+    public async Task<ResponseModel<TResponse>>PutAsync<TRequest, TResponse>(string url, TRequest? data)=>
+        await SendJsonAsync<TRequest, TResponse>(HttpMethod.Put, url, data!);
 
     public async Task<ResponseModel<bool>> DeleteAsync<TResponse>(string url)
     {

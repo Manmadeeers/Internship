@@ -136,7 +136,7 @@ public class CustomerService(ApplicationDbContext context):ICustomerService
 
         if (!string.IsNullOrEmpty(model.Email))
         {
-            if (await context.Customers.AnyAsync(c => c.Email == model.Email))
+            if (await context.Customers.AnyAsync(c => c.Id != id && c.Email == model.Email))
             {
                 return new ResponseModel<HttpStatusCode>
                 {
@@ -150,7 +150,8 @@ public class CustomerService(ApplicationDbContext context):ICustomerService
 
         if (!string.IsNullOrEmpty(model.PhoneNumber))
         {
-            if (await context.Customers.AnyAsync(c => c.PhoneNumber != null && c.PhoneNumber == model.PhoneNumber))
+            if (await context.Customers.AnyAsync(c =>
+                    c.Id != id && c.PhoneNumber != null && c.PhoneNumber == model.PhoneNumber))
             {
                 return new ResponseModel<HttpStatusCode>
                 {

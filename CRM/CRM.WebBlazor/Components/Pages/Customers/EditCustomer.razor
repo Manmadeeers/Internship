@@ -1,0 +1,128 @@
+@page "/customers/edit-customer/{Id:guid}"
+
+@using CRM.Model.InputModels.Customers
+@using CRM.WebBlazor.Service.Customers
+
+@inject ICustomersService CustomersService
+@inject IStringLocalizer<Resource> Localizer
+@inject ISnackbar Snackbar
+@inject NavigationManager NavManager
+
+<PageTitle>@Localizer["title-update-customer"]</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="py-6">
+    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mb-6">
+        <MudIconButton Icon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Primary"
+                       OnClick="@GoBack"/>
+        <div>
+            <MudText Typo="Typo.h4">@Localizer["title-update-customer"]</MudText>
+            <MudText Typo="Typo.body2" Color="Color.Secondary">
+                @Localizer["message-update-customer-description"]
+            </MudText>
+        </div>
+    </MudStack>
+    <MudPaper Class="pa-6" Outlined="true" Style="position: relative;">
+        <MudForm @ref="_form"
+                 Model="@_model"
+                 @bind-IsValid="@_isValid"
+                 @bind-Errors="@_formErrors"
+                 Disabled="@_loading">
+
+            <MudGrid Spacing="3">
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-firstname"]"
+                                  @bind-Value="_model.FirstName"
+                                  Required="true"
+                                  RequiredError="@Localizer["message-firstname-required"]"
+                                  MaxLength="100"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-lastname"]"
+                                  @bind-Value="_model.LastName"
+                                  Required="true"
+                                  RequiredError="@Localizer["message-lastname-required"]"
+                                  MaxLength="100"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-phone-number"]"
+                                  @bind-Value="_model.PhoneNumber"
+                                  InputType="InputType.Telephone"
+                                  Required="true"
+                                  RequiredError="@Localizer["message-phone-required"]"
+                                  Validation="@ValidatePhoneNumber"
+                                  MaxLength="30"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Phone"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-email"]"
+                                  @bind-Value="_model.Email"
+                                  InputType="InputType.Email"
+                                  Validation="@(new EmailOnlyAttribute { ErrorMessage = Localizer["message-email-format"] })"
+                                  MaxLength="256"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Email"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-company-name"]"
+                                  @bind-Value="_model.CompanyName"
+                                  MaxLength="256"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Business"/>
+                </MudItem>
+            </MudGrid>
+
+            @if (_submitErrors.Length > 0)
+            {
+                <MudAlert Severity="Severity.Error" Variant="Variant.Outlined" Class="mt-4">
+                    @foreach (var error in _submitErrors)
+                    {
+                        <MudText>@error</MudText>
+                    }
+                </MudAlert>
+            }
+
+            <MudStack Row="true"
+                      Justify="Justify.FlexEnd"
+                      Spacing="2"
+                      Class="mt-6">
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Default"
+                           Disabled="@_loading"
+                           OnClick="@GoBack">
+                    @Localizer["button-cancel"]
+                </MudButton>
+
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Save"
+                           Disabled="@_loading"
+                           OnClick="@UpdateCustomerAsync">
+                    @Localizer["button-update"]
+                </MudButton>
+            </MudStack>
+        </MudForm>
+
+        <LoadingSpinner Loading="@_loading"/>
+    </MudPaper>
+</MudContainer>

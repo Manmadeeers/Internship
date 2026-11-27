@@ -542,5 +542,107 @@ namespace CRM.WebBlazor.LocalizationResource {
                 return ResourceManager.GetString("message-loading-customers", resourceCulture);
             }
         }
+        
+        internal static string message_unable_to_delete_customer {
+            get {
+                return ResourceManager.GetString("message-unable-to-delete-customer", resourceCulture);
+            }
+        }
+        
+        internal static string message_customer_deleted {
+            get {
+                return ResourceManager.GetString("message-customer-deleted", resourceCulture);
+            }
+        }
+        
+        internal static string message_no_customers_found {
+            get {
+                return ResourceManager.GetString("message-no-customers-found", resourceCulture);
+            }
+        }
+        
+        internal static string message_add_customer {
+            get {
+                return ResourceManager.GetString("message-add-customer", resourceCulture);
+            }
+        }
+        
+        internal static string title_add_customer {
+            get {
+                return ResourceManager.GetString("title-add-customer", resourceCulture);
+            }
+        }
+        
+        internal static string message_add_customer_description {
+            get {
+                return ResourceManager.GetString("message-add-customer-description", resourceCulture);
+            }
+        }
+        
+        internal static string input_phone_number {
+            get {
+                return ResourceManager.GetString("input-phone-number", resourceCulture);
+            }
+        }
+        
+        internal static string input_company_name {
+            get {
+                return ResourceManager.GetString("input-company-name", resourceCulture);
+            }
+        }
+        
+        internal static string button_cancel {
+            get {
+                return ResourceManager.GetString("button-cancel", resourceCulture);
+            }
+        }
+        
+        internal static string message_phone_required {
+            get {
+                return ResourceManager.GetString("message-phone-required", resourceCulture);
+            }
+        }
+        
+        internal static string message_phone_format {
+            get {
+                return ResourceManager.GetString("message-phone-format", resourceCulture);
+            }
+        }
+        
+        internal static string message_customer_created {
+            get {
+                return ResourceManager.GetString("message-customer-created", resourceCulture);
+            }
+        }
+        
+        internal static string message_unable_to_create_customer {
+            get {
+                return ResourceManager.GetString("message-unable-to-create-customer", resourceCulture);
+            }
+        }
+        
+        internal static string message_customer_email_exists {
+            get {
+                return ResourceManager.GetString("message-customer-email-exists", resourceCulture);
+            }
+        }
+        
+        internal static string message_customer_phone_exists {
+            get {
+                return ResourceManager.GetString("message-customer-phone-exists", resourceCulture);
+            }
+        }
+        
+        internal static string title_update_customer {
+            get {
+                return ResourceManager.GetString("title-update-customer", resourceCulture);
+            }
+        }
+        
+        internal static string message_update_customer_description {
+            get {
+                return ResourceManager.GetString("message-update-customer-description", resourceCulture);
+            }
+        }
     }
 }

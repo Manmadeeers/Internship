@@ -11,7 +11,9 @@ internal sealed class ErrorHandlingService(IStringLocalizer<Resource> localizer,
 {
     public async Task<ResponseModel<T>> HandleErrorResponse<T>(HttpResponseMessage response)
     {
-        if (response.StatusCode == HttpStatusCode.BadRequest)
+        if (response.StatusCode is HttpStatusCode.BadRequest or
+            HttpStatusCode.Conflict or
+            HttpStatusCode.NotFound)
         {
             var errorResponse = await response.Content.ReadFromJsonAsync<ApiErrorResponse>();
             return new ResponseModel<T>
@@ -55,6 +57,11 @@ internal sealed class ErrorHandlingService(IStringLocalizer<Resource> localizer,
             "Verification code is invalid"=>"message-verification-code-invalid",
             "Invalid login attempt."=>"message-invalid-login",
             "Unable to create user"=>"message-unable-to-create-user",
+            "Customer with this email already exists"=>"message-customer-email-exists",
+            "Customer with this phone number already exists"=>"message-customer-phone-exists",
+            "Database failed to add a new customer"=>"message-unable-to-create-customer",
+            "Customer not found"=>"message-customer-not-found",
+            "Database failed to update a customer"=>"message-unable-to-update-customer",
             _ => "message-unknown-error"
         };
 

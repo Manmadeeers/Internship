@@ -267,4 +267,67 @@
     <data name="message-loading-customers" xml:space="preserve">
         <value>Загрузка клиентов</value>
     </data>
+    <data name="message-unable-to-delete-customer" xml:space="preserve">
+        <value>Невозможно удалить клиента</value>
+    </data>
+    <data name="message-customer-deleted" xml:space="preserve">
+        <value>Клиент успешно удален</value>
+    </data>
+    <data name="message-no-customers-found" xml:space="preserve">
+        <value>Клентов не найдено</value>
+    </data>
+    <data name="message-add-customer" xml:space="preserve">
+        <value>Нажмите "Добавить клиента"</value>
+    </data>
+    <data name="title-add-customer" xml:space="preserve">
+        <value>Добавить клиента</value>
+    </data>
+    <data name="message-add-customer-description" xml:space="preserve">
+        <value>Введите контактные данные клиента и информацию о компании.</value>
+    </data>
+    <data name="input-phone-number" xml:space="preserve">
+        <value>Номер телефона</value>
+    </data>
+    <data name="input-company-name" xml:space="preserve">
+        <value>Название компании</value>
+    </data>
+    <data name="button-cancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
+    <data name="message-phone-required" xml:space="preserve">
+        <value>Номер телефона обязателен</value>
+    </data>
+    <data name="message-phone-format" xml:space="preserve">
+        <value>Введите корректный номер телефона, содержащий от 7 до 15 цифр</value>
+    </data>
+    <data name="message-customer-created" xml:space="preserve">
+        <value>Клиент успешно создан</value>
+    </data>
+    <data name="message-unable-to-create-customer" xml:space="preserve">
+        <value>Не удалось создать клиента</value>
+    </data>
+    <data name="message-customer-email-exists" xml:space="preserve">
+        <value>Клиент с таким адресом электронной почты уже существует</value>
+    </data>
+    <data name="message-customer-phone-exists" xml:space="preserve">
+        <value>Клиент с таким номером телефона уже существует</value>
+    </data>
+    <data name="title-update-customer" xml:space="preserve">
+        <value>Обновить клиента</value>
+    </data>
+    <data name="message-update-customer-description" xml:space="preserve">
+        <value>Обновите необходимые поля</value>
+    </data>
+    <data name="message-unable-to-load-customer" xml:space="preserve">
+        <value>Не удалось загрузить клиента</value>
+    </data>
+    <data name="message-unable-to-update-customer" xml:space="preserve">
+        <value>Не удалось обновить клиента</value>
+    </data>
+    <data name="message-customer-updated" xml:space="preserve">
+        <value>Клиент успешно обновлён</value>
+    </data>
+    <data name="message-customer-not-found" xml:space="preserve">
+        <value>Клиент не найден</value>
+    </data>
 </root>

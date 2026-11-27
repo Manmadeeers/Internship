@@ -115,16 +115,13 @@
                         <MudDivider/>
 
                         <MudCardActions Class="pa-3">
-                            <MudButton Variant="Variant.Text"
-                                       Color="Color.Primary"
-                                       StartIcon="@Icons.Material.Filled.Visibility">
-                                @Localizer["button-customers-actions-view"]
-                            </MudButton>
                             <MudSpacer/>
                             <MudIconButton Icon="@Icons.Material.Filled.Edit"
-                                           Color="Color.Primary"/>
+                                           Color="Color.Primary"
+                                           Href="@($"/customers/edit-customer/{customer.Id}")"/>
                             <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                           Color="Color.Error"/>
+                                           Color="Color.Error"
+                                           OnClick=@( async (MouseEventArgs _)=> await DeleteCustomerAsync(customer))/>
                         </MudCardActions>
                     </MudCard>
                 </MudItem>
@@ -135,7 +132,6 @@
 
 
 @code {
-    private IReadOnlyList<CustomerViewModel> _customers = Array.Empty<CustomerViewModel>();
     private bool _loading = true;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -148,7 +144,7 @@
         try
         {
             var response = await CustomersService.GetAllCustomersAsync();
-            if (response.IsSuccess && response.Data is not null)
+            if (response is { IsSuccess: true, Data: not null })
             {
                 _customers = response.Data;
             }
@@ -166,23 +162,5 @@
             _loading = false;
             StateHasChanged();
         }
-    }
-
-    private static string GetInitials(CustomerViewModel customer)
-    {
-        var firstInitial = string.IsNullOrWhiteSpace(customer.FirstName)
-            ? string.Empty
-            : customer.FirstName[..1];
-
-        var lastInitial = string.IsNullOrWhiteSpace(customer.LastName)
-            ? string.Empty
-            : customer.LastName[..1];
-
-        return $"{firstInitial}{lastInitial}".ToUpperInvariant();
-    }
-
-    private static string FormatPhoneNumber(string phoneNumber)
-    {
-        return phoneNumber.StartsWith('+') ? phoneNumber : $"+{phoneNumber}";
     }
 }
