@@ -137,9 +137,9 @@ public partial class EditCustomer
         var plusPlacementIsValid = plusCount == 0 ||
                                    plusCount == 1 && trimmedPhoneNumber.StartsWith('+');
 
-        return allowedCharacters && plusPlacementIsValid && digitCount is >= 7 and <= 15
+        return (allowedCharacters && plusPlacementIsValid && digitCount is >= 7 and <= 15
             ? null
-            : Localizer["message-phone-format"];
+            : Localizer["message-phone-format"])!;
     }
 
     private void GoBack()
