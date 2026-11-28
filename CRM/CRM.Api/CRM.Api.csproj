@@ -31,6 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Areas\Companies\" />
         <Folder Include="Areas\Customers\" />
         <Folder Include="Areas\Identity\"/>
         <Folder Include="Areas\PublicArea\Controllers\"/>
