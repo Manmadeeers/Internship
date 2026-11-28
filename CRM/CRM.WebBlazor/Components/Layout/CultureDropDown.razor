@@ -1,0 +1,81 @@
+@inject  NavigationManager NavManager
+@inject IJSRuntime JsRuntime
+
+<MudMenu StartIcon="@Icons.Material.Filled.Translate"
+         EndIcon="@Icons.Material.Filled.KeyboardArrowDown"
+         Label="@_selectedCulture" 
+         Color="Color.Primary" 
+         Variant="Variant.Filled">
+    
+    @foreach (var culture in _cultures)
+    {
+        <MudMenuItem OnClick="() => ChangeCulture(culture)">@culture.DisplayName</MudMenuItem>
+    }
+</MudMenu>
+
+@code {
+    private string _selectedCulture = "EN";
+    private CultureInfo _currentCulture = CultureInfo.CurrentCulture;
+    private bool _isInitialized = false;
+    private readonly CultureInfo[] _cultures =
+    [
+        new CultureInfo("en"),
+        new CultureInfo("ru")
+    ];
+
+    protected override void OnInitialized()
+    {
+        SetLabel(_currentCulture);
+    }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || _isInitialized)
+        {
+            return;
+        }
+        
+        _isInitialized = true;
+        var storedCulture = await JsRuntime.InvokeAsync<string>("localStorage.getItem", "culture");
+        if (!string.IsNullOrEmpty(storedCulture) && storedCulture != _currentCulture.Name)
+        {
+            _currentCulture = new CultureInfo(storedCulture);
+            ApplyCulture(_currentCulture);
+            
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+        {
+            SetLabel(_currentCulture);
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+    
+    private async Task ChangeCulture(CultureInfo culture)
+    {
+        if (_currentCulture.Name != culture.Name)
+        {
+            _currentCulture = culture;
+            await JsRuntime.InvokeVoidAsync("localStorage.setItem", "culture", culture.Name);
+            ApplyCulture(_currentCulture);
+            NavManager.NavigateTo(NavManager.Uri,forceLoad:true);
+        }
+    }
+
+    private void ApplyCulture(CultureInfo culture)
+    {
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+        SetLabel(culture);
+    }
+
+    private void SetLabel(CultureInfo culture)
+    {
+        _selectedCulture = culture.Name switch
+        {
+            "ru" => "RU",
+            _ => "EN"
+        };
+    }
+
+}

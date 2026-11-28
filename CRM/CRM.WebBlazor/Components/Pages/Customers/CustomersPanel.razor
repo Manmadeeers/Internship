@@ -1,0 +1,166 @@
+@page "/customers/panel"
+@using CRM.Model.ViewModels.Customers
+@using CRM.WebBlazor.Service.Customers
+
+@inject ICustomersService CustomersService
+@inject ISnackbar Snackbar
+@inject IStringLocalizer<Resource> Localizer
+@inject NavigationManager NavManager
+
+<PageTitle>Customers</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="py-6">
+    <MudGrid AlignItems="AlignItems.Center" Class="mb-6">
+        <MudItem xs="12" sm="8">
+            <MudText Typo="Typo.h4">Customers</MudText>
+            <MudText Typo="Typo.body2" Color="Color.Secondary">
+                @_customers.Count @Localizer["label-customers"]
+            </MudText>
+        </MudItem>
+
+        <MudItem xs="12" sm="4" Style="display: flex; justify-content: flex-end;">
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.PersonAdd"
+                       Href="/customers/add-customer">
+                @Localizer["button-add-customer"]
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+
+    @if (_loading)
+    {
+        <MudPaper Class="pa-8" Outlined="true">
+            <MudStack AlignItems="AlignItems.Center" Spacing="2">
+                <MudProgressCircular Indeterminate="true" Color="Color.Primary"/>
+                <MudText>@Localizer["message-loading-customers"]</MudText>
+            </MudStack>
+        </MudPaper>
+    }
+    else if (_customers.Count == 0)
+    {
+        <MudPaper Class="pa-8 text-center" Outlined="true">
+            <MudIcon Icon="@Icons.Material.Filled.PeopleOutline"
+                     Size="Size.Large"
+                     Color="Color.Secondary"/>
+
+            <MudText Typo="Typo.h6" Class="mt-2">
+                @Localizer["message-no-customers-found"]
+            </MudText>
+
+            <MudText Typo="Typo.body2" Color="Color.Secondary">
+                @Localizer["message-add-customer"]
+            </MudText>
+        </MudPaper>
+    }
+    else
+    {
+        <MudGrid Spacing="3">
+            @foreach (var customer in _customers)
+            {
+                <MudItem xs="12" sm="6" md="4" xl="3" Class="d-flex">
+                    <MudCard Outlined="true"
+                             Class="d-flex flex-column"
+                             Style="width: 100%; height: 100%; overflow: hidden;">
+                        <MudCardHeader>
+                            <CardHeaderAvatar>
+                                <MudAvatar Color="Color.Primary">
+                                    @GetInitials(customer)
+                                </MudAvatar>
+                            </CardHeaderAvatar>
+
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h6">
+                                    @customer.FirstName @customer.LastName
+                                </MudText>
+
+                                @if (!string.IsNullOrWhiteSpace(customer.CompanyName))
+                                {
+                                    <MudText Typo="Typo.body2" Color="Color.Secondary">
+                                        @customer.CompanyName
+                                    </MudText>
+                                }
+                            </CardHeaderContent>
+                        </MudCardHeader>
+
+                        <MudCardContent Class="flex-grow-1">
+                            <MudStack Spacing="2">
+                                @if (!string.IsNullOrWhiteSpace(customer.Email))
+                                {
+                                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                                        <MudIcon Icon="@Icons.Material.Filled.Email"
+                                                 Size="Size.Small"
+                                                 Color="Color.Secondary"/>
+                                        <MudText Typo="Typo.body2"
+                                                 Style="overflow-wrap: anywhere; min-width: 0;">
+                                            @customer.Email
+                                        </MudText>
+                                    </MudStack>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(customer.PhoneNumber))
+                                {
+                                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+                                        <MudIcon Icon="@Icons.Material.Filled.Phone"
+                                                 Size="Size.Small"
+                                                 Color="Color.Secondary"/>
+                                        <MudText Typo="Typo.body2">
+                                            @FormatPhoneNumber(customer.PhoneNumber)
+                                        </MudText>
+                                    </MudStack>
+                                }
+                            </MudStack>
+                        </MudCardContent>
+
+                        <MudDivider/>
+
+                        <MudCardActions Class="pa-3">
+                            <MudSpacer/>
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                           Color="Color.Primary"
+                                           Href="@($"/customers/edit-customer/{customer.Id}")"/>
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                           Color="Color.Error"
+                                           OnClick=@( async (MouseEventArgs _)=> await DeleteCustomerAsync(customer))/>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+    }
+</MudContainer>
+
+
+@code {
+    private bool _loading = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        try
+        {
+            var response = await CustomersService.GetAllCustomersAsync();
+            if (response is { IsSuccess: true, Data: not null })
+            {
+                _customers = response.Data;
+            }
+            else
+            {
+                Snackbar.Add(Localizer["message-unable-to-load-customers"], Severity.Error);
+            }
+        }
+        catch (Exception)
+        {
+            Snackbar.Add(Localizer["message-error-while-loading-customers"], Severity.Error);
+        }
+        finally
+        {
+            _loading = false;
+            StateHasChanged();
+        }
+    }
+}

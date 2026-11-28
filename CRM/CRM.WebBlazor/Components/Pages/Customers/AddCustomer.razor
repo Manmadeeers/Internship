@@ -1,0 +1,157 @@
+@page "/customers/add-customer"
+@using CRM.WebBlazor.Service.Customers
+
+@inject ICustomersService CustomersService
+@inject IStringLocalizer<Resource> Localizer
+@inject ISnackbar Snackbar
+@inject NavigationManager NavManager
+
+<PageTitle>@Localizer["title-add-customer"]</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="py-6">
+    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mb-6">
+        <MudIconButton Icon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Primary"
+                       OnClick="@GoBack"/>
+        <div>
+            <MudText Typo="Typo.h4">@Localizer["title-add-customer"]</MudText>
+            <MudText Typo="Typo.body2" Color="Color.Secondary">
+                @Localizer["message-add-customer-description"]
+            </MudText>
+        </div>
+    </MudStack>
+
+    <MudPaper Class="pa-6" Outlined="true" Style="position: relative;">
+        <MudForm @ref="_form"
+                 Model="@_model"
+                 @bind-IsValid="@_isValid"
+                 @bind-Errors="@_errors"
+                 Disabled="@_loading">
+
+            <MudGrid Spacing="3">
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-firstname"]"
+                                  @bind-Value="_model.FirstName"
+                                  Required="true"
+                                  RequiredError="@Localizer["message-firstname-required"]"
+                                  MaxLength="100"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-lastname"]"
+                                  @bind-Value="_model.LastName"
+                                  Required="true"
+                                  RequiredError="@Localizer["message-lastname-required"]"
+                                  MaxLength="100"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-phone-number"]"
+                                  @bind-Value="_model.PhoneNumber"
+                                  InputType="InputType.Telephone"
+                                  Required="true"
+                                  RequiredError="@Localizer["message-phone-required"]"
+                                  Validation="@ValidatePhoneNumber"
+                                  MaxLength="30"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Phone"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-email"]"
+                                  @bind-Value="_model.Email"
+                                  InputType="InputType.Email"
+                                  Validation="@(new EmailOnlyAttribute { ErrorMessage = Localizer["message-email-format"] })"
+                                  MaxLength="256"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Email"/>
+                </MudItem>
+
+                <MudItem xs="12">
+                    <MudTextField T="string"
+                                  Label="@Localizer["input-company-name"]"
+                                  @bind-Value="_model.CompanyName"
+                                  MaxLength="256"
+                                  Immediate="true"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Business"/>
+                </MudItem>
+            </MudGrid>
+
+            @if (_submitErrors.Length > 0)
+            {
+                <MudAlert Severity="Severity.Error" Variant="Variant.Outlined" Class="mt-4">
+                    @foreach (var error in _submitErrors)
+                    {
+                        <MudText>@error</MudText>
+                    }
+                </MudAlert>
+            }
+
+            <MudStack Row="true"
+                      Justify="Justify.FlexEnd"
+                      Spacing="2"
+                      Class="mt-6">
+                <MudButton Variant="Variant.Outlined"
+                           Color="Color.Default"
+                           Disabled="@_loading"
+                           OnClick="@GoBack">
+                    @Localizer["button-cancel"]
+                </MudButton>
+
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.PersonAdd"
+                           Disabled="@(!_isValid || _loading)"
+                           OnClick="@CreateCustomerAsync">
+                    @Localizer["button-add-customer"]
+                </MudButton>
+            </MudStack>
+        </MudForm>
+
+        <LoadingSpinner Loading="@_loading"/>
+    </MudPaper>
+</MudContainer>
+
+@code {
+   
+    private bool _loading;
+
+    private string? ValidatePhoneNumber(string? phoneNumber)
+    {
+        if (string.IsNullOrWhiteSpace(phoneNumber))
+        {
+            return null;
+        }
+
+        var trimmedPhoneNumber = phoneNumber.Trim();
+        var allowedCharacters = trimmedPhoneNumber.All(character =>
+            char.IsDigit(character) || character is '+' or ' ' or '-' or '(' or ')');
+        var digitCount = trimmedPhoneNumber.Count(char.IsDigit);
+        var plusCount = trimmedPhoneNumber.Count(character => character == '+');
+        var plusPlacementIsValid = plusCount == 0 ||
+                                   plusCount == 1 && trimmedPhoneNumber.StartsWith('+');
+
+        return (allowedCharacters && plusPlacementIsValid && digitCount is >= 7 and <= 15
+            ? null
+            : Localizer["message-phone-format"])!;
+    }
+
+    private void GoBack()
+    {
+        NavManager.NavigateTo("/customers/panel");
+    }
+}

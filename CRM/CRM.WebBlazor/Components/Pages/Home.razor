@@ -1,0 +1,37 @@
+﻿@page "/"
+@inject  IHttpClientFactory HttpClientFactory
+@inject  IStringLocalizer<Resource> Localizer
+
+<PageTitle>Home</PageTitle>
+
+<MudContainer>
+    <h1>@Localizer["WelcomeMessage"]</h1>
+
+    <p>@_apiResponse</p>
+
+</MudContainer>
+
+
+
+@code
+{
+    private string? _apiResponse;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchData();
+    }
+
+    private async Task FetchData()
+    {
+        try
+        {
+            var httpClient = HttpClientFactory.CreateClient("DefaultClient");
+            _apiResponse = await httpClient.GetStringAsync("api/Public/Public");
+        }
+        catch (Exception ex)
+        {
+            _apiResponse = $"Error: {ex.Message}";
+        }
+    }
+}

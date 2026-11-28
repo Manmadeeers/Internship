@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="WelcomeMessage" xml:space="preserve">
+        <value>Welcome</value>
+    </data>
+    <data name="button-login" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="button-register" xml:space="preserve">
+        <value>Register</value>
+    </data>
+    <data name="button-reset" xml:space="preserve">
+        <value>Reset</value>
+    </data>
+    <data name="gender-Female" xml:space="preserve">
+        <value>Female</value>
+    </data>
+    <data name="gender-Male" xml:space="preserve">
+        <value>Male</value>
+    </data>
+    <data name="gender-Other" xml:space="preserve">
+        <value>Other</value>
+    </data>
+    <data name="input-confirm-password" xml:space="preserve">
+        <value>Confirm Password</value>
+    </data>
+    <data name="input-dateofbirth" xml:space="preserve">
+        <value>Date of Birth</value>
+    </data>
+    <data name="input-email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="input-firstname" xml:space="preserve">
+        <value>First Name</value>
+    </data>
+    <data name="input-lastname" xml:space="preserve">
+        <value>Last Name</value>
+    </data>
+    <data name="input-gender" xml:space="preserve">
+        <value>Gender</value>
+    </data>
+    <data name="input-password" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="label-errors" xml:space="preserve">
+        <value>Errors</value>
+    </data>
+    <data name="errors" xml:space="preserve">
+        <value>Errors</value>
+    </data>
+    <data name="message-confirm-password-match" xml:space="preserve">
+        <value>Passwords do not match</value>
+    </data>
+    <data name="message-confirm-password-required" xml:space="preserve">
+        <value>Password confirmation required</value>
+    </data>
+    <data name="message-email-exists" xml:space="preserve">
+        <value>Email already exists</value>
+    </data>
+    <data name="title-login" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="message-email-format" xml:space="preserve">
+        <value>Email format is invalid</value>
+    </data>
+    <data name="message-emailfield-required" xml:space="preserve">
+        <value>Email field is required</value>
+    </data>
+    <data name="message-password-validation" xml:space="preserve">
+        <value>Password validation failed</value>
+    </data>
+    <data name="message-password-required" xml:space="preserve">
+        <value>Password field is required</value>
+    </data>
+    <data name="title-register" xml:space="preserve">
+        <value>Register</value>
+    </data>
+    <data name="message-firstname-required" xml:space="preserve">
+        <value>First Name field is required</value>
+    </data>
+    <data name="message-lastname-required" xml:space="preserve">
+        <value>Last Name field is required</value>
+    </data>
+    <data name="message-login-not-allowed" xml:space="preserve">
+        <value>Login in not allowed</value>
+    </data>
+    <data name="message-unknown-error" xml:space="preserve">
+        <value>Unknown error</value>
+    </data>
+    <data name="message-user-locked-out" xml:space="preserve">
+        <value>User locked out</value>
+    </data>
+    <data name="message-two-factor-required" xml:space="preserve">
+        <value>Two factor authentication required</value>
+    </data>
+    <data name="message-invalid-login" xml:space="preserve">
+        <value>Invalid login attempt</value>
+    </data>
+    <data name="message-user-not-found" xml:space="preserve">
+        <value>User not found</value>
+    </data>
+    <data name="message-email-already-confirmed" xml:space="preserve">
+        <value>Email is already confirmed</value>
+    </data>
+    <data name="message-fail-to-save-verification-code" xml:space="preserve">
+        <value>Fail to save a verification code</value>
+    </data>
+    <data name="message-verification-email-sent" xml:space="preserve">
+        <value>Verification email sent</value>
+    </data>
+    <data name="title-confirm-email" xml:space="preserve">
+        <value>Confirm email</value>
+    </data>
+    <data name="button-confirm" xml:space="preserve">
+        <value>Confirm</value>
+    </data>
+    <data name="message-email-confirmed-successfully" xml:space="preserve">
+        <value>Email was confirmed successfully</value>
+    </data>
+    <data name="message-email-confirmation-failed" xml:space="preserve">
+        <value>Email confirmation failed</value>
+    </data>
+    <data name="message-verification-code-invalid" xml:space="preserve">
+        <value>Verification code is invalid</value>
+    </data>
+    <data name="button-activate" xml:space="preserve">
+        <value>Activate</value>
+    </data>
+    <data name="button-verify" xml:space="preserve">
+        <value>Verify</value>
+    </data>
+    <data name="link-confirm-email" xml:space="preserve">
+        <value>Confirm email</value>
+    </data>
+    <data name="link-forget-password" xml:space="preserve">
+        <value>Forgot password</value>
+    </data>
+    <data name="title-forgot-password" xml:space="preserve">
+        <value>Password reset</value>
+    </data>
+    <data name="email-template-raw-text" xml:space="preserve">
+        <value>Dear {FullName}, Please Verify Your Email Address by this 4-digit code: {Code}</value>
+    </data>
+    <data name="forgot-password-template-raw-text" xml:space="preserve">
+        <value>Dear {FullName}, To reset your password, please use the following 4-digit code: {Code}.</value>
+    </data>
+    <data name="input-verification-code" xml:space="preserve">
+        <value>Verification code</value>
+    </data>
+    <data name="info-verify-code-sent" xml:space="preserve">
+        <value>Enter the verification code</value>
+    </data>
+    <data name="button-forgot-password" xml:space="preserve">
+        <value>Send</value>
+    </data>
+    <data name="title-user-profile" xml:space="preserve">
+        <value>Profile</value>
+    </data>
+    <data name="tab-details" xml:space="preserve">
+        <value>Tab details</value>
+    </data>
+    <data name="label-full-name" xml:space="preserve">
+        <value>Full name</value>
+    </data>
+    <data name="label-date-of-birth" xml:space="preserve">
+        <value>Date of birth</value>
+    </data>
+    <data name="label-date-of-register" xml:space="preserve">
+        <value>Registration date</value>
+    </data>
+    <data name="label-status" xml:space="preserve">
+        <value>Status</value>
+    </data>
+    <data name="status-active" xml:space="preserve">
+        <value>Active</value>
+    </data>
+    <data name="status-inactive" xml:space="preserve">
+        <value>Inactive</value>
+    </data>
+    <data name="label-description" xml:space="preserve">
+        <value>Profile description</value>
+    </data>
+    <data name="tab-edit" xml:space="preserve">
+        <value>Edit</value>
+    </data>
+    <data name="tab-change-password" xml:space="preserve">
+        <value>Change password</value>
+    </data>
+    <data name="button-change-password" xml:space="preserve">
+        <value>Change password</value>
+    </data>
+    <data name="tab-update" xml:space="preserve">
+        <value>Edit profile</value>
+    </data>
+    <data name="input-date-of-birth" xml:space="preserve">
+        <value>Date of birth</value>
+    </data>
+    <data name="input-current-password" xml:space="preserve">
+        <value>Current password</value>
+    </data>
+    <data name="button-update" xml:space="preserve">
+        <value>Update profile</value>
+    </data>
+    <data name="message-profile-updated-successfully" xml:space="preserve">
+        <value>Profile updated successfully!</value>
+    </data>
+    <data name="message-password-changed-successfully" xml:space="preserve">
+        <value>Password changed successfully</value>
+    </data>
+    <data name="menu-home" xml:space="preserve">
+        <value>Home</value>
+    </data>
+    <data name="menu-login" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="menu-register" xml:space="preserve">
+        <value>Register</value>
+    </data>
+    <data name="menu-about" xml:space="preserve">
+        <value>About</value>
+    </data>
+    <data name="menu-user-profile" xml:space="preserve">
+        <value>User profile</value>
+    </data>
+    <data name="menu-logout" xml:space="preserve">
+        <value>Logout</value>
+    </data>
+    <data name="message-unable-to-create-user" xml:space="preserve">
+        <value>Unable to create user</value>
+    </data>
+    <data name="message-name-exists" xml:space="preserve">
+        <value>Name already exists</value>
+    </data>
+    <data name="message-password-changed-error" xml:space="preserve">
+        <value>Failed to change password</value>
+    </data>
+    <data name="menu-customers-panel" xml:space="preserve">
+        <value>All customers</value>
+    </data>
+    <data name="label-customers" xml:space="preserve">
+        <value>Customer(s)</value>
+    </data>
+    <data name="button-customers-actions-view" xml:space="preserve">
+        <value>View customer</value>
+    </data>
+    <data name="button-add-customer" xml:space="preserve">
+        <value>Add customer</value>
+    </data>
+    <data name="message-loading-customers" xml:space="preserve">
+        <value>Loading customers</value>
+    </data>
+    <data name="message-unable-to-delete-customer" xml:space="preserve">
+        <value>Unable to delete a customer</value>
+    </data>
+    <data name="message-customer-deleted" xml:space="preserve">
+        <value>Customer deleted successfully</value>
+    </data>
+    <data name="message-no-customers-found" xml:space="preserve">
+        <value>No customers found</value>
+    </data>
+    <data name="message-add-customer" xml:space="preserve">
+        <value>Click "Add customer" to add one</value>
+    </data>
+    <data name="title-add-customer" xml:space="preserve">
+        <value>Add customer</value>
+    </data>
+    <data name="message-add-customer-description" xml:space="preserve">
+        <value>Enter the customer's contact and company information.</value>
+    </data>
+    <data name="input-phone-number" xml:space="preserve">
+        <value>Phone number</value>
+    </data>
+    <data name="input-company-name" xml:space="preserve">
+        <value>Company name</value>
+    </data>
+    <data name="button-cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="message-phone-required" xml:space="preserve">
+        <value>Phone number is required</value>
+    </data>
+    <data name="message-phone-format" xml:space="preserve">
+        <value>Enter a valid phone number containing 7 to 15 digits</value>
+    </data>
+    <data name="message-customer-created" xml:space="preserve">
+        <value>Customer created successfully</value>
+    </data>
+    <data name="message-unable-to-create-customer" xml:space="preserve">
+        <value>Unable to create the customer</value>
+    </data>
+    <data name="message-customer-email-exists" xml:space="preserve">
+        <value>A customer with this email already exists</value>
+    </data>
+    <data name="message-customer-phone-exists" xml:space="preserve">
+        <value>A customer with this phone number already exists</value>
+    </data>
+    <data name="title-update-customer" xml:space="preserve">
+        <value>Update customer</value>
+    </data>
+    <data name="message-update-customer-description" xml:space="preserve">
+        <value>Update necessary fields</value>
+    </data>
+    <data name="message-unable-to-load-customer" xml:space="preserve">
+        <value>Unable to load the customer</value>
+    </data>
+    <data name="message-unable-to-update-customer" xml:space="preserve">
+        <value>Unable to update the customer</value>
+    </data>
+    <data name="message-customer-updated" xml:space="preserve">
+        <value>Customer updated successfully</value>
+    </data>
+    <data name="message-customer-not-found" xml:space="preserve">
+        <value>Customer not found</value>
+    </data>
+</root>

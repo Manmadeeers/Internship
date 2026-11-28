@@ -1,0 +1,326 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="button-login" xml:space="preserve">
+        <value>Вход</value>
+    </data>
+    <data name="button-register" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="gender-Female" xml:space="preserve">
+        <value>Женский</value>
+    </data>
+    <data name="button-reset" xml:space="preserve">
+        <value>Сброс</value>
+    </data>
+    <data name="input-confirm-password" xml:space="preserve">
+        <value>Подтвердить пароль</value>
+    </data>
+    <data name="gender-Male" xml:space="preserve">
+        <value>Мужской</value>
+    </data>
+    <data name="gender-Other" xml:space="preserve">
+        <value>Другой</value>
+    </data>
+    <data name="input-dateofbirth" xml:space="preserve">
+        <value>Дата рождения</value>
+    </data>
+    <data name="input-email" xml:space="preserve">
+        <value>Электронная почта</value>
+    </data>
+    <data name="input-firstname" xml:space="preserve">
+        <value>Имя</value>
+    </data>
+    <data name="input-gender" xml:space="preserve">
+        <value>Пол</value>
+    </data>
+    <data name="input-lastname" xml:space="preserve">
+        <value>Фамилия</value>
+    </data>
+    <data name="input-password" xml:space="preserve">
+        <value>Пароль</value>
+    </data>
+    <data name="WelcomeMessage" xml:space="preserve">
+        <value>Добро пожаловать</value>
+    </data>
+    <data name="message-confirm-password-match" xml:space="preserve">
+        <value>Пароли не совпадают</value>
+    </data>
+    <data name="errors" xml:space="preserve">
+        <value>Ошибки</value>
+    </data>
+    <data name="message-email-exists" xml:space="preserve">
+        <value>Адрес электронной почты уже существует</value>
+    </data>
+    <data name="title-login" xml:space="preserve">
+        <value>Вход</value>
+    </data>
+    <data name="message-emailfield-required" xml:space="preserve">
+        <value>Адрес электронной почты обязателен </value>
+    </data>
+    <data name="message-password-validation" xml:space="preserve">
+        <value>Проверка пароля не пройдена</value>
+    </data>
+    <data name="message-password-required" xml:space="preserve">
+        <value>Пароль обязателен</value>
+    </data>
+    <data name="label-errors" xml:space="preserve">
+        <value>Ошибки</value>
+    </data>
+    <data name="message-confirm-password-required" xml:space="preserve">
+        <value>Требуется подтверждение пароля</value>
+    </data>
+    <data name="message-email-format" xml:space="preserve">
+        <value>Ошибка в адресе электронной почты</value>
+    </data>
+    <data name="title-register" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="message-firstname-required" xml:space="preserve">
+        <value>Имя обязательно</value>
+    </data>
+    <data name="message-lastname-required" xml:space="preserve">
+        <value>Фамилия обязательна</value>
+    </data>
+    <data name="message-login-not-allowed" xml:space="preserve">
+        <value>Вход запрещён</value>
+    </data>
+    <data name="message-unknown-error" xml:space="preserve">
+        <value>Неизвестная ошибка</value>
+    </data>
+    <data name="message-user-locked-out" xml:space="preserve">
+        <value>User locked out</value>
+    </data>
+    <data name="message-two-factor-required" xml:space="preserve">
+        <value>Требуется двухфакторная аутентификация</value>
+    </data>
+    <data name="message-invalid-login" xml:space="preserve">
+        <value>Неудачная попытка входа</value>
+    </data>
+    <data name="message-user-not-found" xml:space="preserve">
+        <value>Пользователь не найден</value>
+    </data>
+    <data name="message-email-already-confirmed" xml:space="preserve">
+        <value>Адрес электронной почты уже подтверждён</value>
+    </data>
+    <data name="message-fail-to-save-verification-code" xml:space="preserve">
+        <value>Ошибка при сохранении кода подтверждения</value>
+    </data>
+    <data name="message-verification-email-sent" xml:space="preserve">
+        <value>Письмо с подтверждением отправлено</value>
+    </data>
+    <data name="title-confirm-email" xml:space="preserve">
+        <value>Подтверждение адреса электронной почты</value>
+    </data>
+    <data name="button-confirm" xml:space="preserve">
+        <value>Подтвердить</value>
+    </data>
+    <data name="message-email-confirmed-successfully" xml:space="preserve">
+        <value>Адрес электронной почты успешно подтверждён</value>
+    </data>
+    <data name="message-email-confirmation-failed" xml:space="preserve">
+        <value>Не удалось подтвердить адрес электронной почты</value>
+    </data>
+    <data name="message-verification-code-invalid" xml:space="preserve">
+        <value>Неверный код подтверждения</value>
+    </data>
+    <data name="button-verify" xml:space="preserve">
+        <value>Проверить</value>
+    </data>
+    <data name="button-activate" xml:space="preserve">
+        <value>Активировать</value>
+    </data>
+    <data name="link-confirm-email" xml:space="preserve">
+        <value>Подтвердить почту</value>
+    </data>
+    <data name="link-forget-password" xml:space="preserve">
+        <value>Забыли пароль?</value>
+    </data>
+    <data name="title-forgot-password" xml:space="preserve">
+        <value>Восстановление пароля</value>
+    </data>
+    <data name="email-template-raw-text" xml:space="preserve">
+        <value>Dear {FullName}, Please Verify Your Email Address by this 4-digit code: {Code}</value>
+    </data>
+    <data name="forgot-password-template-raw-text" xml:space="preserve">
+        <value>Dear {FullName}, To reset your password, please use the following 4-digit code: {Code}.</value>
+    </data>
+    <data name="input-verification-code" xml:space="preserve">
+        <value>Код подтверждения</value>
+    </data>
+    <data name="info-verify-code-sent" xml:space="preserve">
+        <value>Введите код подтверждения</value>
+    </data>
+    <data name="button-forgot-password" xml:space="preserve">
+        <value>Отправить</value>
+    </data>
+    <data name="title-user-profile" xml:space="preserve">
+        <value>Профиль</value>
+    </data>
+    <data name="tab-details" xml:space="preserve">
+        <value>Tab details</value>
+    </data>
+    <data name="label-full-name" xml:space="preserve">
+        <value>ФИО</value>
+    </data>
+    <data name="label-date-of-birth" xml:space="preserve">
+        <value>Дата рождения</value>
+    </data>
+    <data name="label-date-of-register" xml:space="preserve">
+        <value>Дата регистрации</value>
+    </data>
+    <data name="label-status" xml:space="preserve">
+        <value>Статус</value>
+    </data>
+    <data name="status-active" xml:space="preserve">
+        <value>В сети</value>
+    </data>
+    <data name="status-inactive" xml:space="preserve">
+        <value>Не в сети</value>
+    </data>
+    <data name="label-description" xml:space="preserve">
+        <value>Описание профиля</value>
+    </data>
+    <data name="tab-change-password" xml:space="preserve">
+        <value>Сменить пароль</value>
+    </data>
+    <data name="button-change-password" xml:space="preserve">
+        <value>Сменить пароль</value>
+    </data>
+    <data name="tab-update" xml:space="preserve">
+        <value>Изменить данные профиля</value>
+    </data>
+    <data name="input-date-of-birth" xml:space="preserve">
+        <value>Дата рождения</value>
+    </data>
+    <data name="input-current-password" xml:space="preserve">
+        <value>Текущий пароль</value>
+    </data>
+    <data name="button-update" xml:space="preserve">
+        <value>Обновить профиль</value>
+    </data>
+    <data name="message-profile-updated-successfully" xml:space="preserve">
+        <value>Профиль успешно обновлен!</value>
+    </data>
+    <data name="message-password-changed-successfully" xml:space="preserve">
+        <value>Пароль успешно изменен</value>
+    </data>
+    <data name="menu-login" xml:space="preserve">
+        <value>Вход</value>
+    </data>
+    <data name="menu-home" xml:space="preserve">
+        <value>Домашняя страница</value>
+    </data>
+    <data name="menu-register" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="menu-about" xml:space="preserve">
+        <value>О нас</value>
+    </data>
+    <data name="menu-logout" xml:space="preserve">
+        <value>Выйти</value>
+    </data>
+    <data name="menu-user-profile" xml:space="preserve">
+        <value>Профиль</value>
+    </data>
+    <data name="tab-edit" xml:space="preserve">
+        <value>Edit</value>
+    </data>
+    <data name="message-unable-to-create-user" xml:space="preserve">
+        <value>Невозможно создать пользователя</value>
+    </data>
+    <data name="message-name-exists" xml:space="preserve">
+        <value>Имя уже существует</value>
+    </data>
+    <data name="message-password-changed-error" xml:space="preserve">
+        <value>Не удалось сменить пароль</value>
+    </data>
+    <data name="label-customers" xml:space="preserve">
+        <value>Клиент(ов)</value>
+    </data>
+    <data name="button-add-customer" xml:space="preserve">
+        <value>Добавить клиента</value>
+    </data>
+    <data name="button-customers-actions-view" xml:space="preserve">
+        <value>Просмотр</value>
+    </data>
+    <data name="menu-customers-panel" xml:space="preserve">
+        <value>Все клиенты</value>
+    </data>
+    <data name="message-loading-customers" xml:space="preserve">
+        <value>Загрузка клиентов</value>
+    </data>
+    <data name="message-unable-to-delete-customer" xml:space="preserve">
+        <value>Невозможно удалить клиента</value>
+    </data>
+    <data name="message-customer-deleted" xml:space="preserve">
+        <value>Клиент успешно удален</value>
+    </data>
+    <data name="message-no-customers-found" xml:space="preserve">
+        <value>Клентов не найдено</value>
+    </data>
+    <data name="message-add-customer" xml:space="preserve">
+        <value>Нажмите "Добавить клиента"</value>
+    </data>
+    <data name="title-add-customer" xml:space="preserve">
+        <value>Добавить клиента</value>
+    </data>
+    <data name="message-add-customer-description" xml:space="preserve">
+        <value>Введите контактные данные клиента и информацию о компании.</value>
+    </data>
+    <data name="input-phone-number" xml:space="preserve">
+        <value>Номер телефона</value>
+    </data>
+    <data name="input-company-name" xml:space="preserve">
+        <value>Название компании</value>
+    </data>
+    <data name="button-cancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
+    <data name="message-phone-required" xml:space="preserve">
+        <value>Номер телефона обязателен</value>
+    </data>
+    <data name="message-phone-format" xml:space="preserve">
+        <value>Введите корректный номер телефона, содержащий от 7 до 15 цифр</value>
+    </data>
+    <data name="message-customer-created" xml:space="preserve">
+        <value>Клиент успешно создан</value>
+    </data>
+    <data name="message-unable-to-create-customer" xml:space="preserve">
+        <value>Не удалось создать клиента</value>
+    </data>
+    <data name="message-customer-email-exists" xml:space="preserve">
+        <value>Клиент с таким адресом электронной почты уже существует</value>
+    </data>
+    <data name="message-customer-phone-exists" xml:space="preserve">
+        <value>Клиент с таким номером телефона уже существует</value>
+    </data>
+    <data name="title-update-customer" xml:space="preserve">
+        <value>Обновить клиента</value>
+    </data>
+    <data name="message-update-customer-description" xml:space="preserve">
+        <value>Обновите необходимые поля</value>
+    </data>
+    <data name="message-unable-to-load-customer" xml:space="preserve">
+        <value>Не удалось загрузить клиента</value>
+    </data>
+    <data name="message-unable-to-update-customer" xml:space="preserve">
+        <value>Не удалось обновить клиента</value>
+    </data>
+    <data name="message-customer-updated" xml:space="preserve">
+        <value>Клиент успешно обновлён</value>
+    </data>
+    <data name="message-customer-not-found" xml:space="preserve">
+        <value>Клиент не найден</value>
+    </data>
+</root>

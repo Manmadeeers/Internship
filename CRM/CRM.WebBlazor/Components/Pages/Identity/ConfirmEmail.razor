@@ -1,0 +1,59 @@
+@page "/identity/confirm-email"
+@using IAuthenticationService = CRM.WebBlazor.Service.Identity.IAuthenticationService
+
+@inject IStringLocalizer<Resource> Localizer
+@inject NavigationManager NavManager
+@inject IAuthenticationService AuthenticationService
+@inject IFileService FileService
+
+
+<MudPaper Style="position:relative;" Class="pa-4" Outlined="false" Square="false" Elevation="0">
+    <MudText Typo="Typo.h3">@Localizer["title-confirm-email"]</MudText>
+    <MudGrid>
+        <MudItem xs="12" lg="7">
+            <MudPaper Class="pa-4">
+                <MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors" Model="@_model" Disabled="@_loading">
+                    <MudTextField T="string" Label="@Localizer["input-email"]"
+                                  @bind-Value="_model.Email"
+                                  InputType="InputType.Email"
+                                  Validation="@(new EmailOnlyAttribute() {ErrorMessage = Localizer["message-email-format"]})"
+                                  Required="true"
+                                  RequiredError="@Localizer["message-email-required"]"
+                                  Class="mt-4"
+                                  Disabled="@_insertCodeEnabled" />
+
+                    <div class="@(_insertCodeEnabled ? "d-block" : "d-none") mt4">
+                        <MudTextField T="string" Label="@Localizer["input-verification-code"]"
+                                      @bind-Value="_model.Code"
+                                      InputType="InputType.Number"
+                                      Validation="@(_insertCodeEnabled ? new CodeAttribute() {ErrorMessage = Localizer["message-code-four-digit"]} : null)"
+                                      Required="@(_insertCodeEnabled)"
+                                      RequiredError="@Localizer["message-verification-code-required"]"
+                                      Class="mt-4" />
+                        <MudText Typo="Typo.subtitle2">@Localizer["info-verify-code-sent"]</MudText>
+                    </div>
+                    <div class="d-flex align-center justify-space-between mt-4">
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" Class="mx-2"
+                                   OnClick="@ResetForm">@Localizer["button-reset"]</MudButton>
+
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_success)" OnClick="@SubmitForm">
+                            @(_insertCodeEnabled ? Localizer["button-verify"] : Localizer["button-activate"])
+                        </MudButton>
+                    </div>
+                </MudForm>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" lg="5">
+            <ErrorDisplay Errors="_errors"/>
+        </MudItem>
+    </MudGrid> 
+    <LoadingSpinner Loading="_loading"/>
+</MudPaper>
+
+@code {
+    [SupplyParameterFromQuery(Name="email")]
+    public string?RegisteredEmail { get; set; }
+    [SupplyParameterFromQuery(Name="autoSend")]
+    public bool AutoSend { get; set; }
+}

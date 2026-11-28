@@ -1,0 +1,51 @@
+﻿
+@inherits LayoutComponentBase
+@inject IJSRuntime JsRuntime
+@inject TokenStore TokenStore
+
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        My CRM Application
+        <MudSpacer/>
+        <CultureDropDown/>
+        <MudIconButton Icon="@_currentIcon" Color="@Color.Inherit" Edge="@Edge.End" OnClick="UpdateDarkMode"/>
+    </MudAppBar>
+   
+    <MudDrawer @bind-Open="@_drawerOpen">
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+   
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender&&!_isInitialized)
+        {
+            _isInitialized = true;
+            if (!TokenStore.IsInitialized)
+            {
+                await TokenStore.LoadFromStorageAsync(JsRuntime);
+            }
+            var darkMode = await JsRuntime.InvokeAsync<string>("localStorage.getItem", "dark-mode");
+            if (!string.IsNullOrWhiteSpace(darkMode))
+            {
+                _isDarkMode = bool.Parse(darkMode);
+                _currentIcon = _isDarkMode ? Icons.Material.Filled.Brightness4 : Icons.Material.Filled.Brightness7;
+                StateHasChanged();
+                 
+            }
+        }
+    }
+
+
+}

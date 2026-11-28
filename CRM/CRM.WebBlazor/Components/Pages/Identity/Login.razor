@@ -1,0 +1,44 @@
+@page "/identity/login"
+@using IAuthenticationService = CRM.WebBlazor.Service.Identity.IAuthenticationService
+
+@inject HttpClient HttpClient
+@inject IStringLocalizer<Resource> Localizer
+@inject NavigationManager NavManager
+@inject IAuthenticationService AuthenticationService
+
+<MudPaper Style="position:relative;" Class="pa-4" Outlined="false" Square="false" Elevation="0">
+    <MudText Typo="Typo.h3">@Localizer["title-login"]</MudText>
+    <MudGrid>
+        <MudItem xs="12" lg="7">
+            <MudPaper Class="pa-4">
+                <MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors" Model="@_model" Disabled="@_loading">
+                    <MudTextField T="string" Label="@Localizer["input-email"]" @bind-Value="_model.Email" 
+                                  Validation="@(new EmailOnlyAttribute() {ErrorMessage = Localizer["message-email-format"]})" 
+                                  Required="true" RequiredError="@Localizer["message-email-field-required"]" Class="mt-4" />
+                    
+                    <ViewablePasswordInputField
+                        @bind-Value="_model.Password"
+                        Label="input-password"
+                        MessageRequired="message-password-required"
+                        ValidationMessage="message-password-validation"
+                    />
+                    <div class="d-flex align-center justify-space-between mt-4">
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" OnClick="@(()=>{_form.ResetAsync(); _form.ResetValidationAsync();})" Class="mx-2">@Localizer["button-reset"]</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_success)" Class="ml-auto" OnClick="@(async () => await HandleValidSubmit())">@Localizer["button-login"]</MudButton>
+                    </div>
+                    <div class="d-flex align-center justify-space-between mt-4">
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/identity/confirm-email">@Localizer["link-confirm-email"]</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/identity/forgot-password">@Localizer["link-forget-password"]</MudButton>
+                        <MudSpacer />
+                    </div>
+                </MudForm>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" lg="5">
+            <ErrorDisplay Errors="_errors"/>
+        </MudItem>
+    </MudGrid>
+    <LoadingSpinner Loading="_loading"/>
+</MudPaper>

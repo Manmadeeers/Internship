@@ -1,0 +1,45 @@
+﻿@implements IDisposable
+@inject IJSRuntime JsRuntime
+@inject TokenStore TokenStore
+@inject NavigationManager NavManager
+@inject IStringLocalizer<Resource> Localizer
+
+<MudNavMenu>
+    <MudNavLink Href="/" Match="NavLinkMatch.All">@Localizer["menu-home"]</MudNavLink>
+    <MudNavLink Href="/identity/user-profile" Match="NavLinkMatch.Prefix" Class="@(!_isAuthenticated ? "d-none" : null)">@Localizer["menu-user-profile"]</MudNavLink>
+    <MudNavGroup Title="Identity" Expanded="true" Class="@(_isAuthenticated ? "d-none" : null)">
+        <MudNavLink Href="/identity/login" Match="NavLinkMatch.Prefix">@Localizer["menu-login"]</MudNavLink>
+        <MudNavLink Href="/identity/register" Match="NavLinkMatch.Prefix">@Localizer["menu-register"]</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Customers" Expanded="true" Class="@(!_isAuthenticated ? "d-none":null)">
+        <MudNavLink Href="/customers/panel" Match="NavLinkMatch.Prefix">@Localizer["menu-customers-panel"]</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix">@Localizer["menu-about"]</MudNavLink>
+    <MudNavLink Match="NavLinkMatch.Prefix" Class="@(!_isAuthenticated ? "d-none" : null)" OnClick="async () => await Logout()">@Localizer["menu-logout"]</MudNavLink>
+</MudNavMenu>
+
+@code {
+    private bool _isAuthenticated = false; 
+
+    protected override void OnInitialized()
+    {
+        TokenStore.OnAuthenticationStateChanged += HandleAuthenticationStateChanged;
+    }
+
+    private void HandleAuthenticationStateChanged(bool isAuthenticated)
+    {
+        _isAuthenticated = isAuthenticated;
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        TokenStore.OnAuthenticationStateChanged -= HandleAuthenticationStateChanged;
+    }
+
+    private async Task Logout()
+    {
+        await TokenStore.ClearStorageAsync(JsRuntime);
+        NavManager.NavigateTo("/identity/login", forceLoad: true);
+    }
+}
